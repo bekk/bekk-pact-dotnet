@@ -1,0 +1,14 @@
+/Users/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/bin/Debug/netstandard1.3/Bekk.Pact.Provider.deps.json
+/Users/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/bin/Debug/netstandard1.3/Bekk.Pact.Provider.dll
+/Users/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/bin/Debug/netstandard1.3/Bekk.Pact.Provider.pdb
+/Users/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/obj/Debug/netstandard1.3/Bekk.Pact.Provider.AssemblyInfo.cs
+/Users/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/obj/Debug/netstandard1.3/Bekk.Pact.Provider.dll
+/Users/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/obj/Debug/netstandard1.3/Bekk.Pact.Provider.pdb
+/Users/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/obj/Debug/netstandard1.3/Bekk.Pact.Provider.csprojResolveAssemblyReference.cache
+Z:/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/bin/Debug/netstandard1.3/Bekk.Pact.Provider.deps.json
+Z:/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/bin/Debug/netstandard1.3/Bekk.Pact.Provider.dll
+Z:/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/bin/Debug/netstandard1.3/Bekk.Pact.Provider.pdb
+Z:/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/obj/Debug/netstandard1.3/Bekk.Pact.Provider.csprojResolveAssemblyReference.cache
+Z:/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/obj/Debug/netstandard1.3/Bekk.Pact.Provider.AssemblyInfo.cs
+Z:/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/obj/Debug/netstandard1.3/Bekk.Pact.Provider.dll
+Z:/oyvindskaar/Dev/Forvaltning/bekk-timekeeper-svc/Bekk.Pact.Provider/obj/Debug/netstandard1.3/Bekk.Pact.Provider.pdb

@@ -1,0 +1,6 @@
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Common/bin/Debug/netstandard1.4/Bekk.Pact.Common.deps.json
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Common/bin/Debug/netstandard1.4/Bekk.Pact.Common.dll
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Common/bin/Debug/netstandard1.4/Bekk.Pact.Common.pdb
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Common/obj/Debug/netstandard1.4/Bekk.Pact.Common.AssemblyInfo.cs
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Common/obj/Debug/netstandard1.4/Bekk.Pact.Common.dll
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Common/obj/Debug/netstandard1.4/Bekk.Pact.Common.pdb
