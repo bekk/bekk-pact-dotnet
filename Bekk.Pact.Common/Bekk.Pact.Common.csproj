@@ -4,4 +4,11 @@
     <TargetFramework>netstandard1.4</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Description>A base code library for implementing Pact tests</Description>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
+    <IconUrl>https://pbs.twimg.com/profile_images/1891657237/twitter-avatar_400x400.png</IconUrl>
+  </PropertyGroup>
 </Project>

@@ -3,8 +3,6 @@
 /Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Web/bin/Debug/netstandard1.6/Bekk.Pact.Web.dll
 /Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Web/bin/Debug/netstandard1.6/Bekk.Pact.Web.pdb
 /Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Web/bin/Debug/netstandard1.6/Bekk.Pact.Common.dll
-/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Web/bin/Debug/netstandard1.6/Bekk.Pact.Provider.dll
 /Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Web/bin/Debug/netstandard1.6/Bekk.Pact.Common.pdb
-/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Web/bin/Debug/netstandard1.6/Bekk.Pact.Provider.pdb
 /Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Web/obj/Debug/netstandard1.6/Bekk.Pact.Web.dll
 /Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Web/obj/Debug/netstandard1.6/Bekk.Pact.Web.pdb
