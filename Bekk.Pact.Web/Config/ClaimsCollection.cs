@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Bekk.Pact.Provider.Config
+namespace Bekk.Pact.Web.Config
 {
     public class ClaimsCollection : IEnumerable<Claim>
     {

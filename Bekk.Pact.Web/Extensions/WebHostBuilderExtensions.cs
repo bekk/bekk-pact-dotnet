@@ -13,15 +13,6 @@ namespace Bekk.Pact.Web.Extensions
 {
     public static class WebHostBuilderExtensions
     {
-        public static IWebHostBuilder UseStartup<T>(this IWebHostBuilder hostBuilder, 
-            IPact pact,
-            IEnumerable<Claim> claims = null,
-            Action<IServiceCollection> configureServices = null,
-            Action<IApplicationBuilder> configure = null) where T : class
-        {
-            return UseStartup(hostBuilder, pact, claims, configureServices, configure, typeof(T));
-        }
-
         public static IWebHostBuilder UseStartup(this IWebHostBuilder hostBuilder, 
             IPact pact, 
             IEnumerable<Claim> claims = null,
@@ -51,5 +42,26 @@ namespace Bekk.Pact.Web.Extensions
             hostBuilder.Configure(startup.Configure);
             return hostBuilder;
         }
+        public static IWebHostBuilder UseStartup<T>(this IWebHostBuilder hostBuilder, 
+            IPact pact,
+            IEnumerable<Claim> claims = null,
+            Action<IServiceCollection> configureServices = null,
+            Action<IApplicationBuilder> configure = null) where T : class
+        {
+            return UseStartup(hostBuilder, pact, claims, configureServices, configure, typeof(T));
+        }
+
+        public static IWebHostBuilder UseStartup<T>(this IWebHostBuilder hostBuilder, 
+            IPact pact,
+            IProviderStateSetup providerStateSetup) where T : class
+            {
+                return UseStartup<T>(
+                    hostBuilder,
+                    pact,
+                    providerStateSetup.GetClaims(pact.ProviderState),
+                    providerStateSetup.ConfigureServices(pact.ProviderState),
+                    null);
+            }
+
     }
 }
