@@ -24,6 +24,7 @@ namespace Bekk.Pact.Provider.Model
 
         public async Task<ITestResult> Assert(HttpClient client)
         {
+            Configuration.LogSafe($"Pact: {ProviderState}");
             Configuration.LogSafe($"Requesting service at {interaction.Request.Path}.");
             var response = await client.SendAsync(interaction.Request.BuildMessage());
             var errors = new Result();
