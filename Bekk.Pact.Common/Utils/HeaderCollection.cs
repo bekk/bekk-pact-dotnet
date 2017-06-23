@@ -1,0 +1,67 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Bekk.Pact.Common.Contracts;
+
+namespace Bekk.Pact.Common.Utils
+{
+    public class HeaderCollection: IHeaderCollection
+    {
+        private Dictionary<string, string> headers = new Dictionary<string, string>();
+        public string this[string key]
+        {
+            get
+            {
+                return headers.TryGetValue(key.ToLower(), out var value) ? value : null;
+            }
+            set
+            {
+                var normalizedKey = key.ToLower();
+                if(headers.ContainsKey(normalizedKey))
+                {
+                    if(string.IsNullOrWhiteSpace(value))
+                    {
+                        headers.Remove(normalizedKey);
+                    }
+                    else
+                    {
+                        headers[normalizedKey] += $", {value}";
+                    }
+                }
+                else
+                {
+                    if(!string.IsNullOrWhiteSpace(value)) headers.Add(normalizedKey, value);
+                }
+            }
+        }
+        public IHeaderCollection Add(string key, params string[] values)
+        {
+            var value = string.Join(", ", values);
+            if(string.IsNullOrEmpty(value)) return this;
+            var normalizedKey = key.ToLower();
+            if(headers.ContainsKey(normalizedKey))
+            {
+                headers[normalizedKey] += $", {value}";
+            }
+            else
+            {
+                headers.Add(normalizedKey, value);
+            }
+            return this;
+        }
+
+        public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
+        {
+            return headers.Keys.Select((k)=>new KeyValuePair<string, string>(k, headers[k])).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        public override string ToString() => 
+            string.Join(Environment.NewLine, headers.Select(hdr => $"{hdr.Key}: {hdr.Value}"));
+    }
+}
