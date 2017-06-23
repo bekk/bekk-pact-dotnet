@@ -50,6 +50,15 @@ namespace Bekk.Pact.Common.Utils
             }
             return this;
         }
+        public IHeaderCollection ParseAndAdd(string header)
+        {
+            if(string.IsNullOrWhiteSpace(header)) return this;
+            var separator = header.IndexOf(":");
+            if(separator < 1) throw new ArgumentException($"Cannot parse header \"{header}\"", nameof(header));
+            var key = header.Substring(0, separator).Trim();
+            var value = header.Substring(separator+1).Trim();
+            return Add(key, value);
+        }
 
         public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
         {
@@ -63,5 +72,6 @@ namespace Bekk.Pact.Common.Utils
 
         public override string ToString() => 
             string.Join(Environment.NewLine, headers.Select(hdr => $"{hdr.Key}: {hdr.Value}"));
+
     }
 }

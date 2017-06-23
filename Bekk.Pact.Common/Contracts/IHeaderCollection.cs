@@ -6,5 +6,6 @@ namespace Bekk.Pact.Common.Contracts
     {
          string this [string key] {get; set;}
          IHeaderCollection Add(string key, params string[] values);
+         IHeaderCollection ParseAndAdd(string header);
     }
 }
