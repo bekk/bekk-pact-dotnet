@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Utils;
 using Bekk.Pact.Consumer.Contracts;
@@ -18,6 +19,7 @@ namespace Bekk.Pact.Consumer.Builders
         private readonly List<string> queries = new List<string>();
         private WebServer server;
         public string State { get; }
+        public string Version { get; } = "1.0.0";
         public string Description { get; }
         public string Provider { get; private set; }
         public string Consumer { get; private set; }
@@ -99,6 +101,21 @@ namespace Bekk.Pact.Consumer.Builders
         void IPact.Verify()
         {
             if(server.Matches < 1) throw new Exception("The pact has not been matched.");
+        }
+
+        private async Task Save()
+        {
+            using(var repo = new PactRepo(configuration))
+            {
+                await repo.Put(this);
+            }
+        }
+
+        async Task IPact.VerifyAndSave()
+        {
+            var pact = (IPact)this;
+            pact.Verify();
+            await Save();
         }
 
         IRequestBuilder IRequestBuilder.WithHeader(string key, params string[] values)

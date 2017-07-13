@@ -1,10 +1,10 @@
-﻿namespace Bekk.Pact.Consumer.Contracts
+﻿using Bekk.Pact.Common.Contracts;
+
+namespace Bekk.Pact.Consumer.Contracts
 {
-    interface IPactDefinition : IPactRequestDefinition, IPactResponseDefinition
+    interface IPactDefinition : IPactRequestDefinition, IPactResponseDefinition, IPactPathMetadata
     {
         string State { get; }
         string Description { get; }
-        string Provider { get; }
-        string Consumer { get; }
     }
 }

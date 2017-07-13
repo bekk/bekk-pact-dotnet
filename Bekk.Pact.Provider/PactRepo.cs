@@ -7,29 +7,21 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 using Bekk.Pact.Provider.Model;
+using Bekk.Pact.Common.Utils;
 
 namespace Bekk.Pact.Provider
 {
-    public class PactRepo : IDisposable
+    public class PactRepo : PactRepoBase
     {
-        private HttpClient _client;
-        private HttpClient Client => _client ?? (_client = new HttpClient());
-
-        public void Dispose()
+        private readonly IProviderConfiguration configuration;
+        public PactRepo(IProviderConfiguration configuration): base(configuration)
         {
-            _client?.Dispose();
-            _client = null;
+            this.configuration = configuration;
         }
-
-        public IEnumerable<IPact> FetchAll(IProviderConfiguration configuration)
+        public IEnumerable<IPact> FetchAll()
         {
-            var client = Client;
-            foreach(var url in FetchUrls(configuration).ConfigureAwait(false).GetAwaiter().GetResult())
+            foreach(var parsedPact in FetchPacts())
             {
-                configuration.LogSafe($"Fetching pact at {url}");
-                var pactSpecResponse = client.GetAsync(url).ConfigureAwait(false).GetAwaiter().GetResult();
-                pactSpecResponse.EnsureSuccessStatusCode();
-                var parsedPact = JObject.Parse(pactSpecResponse.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult());
                 var consumer = parsedPact.SelectToken("consumer.name").ToString();
                 configuration.LogSafe($"Parsing pact for {consumer}");
                 foreach(var interaction in parsedPact["interactions"].Children().Select(i => i.ToObject<Interaction>()))
@@ -39,16 +31,6 @@ namespace Bekk.Pact.Provider
                     yield return new InteractionPact(interaction, configuration);
                 }
             }
-        }
-
-        private async Task<IEnumerable<Uri>> FetchUrls(IConfiguration configuration)
-        {
-            var client = Client;
-            var response = await client.GetAsync(configuration.BrokerUri);
-            response.EnsureSuccessStatusCode();
-            return JObject.Parse(
-                response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult())
-                .SelectToken("_links.pacts").Children().Select(t => t["href"].ToObject<Uri>());
         }
     }
 }

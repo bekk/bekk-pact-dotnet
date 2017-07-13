@@ -14,6 +14,7 @@ namespace Bekk.Pact.Consumer.Config
         
         private Uri mockServiceUri;
 
+        public Configuration MockServiceBaseUri(string url) => MockServiceBaseUri(new Uri(url));
         public Configuration MockServiceBaseUri(Uri uri)
         {
             mockServiceUri = uri;

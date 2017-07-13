@@ -1,0 +1,8 @@
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Consumer/bin/Debug/netstandard1.3/Bekk.Pact.Consumer.deps.json
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Consumer/bin/Debug/netstandard1.3/Bekk.Pact.Consumer.dll
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Consumer/bin/Debug/netstandard1.3/Bekk.Pact.Consumer.pdb
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Consumer/bin/Debug/netstandard1.3/Bekk.Pact.Common.dll
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Consumer/bin/Debug/netstandard1.3/Bekk.Pact.Common.pdb
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Consumer/obj/Debug/netstandard1.3/Bekk.Pact.Consumer.AssemblyInfo.cs
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Consumer/obj/Debug/netstandard1.3/Bekk.Pact.Consumer.dll
+/Users/oyvindskaar/Dev/Forvaltning/bekk-pact-dotnet/Bekk.Pact.Consumer/obj/Debug/netstandard1.3/Bekk.Pact.Consumer.pdb
