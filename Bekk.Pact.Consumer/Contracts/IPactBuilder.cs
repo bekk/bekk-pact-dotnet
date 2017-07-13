@@ -1,0 +1,11 @@
+﻿using Bekk.Pact.Common.Contracts;
+
+namespace Bekk.Pact.Consumer.Contracts
+{
+    public interface IPactBuilder
+    {
+        IProviderStateBuilder Given(string state);
+        IConsumerBuilder Between(string provider);
+        IPactBuilder With(IConsumerConfiguration config);
+    }
+}

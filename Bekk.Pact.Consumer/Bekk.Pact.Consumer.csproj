@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.3</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Description>A library for implementing Pact consumer tests</Description>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
+    <IconUrl>https://pbs.twimg.com/profile_images/1891657237/twitter-avatar_400x400.png</IconUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="System.Net.Http" Version="4.3.2" />
+    <PackageReference Include="System.Net.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bekk.Pact.Common\Bekk.Pact.Common.csproj" />
+  </ItemGroup>
+
+</Project>
