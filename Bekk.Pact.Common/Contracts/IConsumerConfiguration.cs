@@ -2,7 +2,7 @@ using System;
 
 namespace Bekk.Pact.Common.Contracts
 {
-    public interface IConsumerConfiguration
+    public interface IConsumerConfiguration : IConfiguration
     {
         /// <summary>
         /// Base <c>Uri</c> for tcplistener.
