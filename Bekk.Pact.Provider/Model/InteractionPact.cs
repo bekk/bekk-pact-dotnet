@@ -15,7 +15,7 @@ namespace Bekk.Pact.Provider.Model
     {
         private readonly Interaction interaction;
 
-        public InteractionPact(Interaction interaction, IConfiguration config)
+        public InteractionPact(Interaction interaction, IProviderConfiguration config)
         {
             this.interaction = interaction;
             Configuration = config;
@@ -38,7 +38,7 @@ namespace Bekk.Pact.Provider.Model
             return errors;
         }
 
-        public IConfiguration Configuration { get; }
+        public IProviderConfiguration Configuration { get; }
 
         private async Task<string> ValidateBody(HttpContent actual, Response expected)
         {

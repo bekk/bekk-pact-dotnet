@@ -21,7 +21,7 @@ namespace Bekk.Pact.Provider
             _client = null;
         }
 
-        public IEnumerable<IPact> FetchAll(IConfiguration configuration)
+        public IEnumerable<IPact> FetchAll(IProviderConfiguration configuration)
         {
             var client = Client;
             foreach(var url in FetchUrls(configuration).ConfigureAwait(false).GetAwaiter().GetResult())

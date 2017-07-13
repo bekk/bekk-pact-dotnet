@@ -7,6 +7,6 @@ namespace Bekk.Pact.Common.Contracts
     {
         string ProviderState { get; }
         Task<ITestResult> Assert(HttpClient client);
-        IConfiguration Configuration { get; }
+        IProviderConfiguration Configuration { get; }
     }
 }

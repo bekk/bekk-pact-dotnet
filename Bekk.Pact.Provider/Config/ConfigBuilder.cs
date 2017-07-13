@@ -3,7 +3,7 @@ using Bekk.Pact.Common.Contracts;
 
 namespace Bekk.Pact.Provider.Config
 {
-    public class Configuration : IConfiguration
+    public class Configuration : IProviderConfiguration, IConsumerConfiguration
     {
         private Configuration()
         {
@@ -31,12 +31,20 @@ namespace Bekk.Pact.Provider.Config
             return this;
         }
 
+        public Configuration MockServiceUri(Uri uri)
+        {
+            this.mockServiceUri = uri;
+            return this;
+        }
+
         private Uri brokerUri;
+        private Uri mockServiceUri = new Uri("http://localhost:1234");
         Uri IConfiguration.BrokerUri => brokerUri;
 
         private Action<string> log;
         Action<string> IConfiguration.Log => log;
         private StringComparison comparison;
-        StringComparison IConfiguration.BodyKeyStringComparison => comparison;
+        StringComparison IProviderConfiguration.BodyKeyStringComparison => comparison;
+        Uri IConsumerConfiguration.MockServiceBaseUri => mockServiceUri;
     }
 }

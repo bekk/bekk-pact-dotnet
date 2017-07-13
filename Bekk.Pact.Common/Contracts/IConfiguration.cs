@@ -6,6 +6,5 @@ namespace Bekk.Pact.Common.Contracts
     {
         Uri BrokerUri { get; }
         Action<string> Log { get; }
-        StringComparison BodyKeyStringComparison { get; }
     }
 }
