@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Provider", "Bekk.Pact.Provider\Bekk.Pact.Provider.csproj", "{5AE1BEAB-409B-4B20-A3CD-F41F8E778A7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Consumer", "Bekk.Pact.Consumer\Bekk.Pact.Consumer.csproj", "{5AE1BEAB-409B-4B20-A3CD-F41F8E778A7B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Common", "Bekk.Pact.Common\Bekk.Pact.Common.csproj", "{62FB8B31-219C-4A02-A66E-4FAF90AEBBBB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Web", "Bekk.Pact.Web\Bekk.Pact.Web.csproj", "{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}"
