@@ -26,10 +26,10 @@ namespace Bekk.Pact.Common.Utils
             var uri = new Uri(Configuration.BrokerUri, $"/pacts/provider/{metadata.Provider}/consumer/{metadata.Consumer}/version/{metadata.Version}");
             Configuration.LogSafe($"Uploading pact to {uri}");
             var client = Client;
-            var result = await client.PostAsync(uri.ToString(), new StringContent(payload, Encoding.UTF8, "application/json"));
+            var result = await client.PutAsync(uri.ToString(), new StringContent(payload, Encoding.UTF8, "application/json"));
             if(!result.IsSuccessStatusCode)
             {
-                Configuration.LogSafe($"Broker replied with {result.StatusCode}: {result.ReasonPhrase}");
+                Configuration.LogSafe($"Broker replied with {(int)result.StatusCode}: {result.ReasonPhrase}");
                 Configuration.LogSafe(await result.Content.ReadAsStringAsync());
                 throw new PactRequestException("Couldn't put pact to broker.", result);
             }
