@@ -35,14 +35,20 @@ namespace Bekk.Pact.Consumer.Rendering
             return json;
         }
 
+        private JObject RenderProviderConsumer(string name)
+        {
+            dynamic json = new JObject();
+            json.Add("name", name);
+            return json;
+        }
+
         public override JObject Render()
         {
             dynamic json = new JObject();
-            json.Add("provider", pact.Provider);
-            json.Add("consumer", pact.Consumer);
+            json.Add("provider", RenderProviderConsumer(pact.Provider));
+            json.Add("consumer", RenderProviderConsumer(pact.Consumer));
             json.interactions = new JArray(RenderInteraction());
             json.Add("metadata", new JObject(new JProperty("pactSpecificationVersion", "1.0.0")));
-            json.createdAt = DateTime.Now;
             return json;
         }
     }
