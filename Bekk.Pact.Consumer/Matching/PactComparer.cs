@@ -17,8 +17,8 @@ namespace Bekk.Pact.Consumer.Matching
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
             if (template.HttpVerb != request.HttpVerb) return false;
-            if (CompareAcceptEmptyAsNull(template.RequestPath, request.RequestPath)) return false;
-            if (CompareAcceptEmptyAsNull(template.Query, request.Query)) return false;
+            if (!CompareAcceptEmptyAsNull(template.RequestPath, request.RequestPath)) return false;
+            if (!CompareAcceptEmptyAsNull(template.Query, request.Query)) return false;
             foreach (var header in template.RequestHeaders)
             {
                 if (!request.RequestHeaders[header.Key].Equals(header.Value)) return false;
