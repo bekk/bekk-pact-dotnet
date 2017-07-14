@@ -34,12 +34,16 @@ namespace Bekk.Pact.Consumer.Server
 
         private IPactResponseDefinition Respond(IPactRequestDefinition request)
         {
-            configuration.LogSafe("Request received: \n" + request);
             if (matcher.Matches(request))
             {
-                configuration.LogSafe("Request matches expectation.");
+                configuration.LogSafe($"Request received at {request.RequestPath} matching expectation.");
                 matches++;
                 return pact;
+            }
+            else
+            {
+                configuration.LogSafe($"Unrecognized request received at {request.RequestPath}. ");
+                configuration.LogSafe(matcher.DiffGram(request).ToString());
             }
             return null;
         }
