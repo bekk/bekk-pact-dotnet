@@ -33,7 +33,7 @@ namespace Bekk.Pact.Common.Utils
                 Configuration.LogSafe(await result.Content.ReadAsStringAsync());
                 throw new PactRequestException("Couldn't put pact to broker.", result);
             }
-            return;
+            Configuration.LogSafe($"Upload to {uri} complete.");
         }
 
         protected IEnumerable<JObject> FetchPacts()
