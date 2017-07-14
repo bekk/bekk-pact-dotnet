@@ -32,6 +32,7 @@ namespace Bekk.Pact.Consumer.Server
             try
             {
                 listener.Start();
+                System.Console.WriteLine("Listener started.");
                 while (!(cancellation?.IsCancellationRequested).GetValueOrDefault())
                 {
                     cancellation = new CancellationTokenSource();
@@ -59,6 +60,7 @@ namespace Bekk.Pact.Consumer.Server
             finally
             {
                 listener.Stop();
+                System.Console.WriteLine("Listener stopped");
             }
         }
 
