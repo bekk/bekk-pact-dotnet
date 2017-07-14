@@ -1,4 +1,5 @@
-﻿using Bekk.Pact.Common.Contracts;
+﻿using System;
+using Bekk.Pact.Common.Contracts;
 
 namespace Bekk.Pact.Consumer.Contracts
 {
@@ -7,5 +8,7 @@ namespace Bekk.Pact.Consumer.Contracts
         IProviderStateBuilder Given(string state);
         IConsumerBuilder Between(string provider);
         IPactBuilder With(IConsumerConfiguration config);
+        IPactBuilder With(Version version);
+        IPactBuilder WithVersion(string version);
     }
 }
