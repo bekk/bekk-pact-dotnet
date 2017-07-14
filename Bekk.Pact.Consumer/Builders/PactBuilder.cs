@@ -10,6 +10,7 @@ namespace Bekk.Pact.Consumer.Builders
         private readonly string description;
         private string consumer;
         private string provider;
+        private Version version;
         private IConsumerConfiguration configuration;
 
         public PactBuilder(string description, IConsumerConfiguration config)
@@ -25,6 +26,13 @@ namespace Bekk.Pact.Consumer.Builders
             configuration = config;
             return this;
         }
+        public IPactBuilder With(Version version)
+        {
+            this.version = version;
+            return this;
+        }
+        public IPactBuilder WithVersion(string version) => With(Version.Parse(version));
+
         /// <param name="provider">The provider of the pact</param>
         public IConsumerBuilder Between(string provider)
         {
@@ -35,7 +43,7 @@ namespace Bekk.Pact.Consumer.Builders
         public IProviderStateBuilder Given(string state)
         {
             if (state == null) throw new ArgumentNullException(nameof(state));
-            return new InteractionBuilder(state, consumer, provider, description, configuration);
+            return new InteractionBuilder(state, consumer, provider, description, version, configuration);
         }
 
         public IProviderStateBuilder WithProviderState(string state) => Given(state);

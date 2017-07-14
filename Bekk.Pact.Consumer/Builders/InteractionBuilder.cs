@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Utils;
@@ -19,7 +20,7 @@ namespace Bekk.Pact.Consumer.Builders
         private readonly List<string> queries = new List<string>();
         private WebServer server;
         public string State { get; }
-        public string Version { get; } = "1.0.0";
+        public Version Version { get; }
         public string Description { get; }
         public string Provider { get; private set; }
         public string Consumer { get; private set; }
@@ -31,13 +32,14 @@ namespace Bekk.Pact.Consumer.Builders
         public int? ResponseStatusCode { get; private set; }
         public object ResponseBody { get; private set; }
 
-        public InteractionBuilder(string state, string consumer, string provider, string description, IConsumerConfiguration config)
+        public InteractionBuilder(string state, string consumer, string provider, string description, Version version, IConsumerConfiguration config)
         {
             this.configuration = config;
             State = state;
             Consumer = consumer;
             Provider = provider;
             Description = description;
+            Version = version ?? new Version(1,0);
         }
 
         IProviderStateBuilder IProviderStateBuilder.WithConsumer(string consumer)
