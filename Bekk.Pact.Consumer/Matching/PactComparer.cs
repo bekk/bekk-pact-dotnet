@@ -30,8 +30,8 @@ namespace Bekk.Pact.Consumer.Matching
             if (request == null) throw new ArgumentNullException(nameof(request));
             dynamic diff = new JObject();
             if (template.HttpVerb != request.HttpVerb) diff.Add("HttpVerb", GetDiff(template.HttpVerb, request.HttpVerb));
-            if (template.RequestPath != request.RequestPath) diff.Add("Path", GetDiff(template.RequestPath, request.RequestPath));
-            if (template.Query != request.Query) diff.Add("Query", GetDiff(template.Query, request.Query));
+            if (!CompareAcceptEmptyAsNull(template.RequestPath, request.RequestPath)) diff.Add("Path", GetDiff(template.RequestPath, request.RequestPath));
+            if (!CompareAcceptEmptyAsNull(template.Query, request.Query)) diff.Add("Query", GetDiff(template.Query, request.Query));
             var headers = template.RequestHeaders.Where(expected => !request.RequestHeaders[expected.Key].Equals(expected.Value)).ToList();
             if(headers.Any()){
                 dynamic headersDiff = new JObject();
