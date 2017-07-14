@@ -25,7 +25,7 @@ namespace Bekk.Pact.Consumer.Builders
             configuration = config;
             return this;
         }
-
+        /// <param name="provider">The provider of the pact</param>
         public IConsumerBuilder Between(string provider)
         {
             this.provider = provider;
@@ -35,11 +35,11 @@ namespace Bekk.Pact.Consumer.Builders
         public IProviderStateBuilder Given(string state)
         {
             if (state == null) throw new ArgumentNullException(nameof(state));
-            return new InteractionBuilder(state, provider, consumer, description, configuration);
+            return new InteractionBuilder(state, consumer, provider, description, configuration);
         }
 
         public IProviderStateBuilder WithProviderState(string state) => Given(state);
-
+        /// <param name="consumer">The consumer of the pact</param>
         IPactBuilder IConsumerBuilder.And(string consumer)
         {
             this.consumer = consumer;
