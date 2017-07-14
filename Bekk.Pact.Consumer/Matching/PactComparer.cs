@@ -17,8 +17,8 @@ namespace Bekk.Pact.Consumer.Matching
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
             if (template.HttpVerb != request.HttpVerb) return false;
-            if (template.RequestPath != request.RequestPath) return false;
-            if (template.Query != request.Query) return false;
+            if (CompareAcceptEmptyAsNull(template.RequestPath, request.RequestPath)) return false;
+            if (CompareAcceptEmptyAsNull(template.Query, request.Query)) return false;
             foreach (var header in template.RequestHeaders)
             {
                 if (!request.RequestHeaders[header.Key].Equals(header.Value)) return false;
@@ -50,6 +50,12 @@ namespace Bekk.Pact.Consumer.Matching
             diff.Add("expected", expected);
             diff.Add("actual", actual);
             return diff;
+        }
+
+        private bool CompareAcceptEmptyAsNull(string left, string right)
+        {
+            if(string.IsNullOrEmpty(left)) return string.IsNullOrEmpty(right);
+            return left.Equals(right);
         }
     }
 }
