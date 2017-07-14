@@ -7,6 +7,7 @@ using Bekk.Pact.Common.Contracts;
 using System.Linq;
 using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Common.Exceptions;
+using System.Text;
 
 namespace Bekk.Pact.Common.Utils
 {
@@ -25,8 +26,7 @@ namespace Bekk.Pact.Common.Utils
             var uri = new Uri(Configuration.BrokerUri, $"/pacts/provider/{metadata.Provider}/consumer/{metadata.Consumer}/version/{metadata.Version}");
             Configuration.LogSafe($"Uploading pact to {uri}");
             var client = Client;
-            client.DefaultRequestHeaders.Add("Content-Type", "application/json");
-            var result = await client.PostAsync(uri.ToString(), new StringContent(payload));
+            var result = await client.PostAsync(uri.ToString(), new StringContent(payload, Encoding.UTF8, "application/json"));
             if(!result.IsSuccessStatusCode)
             {
                 Configuration.LogSafe($"Broker replied with {result.StatusCode}: {result.ReasonPhrase}");
