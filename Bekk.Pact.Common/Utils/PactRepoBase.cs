@@ -23,11 +23,14 @@ namespace Bekk.Pact.Common.Utils
         protected async Task PutPacts(IPactPathMetadata metadata, string payload)
         {
             var uri = new Uri(Configuration.BrokerUri, $"/pacts/provider/{metadata.Provider}/consumer/{metadata.Consumer}/version/{metadata.Version}");
+            Configuration.LogSafe($"Uploading pact to {uri}");
             var client = Client;
             client.DefaultRequestHeaders.Add("Content-Type", "application/json");
             var result = await client.PostAsync(uri.ToString(), new StringContent(payload));
             if(!result.IsSuccessStatusCode)
             {
+                Configuration.LogSafe($"Broker replied with {result.StatusCode}: {result.ReasonPhrase}");
+                Configuration.LogSafe(await result.Content.ReadAsStringAsync());
                 throw new PactRequestException("Couldn't put pact to broker.", result);
             }
             return;
