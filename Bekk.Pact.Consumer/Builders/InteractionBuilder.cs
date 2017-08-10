@@ -10,6 +10,7 @@ using Bekk.Pact.Common.Utils;
 using Bekk.Pact.Consumer.Contracts;
 using Bekk.Pact.Consumer.Rendering;
 using Bekk.Pact.Consumer.Server;
+using Bekk.Pact.Consumer.ServiceContext;
 using IPact = Bekk.Pact.Consumer.Contracts.IPact;
 
 namespace Bekk.Pact.Consumer.Builders
@@ -18,7 +19,8 @@ namespace Bekk.Pact.Consumer.Builders
     {
         private readonly IConsumerConfiguration configuration;
         private readonly List<string> queries = new List<string>();
-        private WebServer server;
+        private IVerifyAndClosable handler;
+
         public string State { get; }
         public Version Version { get; }
         public string Description { get; }
@@ -96,13 +98,14 @@ namespace Bekk.Pact.Consumer.Builders
 
         IPact IResponseBuilder.InPact()
         {
-            server = WebServer.Listen(this, configuration);
+            handler = Context.RegisterListener(this, configuration);
             return this;
         }
 
         void IPact.Verify()
         {
-            if(server.Matches < 1) throw new Exception("The pact has not been matched.");
+            var matches = handler.VerifyAndClose(1);
+            if(matches != 1) throw new Exception($"The pact was matched {matches} times. Expected one.");
         }
 
         private async Task Save()
@@ -133,7 +136,7 @@ namespace Bekk.Pact.Consumer.Builders
 
         public void Dispose()
         {
-            server?.Dispose();
+            handler.VerifyAndClose(1);
         }
 
         public override string ToString()
