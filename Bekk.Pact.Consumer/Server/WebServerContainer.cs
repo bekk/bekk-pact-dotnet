@@ -27,8 +27,7 @@ namespace Bekk.Pact.Consumer.ServiceContext
         private Listener GetListener(Uri uri)
         {
             AssureNotDisposed();
-            var result = _listeners[uri];
-            if(result == null)
+            if(!_listeners.TryGetValue(uri, out var result))
             {
                 lock(_lockToken)
                 {
