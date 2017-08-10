@@ -67,6 +67,7 @@ namespace Bekk.Pact.Consumer.Server
         public void Dispose()
         {
             cancellation?.Cancel();
+            System.Console.WriteLine("Listener cancelled");
         }
 
     }
