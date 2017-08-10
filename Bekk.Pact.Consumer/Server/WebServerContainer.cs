@@ -31,6 +31,7 @@ namespace Bekk.Pact.Consumer.ServiceContext
             {
                 lock(_lockToken)
                 {
+                    System.Console.WriteLine("New listener created for "+uri);
                     result = new Listener();
                     _listeners.Add(uri, result);
                     result.Start(uri, ((IPactResponder)this).Respond);
