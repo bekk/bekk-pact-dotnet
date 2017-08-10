@@ -38,6 +38,7 @@ namespace Bekk.Pact.Consumer.Server
                     cancellation = new CancellationTokenSource();
                     using (var client = await Task.Run(() => listener.AcceptTcpClientAsync(), cancellation.Token))
                     {
+                        System.Console.WriteLine("Something happened");
                         if (client == null) continue;
                         var stream = client.GetStream();
                         byte[] readBuffer = new byte[1024];
@@ -56,6 +57,11 @@ namespace Bekk.Pact.Consumer.Server
                         }
                     }
                 }
+            }
+            catch(Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+                throw;
             }
             finally
             {
