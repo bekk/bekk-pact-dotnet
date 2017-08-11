@@ -41,6 +41,7 @@ namespace Bekk.Pact.Consumer.Server
             };
             if(!_listeners.TryGetValue(uri, out var result))
             {
+                System.Console.WriteLine("No listener: create new");
                 Create();
             }
             else
