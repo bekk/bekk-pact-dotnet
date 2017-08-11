@@ -61,7 +61,9 @@ namespace Bekk.Pact.Consumer.Server
             }
             catch(Exception e)
             {
+                System.Console.WriteLine("Ups");
                 System.Console.WriteLine(e.Message);
+                System.Console.WriteLine(e.StackTrace);
                 throw;
             }
             finally
