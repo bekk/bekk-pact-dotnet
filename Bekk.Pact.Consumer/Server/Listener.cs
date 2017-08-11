@@ -77,6 +77,7 @@ namespace Bekk.Pact.Consumer.Server
         public void Dispose()
         {
             cancellation?.Cancel();
+            listener.Stop();
             State = ListenerState.Cancelled;
         }
         public ListenerState State { get; private set; }
