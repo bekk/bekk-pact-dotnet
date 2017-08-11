@@ -47,10 +47,11 @@ namespace Bekk.Pact.Consumer.Server
             {
                 if(result.State > Listener.ListenerState.Parsing)
                 {
-                    var handler = new EventHandler<EventArgs>(delegate (object o,EventArgs e){Create();});
+                    var handler = new EventHandler<EventArgs>(delegate (object o,EventArgs e){System.Console.WriteLine("Create in event handler");  Create();});
                     result.Stopped += handler;  
                     if(result.State == Listener.ListenerState.Stopped && !taskResult.Task.IsCompleted){
                         result.Stopped -= handler;
+                        System.Console.WriteLine("Create outside eent handler");
                         Create();
                     }
                 }
