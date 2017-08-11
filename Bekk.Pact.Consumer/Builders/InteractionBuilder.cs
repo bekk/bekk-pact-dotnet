@@ -96,9 +96,9 @@ namespace Bekk.Pact.Consumer.Builders
             return this;
         }
 
-        IPact IResponseBuilder.InPact()
+        async Task<IPact> IResponseBuilder.InPact()
         {
-            handler = Context.RegisterListener(this, configuration);
+            handler = await Context.RegisterListener(this, configuration);
             return this;
         }
 

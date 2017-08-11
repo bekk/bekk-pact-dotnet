@@ -31,14 +31,15 @@ namespace Bekk.Pact.Consumer.Server
             if (listener == null) throw new InvalidOperationException();
             try
             {
+                State = ListenerState.Started;
                 listener.Start();
-                System.Console.WriteLine("Listener started.");
                 while (!(cancellation?.IsCancellationRequested).GetValueOrDefault())
                 {
+                    State = ListenerState.Listening;
                     cancellation = new CancellationTokenSource();
                     using (var client = await Task.Run(() => listener.AcceptTcpClientAsync(), cancellation.Token))
                     {
-                        System.Console.WriteLine("Something happened");
+                        State = ListenerState.Parsing;
                         if (client == null) continue;
                         var stream = client.GetStream();
                         byte[] readBuffer = new byte[1024];
@@ -66,15 +67,27 @@ namespace Bekk.Pact.Consumer.Server
             finally
             {
                 listener.Stop();
-                System.Console.WriteLine("Listener stopped");
+                State = ListenerState.Stopped;
+                Stopped?.Invoke(this, new EventArgs());
             }
         }
+
+        public event EventHandler<EventArgs> Stopped;
 
         public void Dispose()
         {
             cancellation?.Cancel();
-            System.Console.WriteLine("Listener cancelled");
+            State = ListenerState.Cancelled;
         }
-
+        public ListenerState State { get; private set; }
+        public enum ListenerState
+        {
+            Created,
+            Started,
+            Listening,
+            Parsing,
+            Cancelled,
+            Stopped
+        }
     }
 }

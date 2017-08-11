@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Consumer.Contracts;
 
@@ -19,7 +20,7 @@ namespace Bekk.Pact.Consumer.ServiceContext
             } 
         }       
 
-        internal static IVerifyAndClosable RegisterListener(IPactDefinition pact, IConsumerConfiguration config)
+        internal static async Task<IVerifyAndClosable> RegisterListener(IPactDefinition pact, IConsumerConfiguration config)
         {
             lock (_lockToken)
             {
@@ -27,8 +28,8 @@ namespace Bekk.Pact.Consumer.ServiceContext
                 {
                     _servers = new WebServerContainer(true);
                 }
-                return _servers.RegisterListener(pact, config);
             }
+            return await _servers.RegisterListener(pact, config);
         }
         public void Dispose()
         {

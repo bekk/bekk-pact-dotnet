@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Threading.Tasks;
 
 namespace Bekk.Pact.Consumer.Contracts
 {
@@ -8,6 +9,6 @@ namespace Bekk.Pact.Consumer.Contracts
         IResponseBuilder WithStatus(int statusCode);
         IResponseBuilder WithHeader(string key, params string[] values);
         IResponseBuilder WithBody(object body);
-        IPact InPact();
+        Task<IPact> InPact();
     }
 }

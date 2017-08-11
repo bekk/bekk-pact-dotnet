@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Consumer.Contracts;
@@ -24,19 +25,37 @@ namespace Bekk.Pact.Consumer.ServiceContext
             if(IsClosed) throw new InvalidOperationException("Context is closed.");
         }
 
-        private Listener GetListener(Uri uri)
+        private async Task<Listener> GetListener(Uri uri)
         {
             AssureNotDisposed();
-            if(!_listeners.TryGetValue(uri, out var result))
+            var taskResult = new TaskCompletionSource<Listener>();
+            void Create()
             {
                 lock(_lockToken)
                 {
-                    result = new Listener();
-                    _listeners.Add(uri, result);
-                    result.Start(uri, ((IPactResponder)this).Respond);
+                    var listener = new Listener();
+                    _listeners.Add(uri, listener);
+                    listener.Start(uri, ((IPactResponder)this).Respond);
+                    taskResult.SetResult(listener);
+                }
+            };
+            if(!_listeners.TryGetValue(uri, out var result))
+            {
+                Create();
+            }
+            else
+            {
+                if(result.State > Listener.ListenerState.Parsing)
+                {
+                    var handler = new EventHandler<EventArgs>(delegate (object o,EventArgs e){Create();});
+                    result.Stopped += handler;  
+                    if(result.State == Listener.ListenerState.Stopped && !taskResult.Task.IsCompleted){
+                        result.Stopped -= handler;
+                        Create();
+                    }
                 }
             }
-            return result;
+            return await taskResult.Task;
         }
         IPactResponseDefinition IPactResponder.Respond(IPactRequestDefinition request)
         {
@@ -49,10 +68,10 @@ namespace Bekk.Pact.Consumer.ServiceContext
         }
         public bool IsClosed { get; private set; }
 
-        public IVerifyAndClosable RegisterListener(IPactDefinition pact, IConsumerConfiguration config)
+        public async Task<IVerifyAndClosable> RegisterListener(IPactDefinition pact, IConsumerConfiguration config)
         {
             AssureNotDisposed();
-            var listener = GetListener(config.MockServiceBaseUri);
+            var listener = await GetListener(config.MockServiceBaseUri);
             var handler = new PactHandler(pact, config, Unregister);
             _handlers.Add(handler);
             return handler;
@@ -67,11 +86,13 @@ namespace Bekk.Pact.Consumer.ServiceContext
         public void Dispose()
         {
             IsClosed = true;
-            foreach(var listener in _listeners.Values)
+            foreach(var listener in _listeners)
             {
-                listener.Dispose();
+                var l = listener.Value;
+                var uri = listener.Key;
+                l.Stopped += (o,a)=>{_listeners.Remove(uri);};
+                l.Dispose();
             }
-            _listeners.Clear();
         }
 
     }

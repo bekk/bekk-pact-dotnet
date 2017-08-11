@@ -20,5 +20,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Bekk.Pact.Common\Bekk.Pact.Common.csproj" />
   </ItemGroup>
-
 </Project>
