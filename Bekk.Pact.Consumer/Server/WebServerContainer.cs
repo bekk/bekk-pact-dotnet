@@ -9,7 +9,7 @@ using Bekk.Pact.Consumer.Server;
 
 namespace Bekk.Pact.Consumer.Server
 {
-    class WebServerContainer : IPactResponder, IDisposable
+    class WebServerContainer : IPactResponder
     {
         private readonly bool _implicitCreation;
         private object _lockToken = new object();
@@ -19,15 +19,9 @@ namespace Bekk.Pact.Consumer.Server
         {
             _implicitCreation = implicitCreation;
         }
-         
-        private void AssureNotDisposed() 
-        {
-            if(IsClosed) throw new InvalidOperationException("Context is closed.");
-        }
 
         private async Task<Listener> GetListener(Uri uri)
         {
-            AssureNotDisposed();
             var taskResult = new TaskCompletionSource<Listener>();
             void Create()
             {
@@ -68,11 +62,9 @@ namespace Bekk.Pact.Consumer.Server
                 .FirstOrDefault();
             return result;
         }
-        public bool IsClosed { get; private set; }
 
         public async Task<IVerifyAndClosable> RegisterListener(IPactDefinition pact, IConsumerConfiguration config)
         {
-            AssureNotDisposed();
             var handler = new PactHandler(pact, config, Unregister);
             _handlers.Add(handler);
             var listener = await GetListener(config.MockServiceBaseUri);
@@ -82,13 +74,13 @@ namespace Bekk.Pact.Consumer.Server
         private void Unregister(PactHandler handler, bool isValid)
         {
             _handlers.Remove(handler);
-            if(!_handlers.Any() && _implicitCreation) Dispose();
+            if(!_handlers.Any() && _implicitCreation) Empty();
         }
 
-        public void Dispose()
+        public void Empty()
         {
-            IsClosed = true;
-            foreach(var listener in _listeners)
+            var removable = _listeners.ToList();
+            foreach(var listener in removable)
             {
                 var l = listener.Value;
                 var uri = listener.Key;

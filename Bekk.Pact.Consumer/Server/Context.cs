@@ -13,7 +13,7 @@ namespace Bekk.Pact.Consumer.Server
         {
             lock (_lockToken)
             {
-                if(_servers == null || _servers.IsClosed)
+                if(_servers == null)
                 {
                     _servers = new WebServerContainer(false);
                 }
@@ -22,19 +22,23 @@ namespace Bekk.Pact.Consumer.Server
 
         internal static async Task<IVerifyAndClosable> RegisterListener(IPactDefinition pact, IConsumerConfiguration config)
         {
-            lock (_lockToken)
+            var servers = _servers;
+            if(servers == null)
             {
-                if(_servers == null || _servers.IsClosed)
+                lock (_lockToken)
                 {
-                    _servers = new WebServerContainer(true);
+                    if(_servers == null)
+                    {
+                        _servers = new WebServerContainer(true);
+                    }
+                    servers = _servers;
                 }
             }
-            return await _servers.RegisterListener(pact, config);
+            return await servers.RegisterListener(pact, config);
         }
         public void Dispose()
         {
-            _servers?.Dispose();
-            _servers = null;
+            _servers?.Empty();
         }
     }
 }
