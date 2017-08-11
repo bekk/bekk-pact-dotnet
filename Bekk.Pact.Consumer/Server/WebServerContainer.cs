@@ -52,7 +52,7 @@ namespace Bekk.Pact.Consumer.Server
                     result.Stopped += handler;  
                     if(result.State == Listener.ListenerState.Stopped && !taskResult.Task.IsCompleted){
                         result.Stopped -= handler;
-                        System.Console.WriteLine("Create outside eent handler");
+                        System.Console.WriteLine("Create outside event handler");
                         Create();
                     }
                 }
