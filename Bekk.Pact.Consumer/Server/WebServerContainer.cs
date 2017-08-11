@@ -35,18 +35,16 @@ namespace Bekk.Pact.Consumer.Server
             };
             if(!_listeners.TryGetValue(uri, out var result))
             {
-                System.Console.WriteLine("No listener: create new");
                 Create();
             }
             else
             {
                 if(result.State > Listener.ListenerState.Parsing)
                 {
-                    var handler = new EventHandler<EventArgs>(delegate (object o,EventArgs e){System.Console.WriteLine("Create in event handler");  Create();});
+                    var handler = new EventHandler<EventArgs>(delegate (object o,EventArgs e){Create();});
                     result.Stopped += handler;  
                     if(result.State == Listener.ListenerState.Stopped && !taskResult.Task.IsCompleted){
                         result.Stopped -= handler;
-                        System.Console.WriteLine("Create outside event handler");
                         Create();
                     }
                 }

@@ -40,7 +40,7 @@ namespace Bekk.Pact.Consumer.Server
                     using (var client = await Task.Run(() => listener.AcceptTcpClientAsync(), cancellation.Token))
                     {
                         State = ListenerState.Parsing;
-                        if (client == null || State == ListenerState.Cancelled) continue;
+                        if (client == null || State == ListenerState.) continue;
                         var stream = client.GetStream();
                         byte[] readBuffer = new byte[1024];
                         var request = new StringBuilder();
@@ -59,11 +59,16 @@ namespace Bekk.Pact.Consumer.Server
                     }
                 }
             }
+            catch(SocketException)
+            {
+                if(State < ListenerState.Cancelled)
+                {
+                    throw;
+                }
+            }
             catch(Exception e)
             {
-                System.Console.WriteLine("Ups");
                 System.Console.WriteLine(e.Message);
-                System.Console.WriteLine(e.StackTrace);
                 throw;
             }
             finally
