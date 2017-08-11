@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Consumer.Contracts;
 
-namespace Bekk.Pact.Consumer.ServiceContext
+namespace Bekk.Pact.Consumer.Server
 {
     public class Context : IDisposable
     {

@@ -4,7 +4,7 @@ using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Consumer.Contracts;
 using Bekk.Pact.Consumer.Matching;
 
-namespace Bekk.Pact.Consumer.ServiceContext
+namespace Bekk.Pact.Consumer.Server
 {
     class PactHandler : IPactResponder, IVerifyAndClosable
     {

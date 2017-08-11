@@ -17,6 +17,7 @@ namespace Bekk.Pact.Consumer.Server
 
         public void Start(Uri uri, Func<IPactRequestDefinition, IPactResponseDefinition> callback)
         {
+            System.Console.WriteLine("Listener created");
             var address = uri.HostNameType == UriHostNameType.IPv4 ? 
                 IPAddress.Parse(uri.Host) : 
                 Dns.GetHostAddressesAsync(uri.Host).Result[0];
@@ -68,6 +69,7 @@ namespace Bekk.Pact.Consumer.Server
             {
                 listener.Stop();
                 State = ListenerState.Stopped;
+                System.Console.WriteLine("Listener stopped");
                 Stopped?.Invoke(this, new EventArgs());
             }
         }

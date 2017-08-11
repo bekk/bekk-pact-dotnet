@@ -10,7 +10,6 @@ using Bekk.Pact.Common.Utils;
 using Bekk.Pact.Consumer.Contracts;
 using Bekk.Pact.Consumer.Rendering;
 using Bekk.Pact.Consumer.Server;
-using Bekk.Pact.Consumer.ServiceContext;
 using IPact = Bekk.Pact.Consumer.Contracts.IPact;
 
 namespace Bekk.Pact.Consumer.Builders

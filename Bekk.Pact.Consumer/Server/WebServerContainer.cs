@@ -7,7 +7,7 @@ using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Consumer.Contracts;
 using Bekk.Pact.Consumer.Server;
 
-namespace Bekk.Pact.Consumer.ServiceContext
+namespace Bekk.Pact.Consumer.Server
 {
     class WebServerContainer : IPactResponder, IDisposable
     {
@@ -71,9 +71,9 @@ namespace Bekk.Pact.Consumer.ServiceContext
         public async Task<IVerifyAndClosable> RegisterListener(IPactDefinition pact, IConsumerConfiguration config)
         {
             AssureNotDisposed();
-            var listener = await GetListener(config.MockServiceBaseUri);
             var handler = new PactHandler(pact, config, Unregister);
             _handlers.Add(handler);
+            var listener = await GetListener(config.MockServiceBaseUri);
             return handler;
         }
 
