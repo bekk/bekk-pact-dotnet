@@ -40,7 +40,7 @@ namespace Bekk.Pact.Consumer.Server
                     using (var client = await Task.Run(() => listener.AcceptTcpClientAsync(), cancellation.Token))
                     {
                         State = ListenerState.Parsing;
-                        if (client == null) continue;
+                        if (client == null || State == ListenerState.Cancelled) continue;
                         var stream = client.GetStream();
                         byte[] readBuffer = new byte[1024];
                         var request = new StringBuilder();
