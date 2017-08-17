@@ -11,6 +11,7 @@ namespace Bekk.Pact.Consumer.Server
         private static WebServerContainer _servers;
         private static Context _instance;
         private IConsumerConfiguration _configuration;
+        private string _consumerName;
         private Version _version;
         private static object _lockToken = new object();
         public Context(IConsumerConfiguration configuration)
@@ -37,15 +38,15 @@ namespace Bekk.Pact.Consumer.Server
             _version = assemblyWithVersion.Version;
             return this;
         }
-        public Context WithVersion(Type typeFromAssembly)
+        public Context WithVersion(Type typeFromAssembly) => WithVersion(typeFromAssembly.GetTypeInfo().Assembly.GetName());
+        public Context WithVersion<T>() => WithVersion(typeof(T));   
+        public Context WithVersion(string version) => WithVersion(Version.Parse(version));
+        public Context ForConsumer(string consumerName)        
         {
-            return WithVersion(typeFromAssembly.GetTypeInfo().Assembly.GetName());
-        }
-        public Context WithVersion<T>()
-        {
-            return WithVersion(typeof(T));
-        }        
-
+            _consumerName = consumerName;
+            return this;
+        }  
+        internal static string ConsumerName => _instance?._consumerName;
         internal static IConsumerConfiguration Configuration => _instance?._configuration;
         internal static Version Version => _instance?._version;
         internal static async Task<IVerifyAndClosable> RegisterListener(IPactDefinition pact, IConsumerConfiguration config)

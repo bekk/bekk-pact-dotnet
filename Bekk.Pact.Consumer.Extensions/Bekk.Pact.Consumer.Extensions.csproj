@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bekk.Pact.Consumer\Bekk.Pact.Consumer.csproj" />
+    <ProjectReference Include="..\Bekk.Pact.Common\Bekk.Pact.Common.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <Description>An extension library to Bekk.Pact.Consumer</Description>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
+    <IconUrl>https://pbs.twimg.com/profile_images/1891657237/twitter-avatar_400x400.png</IconUrl>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+</Project>

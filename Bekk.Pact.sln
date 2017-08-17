@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Common", "Bekk.Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Web", "Bekk.Pact.Web\Bekk.Pact.Web.csproj", "{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Consumer.Extensions", "Bekk.Pact.Consumer.Extensions\Bekk.Pact.Consumer.Extensions.csproj", "{FD4335A7-9753-4DFC-952D-AC77E333781F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +62,17 @@ Global
 		{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}.Release|x64.Build.0 = Release|x64
 		{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}.Release|x86.ActiveCfg = Release|x86
 		{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}.Release|x86.Build.0 = Release|x86
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Debug|x64.ActiveCfg = Debug|x64
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Debug|x64.Build.0 = Debug|x64
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Debug|x86.ActiveCfg = Debug|x86
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Debug|x86.Build.0 = Debug|x86
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Release|x64.ActiveCfg = Release|x64
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Release|x64.Build.0 = Release|x64
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Release|x86.ActiveCfg = Release|x86
+		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal
