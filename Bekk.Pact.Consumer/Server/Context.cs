@@ -104,6 +104,7 @@ namespace Bekk.Pact.Consumer.Server
         {
             private readonly IVerifyAndClosable _inner;
             private readonly Action<bool> _close;
+            private bool _closed;
 
             public HandlerWrapper(IVerifyAndClosable inner, Action<bool> close)
             {
@@ -114,7 +115,11 @@ namespace Bekk.Pact.Consumer.Server
             int IVerifyAndClosable.VerifyAndClose(int expectedMatches)
             {
                 var result = _inner.VerifyAndClose(expectedMatches);
-                _close(result == expectedMatches);
+                if(!_closed)
+                {
+                    _close(result == expectedMatches);
+                    _closed = true;
+                }
                 return result;
             }
         }
