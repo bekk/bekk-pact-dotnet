@@ -1,7 +1,2 @@
-Bekk.Pact.Common/bin
-Bekk.Pact.Common/obj
-Bekk.Pact.Provider/bin
-Bekk.Pact.Provider/obj
-Bekk.Pact.Consumer/bin
-Bekk.Pact.Consumer/obj
-Bekk.Pact.Web/bin
+**/bin
+**/obj
