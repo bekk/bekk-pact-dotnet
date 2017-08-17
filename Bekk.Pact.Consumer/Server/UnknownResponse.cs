@@ -12,7 +12,7 @@ namespace Bekk.Pact.Consumer.Server
         public UnknownResponse(IPactRequestDefinition request)
         {
             _request = request;
-            _headers = new HeaderCollection().Add("Content-Type", "application/json");
+            _headers = new HeaderCollection().Add("Content-Type", "application/json; charset=utf-8");
         }
         public IHeaderCollection ResponseHeaders => _headers;
 

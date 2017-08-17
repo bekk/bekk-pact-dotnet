@@ -88,7 +88,19 @@ namespace Bekk.Pact.Consumer.Server
             listener.Stop();
             State = ListenerState.Cancelled;
         }
-        public ListenerState State { get; private set; }
+        public ListenerState State 
+        { 
+            get 
+            {
+                return _state;
+            } 
+            set
+            {
+                System.Console.WriteLine($"Listener transitioned from {_state} to {value}. Have a nice day!");
+                _state = value;
+            }
+        }
+        private ListenerState _state;
         public enum ListenerState
         {
             Created,
