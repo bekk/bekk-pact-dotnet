@@ -44,10 +44,12 @@ namespace Bekk.Pact.Consumer.Server
             }
             else
             {
-                System.Console.WriteLine("Found a listener");
-                if(result.State > Listener.ListenerState.Parsing)
+                if(ListenerIsActive(result))
                 {
-                    System.Console.WriteLine("Wait for stop");
+                    taskResult.SetResult(result);
+                }
+                else
+                {
                     var handler = new EventHandler<EventArgs>(delegate (object o,EventArgs e){Create();});
                     result.Stopped += handler;  
                     if(result.State == Listener.ListenerState.Stopped && !taskResult.Task.IsCompleted){
@@ -56,7 +58,6 @@ namespace Bekk.Pact.Consumer.Server
                     }
                 }
             }
-            System.Console.WriteLine("Exiting method. "+taskResult.Task.IsCompleted);
             return await taskResult.Task;
         }
         IPactResponseDefinition IPactResponder.Respond(IPactRequestDefinition request)
