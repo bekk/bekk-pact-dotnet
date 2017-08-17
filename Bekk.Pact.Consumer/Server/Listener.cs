@@ -59,7 +59,7 @@ namespace Bekk.Pact.Consumer.Server
                     }
                 }
             }
-            catch(SocketException)
+            catch(ObjectDisposedException)
             {
                 if(State < ListenerState.Cancelled)
                 {
@@ -96,7 +96,7 @@ namespace Bekk.Pact.Consumer.Server
             } 
             set
             {
-                System.Console.WriteLine($"Listener transitioned from {_state} to {value}. Have a nice day!");
+                System.Console.WriteLine($"Listener transitioned from {_state} to {value}.");
                 _state = value;
             }
         }

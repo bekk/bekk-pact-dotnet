@@ -20,6 +20,8 @@ namespace Bekk.Pact.Consumer.Server
             _implicitCreation = implicitCreation;
         }
 
+        private bool ListenerIsActive(Listener listener) => listener!=null && listener.State < Listener.ListenerState.Cancelled;
+
         private async Task<Listener> GetListener(Uri uri)
         {
             var taskResult = new TaskCompletionSource<Listener>();
@@ -27,9 +29,12 @@ namespace Bekk.Pact.Consumer.Server
             {
                 lock(_lockToken)
                 {
-                    var listener = new Listener();
-                    _listeners.Add(uri, listener);
-                    listener.Start(uri, ((IPactResponder)this).Respond);
+                    if(!(_listeners.TryGetValue(uri, out var listener) && ListenerIsActive(listener)))
+                    {
+                        listener = new Listener();
+                        _listeners.Add(uri, listener);
+                        listener.Start(uri, ((IPactResponder)this).Respond);
+                    }
                     taskResult.SetResult(listener);
                 }
             };
@@ -39,8 +44,10 @@ namespace Bekk.Pact.Consumer.Server
             }
             else
             {
+                System.Console.WriteLine("Found a listener");
                 if(result.State > Listener.ListenerState.Parsing)
                 {
+                    System.Console.WriteLine("Wait for stop");
                     var handler = new EventHandler<EventArgs>(delegate (object o,EventArgs e){Create();});
                     result.Stopped += handler;  
                     if(result.State == Listener.ListenerState.Stopped && !taskResult.Task.IsCompleted){
