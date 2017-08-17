@@ -7,9 +7,9 @@ namespace Bekk.Pact.Consumer.Matching
 {
     class PactComparer
     {
-        private readonly IPactDefinition template;
+        private readonly IPactInteractionDefinition template;
 
-        public PactComparer(IPactDefinition template)
+        public PactComparer(IPactInteractionDefinition template)
         {
             this.template = template ?? throw new ArgumentNullException(nameof(template));
         }

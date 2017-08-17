@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Consumer.Contracts;
+using Bekk.Pact.Consumer.Matching;
 
 namespace Bekk.Pact.Consumer.Server
 {
@@ -16,8 +17,8 @@ namespace Bekk.Pact.Consumer.Server
         private IConsumerConfiguration _configuration;
         private string _consumerName;
         private Version _version;
-        private readonly IList<IPactDefinition> _successful = new List<IPactDefinition>();
-        private readonly IList<IPactDefinition> _failures = new List<IPactDefinition>();
+        private readonly IList<IPactInteractionDefinition> _successful = new List<IPactInteractionDefinition>();
+        private readonly IList<IPactInteractionDefinition> _failures = new List<IPactInteractionDefinition>();
         private static object _lockToken = new object();
         public Context(IConsumerConfiguration configuration)
         {
@@ -56,7 +57,7 @@ namespace Bekk.Pact.Consumer.Server
         internal static string ConsumerName => _instance?._consumerName;
         internal static IConsumerConfiguration Configuration => _instance?._configuration;
         internal static Version Version => _instance?._version;
-        internal static async Task<IVerifyAndClosable> RegisterListener(IPactDefinition pact, IConsumerConfiguration config)
+        internal static async Task<IVerifyAndClosable> RegisterListener(IPactInteractionDefinition pact, IConsumerConfiguration config)
         {
             var servers = _servers;
             if (servers == null)
@@ -73,7 +74,7 @@ namespace Bekk.Pact.Consumer.Server
             return new HandlerWrapper(await servers.RegisterListener(pact, config), success => _instance?.ClosePact(pact, success) );
         }
 
-        private void ClosePact(IPactDefinition pact, bool success)
+        private void ClosePact(IPactInteractionDefinition pact, bool success)
         {
             if (success) _successful.Add(pact);
             else _failures.Add(pact);
@@ -87,7 +88,7 @@ namespace Bekk.Pact.Consumer.Server
                 _configuration.LogSafe($"There are {_failures.Count} failing pacts. Publishing is omitted.");
             }
             var repo = new PactRepo(_configuration);
-            foreach(var pact in _successful)
+            foreach(var pact in new PactGrouper(_successful))
             {
                 await repo.Put(pact);
             }

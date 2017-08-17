@@ -1,10 +1,10 @@
-﻿using Bekk.Pact.Common.Contracts;
+using System.Collections.Generic;
+using Bekk.Pact.Common.Contracts;
 
 namespace Bekk.Pact.Consumer.Contracts
 {
-    interface IPactDefinition : IPactRequestDefinition, IPactResponseDefinition, IPactPathMetadata
+    interface IPactDefinition : IPactPathMetadata
     {
-        string State { get; }
-        string Description { get; }
+        IEnumerable<IPactInteractionDefinition> Interactions { get; }
     }
 }

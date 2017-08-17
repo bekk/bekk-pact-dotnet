@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Bekk.Pact.Consumer.Contracts;
 using Newtonsoft.Json.Linq;
 
@@ -7,13 +8,11 @@ namespace Bekk.Pact.Consumer.Rendering
     class PactJsonRenderer:PactBaseJsonRenderer
     {
         private readonly IPactDefinition pact;
-        private readonly PactBaseJsonRenderer requestRenderer;
 
         public PactJsonRenderer(IPactDefinition pact)
         {
             if (pact == null) throw new ArgumentNullException(nameof(pact));
             this.pact = pact;
-            requestRenderer = new PactRequestJsonRenderer(pact);
         }
         
         public JObject RenderResponse(IPactResponseDefinition response)
@@ -25,13 +24,13 @@ namespace Bekk.Pact.Consumer.Rendering
             return json;
         }
 
-        private JObject RenderInteraction()
+        private JObject RenderInteraction(IPactInteractionDefinition interaction)
         {
             dynamic json = new JObject();
-            if (pact.Description != null) json.description = pact.Description;
-            if (pact.State != null) json.provider_state = pact.State;
-            json.request = requestRenderer.Render();
-            json.response = RenderResponse(pact);
+            if (interaction.Description != null) json.description = interaction.Description;
+            if (interaction.State != null) json.provider_state = interaction.State;
+            json.request = new PactRequestJsonRenderer(interaction).Render();
+            json.response = RenderResponse(interaction);
             return json;
         }
 
@@ -47,7 +46,7 @@ namespace Bekk.Pact.Consumer.Rendering
             dynamic json = new JObject();
             json.Add("provider", RenderProviderConsumer(pact.Provider));
             json.Add("consumer", RenderProviderConsumer(pact.Consumer));
-            json.interactions = new JArray(RenderInteraction());
+            json.interactions = new JArray(pact.Interactions.Select(RenderInteraction));
             json.Add("metadata", new JObject(new JProperty("pactSpecificationVersion", "1.0.0")));
             return json;
         }

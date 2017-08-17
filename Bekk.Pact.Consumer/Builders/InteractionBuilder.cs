@@ -14,7 +14,7 @@ using IPact = Bekk.Pact.Consumer.Contracts.IPact;
 
 namespace Bekk.Pact.Consumer.Builders
 {
-    class InteractionBuilder : IProviderStateBuilder, IRequestBuilder, IResponseBuilder, IPact, IPactDefinition
+    class InteractionBuilder : IProviderStateBuilder, IRequestBuilder, IResponseBuilder, IPact, IPactInteractionDefinition, IPactDefinition
     {
         private readonly IConsumerConfiguration configuration;
         private readonly List<string> queries = new List<string>();
@@ -132,7 +132,7 @@ namespace Bekk.Pact.Consumer.Builders
         {
             return this;
         }
-
+        IEnumerable<IPactInteractionDefinition> IPactDefinition.Interactions => new []{this};
         public void Dispose()
         {
             handler.VerifyAndClose(1);

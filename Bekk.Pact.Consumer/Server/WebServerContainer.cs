@@ -70,7 +70,7 @@ namespace Bekk.Pact.Consumer.Server
             return result;
         }
 
-        public async Task<IVerifyAndClosable> RegisterListener(IPactDefinition pact, IConsumerConfiguration config)
+        public async Task<IVerifyAndClosable> RegisterListener(IPactInteractionDefinition pact, IConsumerConfiguration config)
         {
             var handler = new PactHandler(pact, config, Unregister);
             _handlers.Add(handler);

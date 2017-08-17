@@ -10,12 +10,12 @@ namespace Bekk.Pact.Consumer.Server
     {
         private readonly PactComparer matcher;
         private readonly IConsumerConfiguration config;
-        private readonly IPactDefinition pact;
+        private readonly IPactInteractionDefinition pact;
         private readonly Action unregister;
         private int matches;
 
         public PactHandler(
-            IPactDefinition pact, 
+            IPactInteractionDefinition pact, 
             IConsumerConfiguration config,
             Action<PactHandler> unregister)
         {
