@@ -56,7 +56,7 @@ namespace Bekk.Pact.Consumer.Builders
         public IProviderStateBuilder Given(string state)
         {
             if (state == null) throw new ArgumentNullException(nameof(state));
-            return new InteractionBuilder(state, consumer, provider, description, version, configuration ?? new Configuration());
+            return new InteractionBuilder(state, consumer, provider, description, version ?? Context.Version, configuration ?? new Configuration());
         }
 
         public IProviderStateBuilder WithProviderState(string state) => Given(state);
