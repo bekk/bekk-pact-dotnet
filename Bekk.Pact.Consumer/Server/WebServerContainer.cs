@@ -56,6 +56,7 @@ namespace Bekk.Pact.Consumer.Server
                     }
                 }
             }
+            System.Console.WriteLine("Exiting method. "+taskResult.Task.IsCompleted);
             return await taskResult.Task;
         }
         IPactResponseDefinition IPactResponder.Respond(IPactRequestDefinition request)

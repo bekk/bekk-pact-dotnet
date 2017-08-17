@@ -22,8 +22,8 @@ namespace Bekk.Pact.Consumer.Rendering
             body = pact?.ResponseBody;
             if (body == null) return null;
             var contentType = HeaderExtensions.ContentType(pact.ResponseHeaders);
-            if (contentType != null && contentType != "application-json; charset=utf-8") throw new NotSupportedException(
-                $"Only content-type: application-json; charset=utf-8 is supported. Found: {contentType}");
+            if (contentType != null && contentType != "application/json; charset=utf-8") throw new NotSupportedException(
+                $"Only content-type: application/json; charset=utf-8 is supported. Found: {contentType}");
             switch (body)
             {
                 case string serialized:
