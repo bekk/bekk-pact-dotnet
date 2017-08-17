@@ -8,9 +8,12 @@ namespace Bekk.Pact.Consumer.Server
     public class Context : IDisposable
     {
         private static WebServerContainer _servers;
+        private static IConsumerConfiguration _configuration;
         private static object _lockToken = new object();
-        public Context()
+        public Context(IConsumerConfiguration configuration)
         {
+            if(_configuration != null) throw new InvalidOperationException("Dispose the old context before creating a new.");
+            _configuration = configuration;
             lock (_lockToken)
             {
                 if(_servers == null)
@@ -18,8 +21,8 @@ namespace Bekk.Pact.Consumer.Server
                     _servers = new WebServerContainer(false);
                 }
             } 
-        }       
-
+        }
+        internal static IConsumerConfiguration Configuration => _configuration;
         internal static async Task<IVerifyAndClosable> RegisterListener(IPactDefinition pact, IConsumerConfiguration config)
         {
             var servers = _servers;
@@ -38,6 +41,7 @@ namespace Bekk.Pact.Consumer.Server
         }
         public void Dispose()
         {
+            _configuration = null;
             _servers?.Empty();
         }
     }

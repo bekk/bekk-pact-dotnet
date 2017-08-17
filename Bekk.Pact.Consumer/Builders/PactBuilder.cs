@@ -2,6 +2,7 @@
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Consumer.Config;
 using Bekk.Pact.Consumer.Contracts;
+using Bekk.Pact.Consumer.Server;
 
 namespace Bekk.Pact.Consumer.Builders
 {
@@ -16,14 +17,26 @@ namespace Bekk.Pact.Consumer.Builders
         public PactBuilder(string description, IConsumerConfiguration config)
         {
             this.description = description;
-            configuration = config ?? new Configuration();
+            configuration = MergeConfigs(Context.Configuration, config);
+        }
+
+        private IConsumerConfiguration MergeConfigs(IConsumerConfiguration left, IConsumerConfiguration right)
+        {
+            if(left == null)
+            {
+                return right;
+            }
+            else
+            {
+                return right == null ? left : new MergedConfiguration(left, right);
+            }
         }
 
         public static IPactBuilder Build(string description) => new PactBuilder(description,null);
 
         public IPactBuilder With(IConsumerConfiguration config)
         {
-            configuration = config;
+            configuration = MergeConfigs(configuration, config);
             return this;
         }
         public IPactBuilder With(Version version)
@@ -43,7 +56,7 @@ namespace Bekk.Pact.Consumer.Builders
         public IProviderStateBuilder Given(string state)
         {
             if (state == null) throw new ArgumentNullException(nameof(state));
-            return new InteractionBuilder(state, consumer, provider, description, version, configuration);
+            return new InteractionBuilder(state, consumer, provider, description, version, configuration ?? new Configuration());
         }
 
         public IProviderStateBuilder WithProviderState(string state) => Given(state);

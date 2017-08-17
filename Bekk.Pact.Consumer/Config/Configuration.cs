@@ -23,4 +23,5 @@ namespace Bekk.Pact.Consumer.Config
 
         Uri IConsumerConfiguration.MockServiceBaseUri => mockServiceUri;
     }
+
 }
