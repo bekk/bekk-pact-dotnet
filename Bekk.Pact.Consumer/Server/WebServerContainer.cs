@@ -78,7 +78,7 @@ namespace Bekk.Pact.Consumer.Server
             return handler;
         }
 
-        private void Unregister(PactHandler handler, bool isValid)
+        private void Unregister(PactHandler handler)
         {
             _handlers.Remove(handler);
             if(!_handlers.Any() && _implicitCreation) Empty();

@@ -11,18 +11,18 @@ namespace Bekk.Pact.Consumer.Server
         private readonly PactComparer matcher;
         private readonly IConsumerConfiguration config;
         private readonly IPactDefinition pact;
-        private readonly Action<bool> unregister;
+        private readonly Action unregister;
         private int matches;
 
         public PactHandler(
             IPactDefinition pact, 
             IConsumerConfiguration config,
-            Action<PactHandler, bool> unregister)
+            Action<PactHandler> unregister)
         {
             this.matcher = new PactComparer(pact);
             this.pact = pact;
             this.config = config;
-            this.unregister = (isValid) => unregister(this, isValid);
+            this.unregister = () => unregister(this);
         }
 
         public IPactResponseDefinition Respond(IPactRequestDefinition request)
@@ -37,7 +37,7 @@ namespace Bekk.Pact.Consumer.Server
         }
         public int VerifyAndClose(int expectedMatches = 1)
         {
-            unregister(matches == expectedMatches);
+            unregister();
             return matches;
         }
     }

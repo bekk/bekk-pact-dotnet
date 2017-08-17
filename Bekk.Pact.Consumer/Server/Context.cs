@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
+using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Consumer.Contracts;
 
 namespace Bekk.Pact.Consumer.Server
@@ -13,15 +16,17 @@ namespace Bekk.Pact.Consumer.Server
         private IConsumerConfiguration _configuration;
         private string _consumerName;
         private Version _version;
+        private readonly IList<IPactDefinition> _successful = new List<IPactDefinition>();
+        private readonly IList<IPactDefinition> _failures = new List<IPactDefinition>();
         private static object _lockToken = new object();
         public Context(IConsumerConfiguration configuration)
         {
-            if(_instance != null) throw new InvalidOperationException("Dispose the old context before creating a new.");
+            if (_instance != null) throw new InvalidOperationException("Dispose the old context before creating a new.");
             _instance = this;
             _configuration = configuration;
             lock (_lockToken)
             {
-                if(_servers == null)
+                if (_servers == null)
                 {
                     _servers = new WebServerContainer(false);
                 }
@@ -39,38 +44,79 @@ namespace Bekk.Pact.Consumer.Server
             return this;
         }
         public Context WithVersion(Type typeFromAssembly) => WithVersion(typeFromAssembly.GetTypeInfo().Assembly.GetName());
-        public Context WithVersion<T>() => WithVersion(typeof(T));   
+        public Context WithVersion<T>() => WithVersion(typeof(T));
         public Context WithVersion(string version) => WithVersion(Version.Parse(version));
-        public Context ForConsumer(string consumerName)        
+        public Context ForConsumer(string consumerName)
         {
             _consumerName = consumerName;
             return this;
-        }  
+        }
+        public IEnumerable<string> Successes => _successful.Select(p => p.ToString());
+        public IEnumerable<string> Failures => _failures.Select(p => p.ToString());
         internal static string ConsumerName => _instance?._consumerName;
         internal static IConsumerConfiguration Configuration => _instance?._configuration;
         internal static Version Version => _instance?._version;
         internal static async Task<IVerifyAndClosable> RegisterListener(IPactDefinition pact, IConsumerConfiguration config)
         {
             var servers = _servers;
-            if(servers == null)
+            if (servers == null)
             {
                 lock (_lockToken)
                 {
-                    if(_servers == null)
+                    if (_servers == null)
                     {
                         _servers = new WebServerContainer(true);
                     }
                     servers = _servers;
                 }
             }
-            return await servers.RegisterListener(pact, config);
+            return new HandlerWrapper(await servers.RegisterListener(pact, config), success => _instance?.ClosePact(pact, success) );
         }
+
+        private void ClosePact(IPactDefinition pact, bool success)
+        {
+            if (success) _successful.Add(pact);
+            else _failures.Add(pact);
+        }
+
+        private async Task PublishIfSuccessful()
+        {
+            if(_configuration == null) System.Console.WriteLine("No configuration in context. Publishing is not possible.");
+            if(_failures.Any())
+            {
+                _configuration.LogSafe($"There are {_failures.Count} failing pacts. Publishing is omitted.");
+            }
+            var repo = new PactRepo(_configuration);
+            foreach(var pact in _successful)
+            {
+                await repo.Put(pact);
+            }
+        }
+
         public void Dispose()
         {
             _instance = null;
             _servers?.Empty();
+            PublishIfSuccessful().Wait();
         }
-
         public override string ToString() => $"Context {_version} {_configuration?.MockServiceBaseUri}";
+        private class HandlerWrapper : IVerifyAndClosable
+        {
+            private readonly IVerifyAndClosable _inner;
+            private readonly Action<bool> _close;
+
+            public HandlerWrapper(IVerifyAndClosable inner, Action<bool> close)
+            {
+                _close = close;
+                _inner = inner;
+            }
+
+            int IVerifyAndClosable.VerifyAndClose(int expectedMatches)
+            {
+                var result = _inner.VerifyAndClose(expectedMatches);
+                _close(result == expectedMatches);
+                return result;
+            }
+        }
     }
 }
