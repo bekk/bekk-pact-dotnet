@@ -10,5 +10,7 @@ namespace Bekk.Pact.Consumer.Contracts
         IPactBuilder With(IConsumerConfiguration config);
         IPactBuilder With(Version version);
         IPactBuilder WithVersion(string version);
+        IPactBuilder ForConsumer(string consumerName);
+        IPactBuilder ForProvider(string providerName);
     }
 }

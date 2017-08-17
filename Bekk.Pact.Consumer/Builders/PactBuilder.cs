@@ -8,16 +8,16 @@ namespace Bekk.Pact.Consumer.Builders
 {
     public class PactBuilder : IPactBuilder, IConsumerBuilder
     {
-        private readonly string description;
-        private string consumer;
-        private string provider;
-        private Version version;
-        private IConsumerConfiguration configuration;
+        private readonly string _description;
+        private string _consumer;
+        private string _provider;
+        private Version _version;
+        private IConsumerConfiguration _configuration;
 
         private PactBuilder(string description, IConsumerConfiguration config)
         {
-            this.description = description;
-            configuration = MergeConfigs(Context.Configuration, config);
+            this._description = description;
+            _configuration = MergeConfigs(Context.Configuration, config);
         }
 
         private IConsumerConfiguration MergeConfigs(IConsumerConfiguration left, IConsumerConfiguration right)
@@ -36,34 +36,45 @@ namespace Bekk.Pact.Consumer.Builders
 
         public IPactBuilder With(IConsumerConfiguration config)
         {
-            configuration = MergeConfigs(configuration, config);
+            _configuration = MergeConfigs(_configuration, config);
             return this;
         }
         public IPactBuilder With(Version version)
         {
-            this.version = version;
+            this._version = version;
             return this;
         }
         public IPactBuilder WithVersion(string version) => With(Version.Parse(version));
 
+        public IPactBuilder ForConsumer(string name)
+        {
+            _consumer = name;
+            return this;
+        }
+        public IPactBuilder ForProvider(string name)
+        {
+            _provider = name;
+            return this;
+        }
+
         /// <param name="provider">The provider of the pact</param>
         public IConsumerBuilder Between(string provider)
         {
-            this.provider = provider;
+            this._provider = provider;
             return this;
         }
 
         public IProviderStateBuilder Given(string state)
         {
             if (state == null) throw new ArgumentNullException(nameof(state));
-            return new InteractionBuilder(state, consumer ?? Context.ConsumerName, provider, description, version ?? Context.Version, configuration ?? new Configuration());
+            return new InteractionBuilder(state, _consumer ?? Context.ConsumerName, _provider, _description, _version ?? Context.Version, _configuration ?? new Configuration());
         }
 
         public IProviderStateBuilder WithProviderState(string state) => Given(state);
         /// <param name="consumer">The consumer of the pact</param>
         IPactBuilder IConsumerBuilder.And(string consumer)
         {
-            this.consumer = consumer;
+            this._consumer = consumer;
             return this;
         }
     }
