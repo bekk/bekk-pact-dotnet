@@ -11,8 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Common", "Bekk.Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Web", "Bekk.Pact.Web\Bekk.Pact.Web.csproj", "{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Consumer.Extensions", "Bekk.Pact.Consumer.Extensions\Bekk.Pact.Consumer.Extensions.csproj", "{FD4335A7-9753-4DFC-952D-AC77E333781F}"
-EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
