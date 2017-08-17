@@ -15,7 +15,6 @@ namespace Bekk.Pact.Consumer.Rendering
         {
             this.stream = stream;
         }
-
         public void Respond(IPactResponseDefinition response)
         {
             if (response == null) throw new ArgumentNullException(nameof(response));

@@ -33,14 +33,14 @@ namespace Bekk.Pact.Consumer.Server
             {
                 State = ListenerState.Started;
                 listener.Start();
-                while (!(cancellation?.IsCancellationRequested).GetValueOrDefault())
+                while (State < ListenerState.Cancelled && !(cancellation?.IsCancellationRequested).GetValueOrDefault())
                 {
                     State = ListenerState.Listening;
                     cancellation = new CancellationTokenSource();
                     using (var client = await Task.Run(() => listener.AcceptTcpClientAsync(), cancellation.Token))
                     {
+                        if (client == null || State == ListenerState.Cancelled) continue;
                         State = ListenerState.Parsing;
-                        if (client == null || State == ListenerState.) continue;
                         var stream = client.GetStream();
                         byte[] readBuffer = new byte[1024];
                         var request = new StringBuilder();
@@ -54,7 +54,7 @@ namespace Bekk.Pact.Consumer.Server
                         var response = callback(pact);
                         using (var responder = new Responder(stream))
                         {
-                            responder.Respond(response);
+                            responder.Respond(response ?? new UnknownResponse(pact));
                         }
                     }
                 }
@@ -69,6 +69,7 @@ namespace Bekk.Pact.Consumer.Server
             catch(Exception e)
             {
                 System.Console.WriteLine(e.Message);
+                System.Console.WriteLine(e.GetType());
                 throw;
             }
             finally
