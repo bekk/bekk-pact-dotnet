@@ -4,7 +4,7 @@ namespace Bekk.Pact.Consumer.Extensions
 {
     public static class BuilderExtensions
     {
-        public static IRequestBuilder WithContentTypeJson(this IRequestBuilder builder)
+        public static IResponseBuilder WithContentTypeJson(this IResponseBuilder builder)
         {
             return builder.WithHeader("Content-Type", "application/json; charset=utf-8");
         }
