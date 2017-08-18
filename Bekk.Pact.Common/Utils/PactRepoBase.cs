@@ -32,13 +32,13 @@ namespace Bekk.Pact.Common.Utils
         private async Task PublishToFilesystem(IPactPathMetadata metadata, string payload)
         {
             if(Configuration.PublishPath == null) return;
-            var folder = Path.Combine(Configuration.PublishPath, metadata.Consumer, metadata.Provider);
+            var folder = Path.Combine(Configuration.PublishPath, "pacts", metadata.Consumer, metadata.Provider);
             var filename = $"{metadata.Consumer}_{metadata.Provider}_{metadata.Version}.json";
             var filePath = Path.Combine(folder, filename);
             Directory.CreateDirectory(folder);
             using(var file = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true))
             {
-                var encoded = Encoding.Unicode.GetBytes(payload);
+                var encoded = Encoding.UTF8.GetBytes(payload);
                 await file.WriteAsync(encoded, 0, encoded.Length);
             }
             Configuration.LogSafe($"Saved pact to {filePath}.");
