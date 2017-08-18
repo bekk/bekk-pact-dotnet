@@ -29,12 +29,12 @@ namespace Bekk.Pact.Consumer.Builders
         /// This should be complemented with an instance of <seealso cref="Context"/>, shared across all tests/pacts.
         /// <list type="bullet">
         /// <listheader><description>Please provide the builder with:</description></listheader>
-        /// <item>Consumer: Either with <see cref="ForConsumer"/>, <see cref="IConsumerBuilder.And"/> or <seealso cref="Context.ForConsumer"/>.</item>
-        /// <item>Provider: Either with <see cref="ForProvider"/> or <see cref="Between"/>.</item>
-        /// <item>Version (optional): Either with <see cref="WithVersion"/>, <see cref="With(Version)"/> or in <seealso cref="Context"/>.</item>
-        /// <item>Configuration: Either with <see cref="With(IConsumerConfiguration)"/> or in <seealso cref="Context"/>.</item> 
+        /// <item>Consumer: Either with <see cref="IPactBuilder.ForConsumer"/>, <see cref="IConsumerBuilder.And"/> or <seealso cref="Context.ForConsumer"/>.</item>
+        /// <item>Provider: Either with <see cref="IPactBuilder.ForProvider"/> or <see cref="IPactBuilder.Between"/>.</item>
+        /// <item>Version (optional): Either with <see cref="IPactBuilder.WithVersion"/>, <see cref="IPactBuilder.With(Version)"/> or in <seealso cref="Context"/>.</item>
+        /// <item>Configuration: Either with <see cref="IPactBuilder.With(IConsumerConfiguration)"/> or in <seealso cref="Context"/>.</item> 
         /// </list>
-        /// Provide provider state by calling <see cref="WithProviderState"/> or <see cref="Given"/>.
+        /// Provide provider state by calling <see cref="IPactBuilder.WithProviderState"/> or <see cref="IPactBuilder.Given"/>.
         /// </remarks>
         /// <param name="description">
         /// The description of the interaction. 
@@ -43,79 +43,38 @@ namespace Bekk.Pact.Consumer.Builders
         /// <param name="methodName">This value is set automatically by compiler services.</param>
         /// <returns>A pact builder instance.</returns>
         public static IPactBuilder Build(string description = null, [CallerMemberName]string methodName = "") => new PactBuilder(description ?? methodName, null);
-        /// <summary>
-        /// Provide a configuration with this method. The configuration will override configuration in the <seealso cref="Context"/>.
-        /// </summary>
-        /// <param name="config">A configuration object. You may use <seealso cref="Bekk.Pact.Consumer.Config.Configuration"/> for this.</param>
-        public IPactBuilder With(IConsumerConfiguration config)
+        IPactBuilder IPactBuilder.With(IConsumerConfiguration config)
         {
             _configuration = MergedConfiguration.MergeConfigs(_configuration, config);
             return this;
         }
-        /// <summary>
-        /// Provide a version for the pact. This will override the version provided in the <seealso cref="Context"/>.
-        /// </summary>
-        public IPactBuilder With(Version version)
+        IPactBuilder IPactBuilder.With(Version version)
         {
             this._version = version;
             return this;
         }
-        /// <summary>
-        /// Provide a version for the pact. This will override the version provided in the <seealso cref="Context"/>.
-        /// <param name="version">Provide a valid parsable version (i.e.<c>1.0.0.0</c>)</param>
-        /// </summary>
-        public IPactBuilder WithVersion(string version) => With(Version.Parse(version));
-        /// <summary>
-        /// The consumer of the pact. (The client calling a service.)
-        /// </summary>
-        /// <param name="name">The name used to recognize this client.</param>
-        /// <seealso cref="Between"/>
-        public IPactBuilder ForConsumer(string name)
+        IPactBuilder IPactBuilder.WithVersion(string version) => ((IPactBuilder)this).With(Version.Parse(version));
+        IPactBuilder IPactBuilder.ForConsumer(string name)
         {
             _consumer = name;
             return this;
         }
-        /// <summary>
-        /// The provider of the pact. (The service being called.)
-        /// This value can also be set in the <seealso cref="Context"/>.
-        /// </summary>
-        /// <param name="name">The name used by the service to fetch and recognize pacts.</param>
-        /// <seealso cref="IConsumerBuilder.And"/>
-        public IPactBuilder ForProvider(string name)
+        IPactBuilder IPactBuilder.ForProvider(string name)
         {
             _provider = name;
             return this;
         }
-
-        /// <summary>
-        /// The provider of the pact. (The service being called.)
-        /// </summary>
-        /// <param name="provider">The name used by the service to fetch and recognize pacts.</param>
-        /// <seealso cref="ForProvider"/>
-        public IConsumerBuilder Between(string provider)
+        IConsumerBuilder IPactBuilder.Between(string provider)
         {
             this._provider = provider;
             return this;
         }
-        /// <summary>
-        /// Call this method to define a provider state and start defining the request.
-        /// </summary>
-        /// <param name="state">The text recognized in the provider test to set up the test state (data).</param>
-        /// <returns>A builder to define the request to the provider.</returns>
-        /// <seealso cref="WithProviderState"/>
-        public IRequestPathBuilder Given(string state)
+        IRequestPathBuilder IPactBuilder.Given(string state)
         {
             if (state == null) throw new ArgumentNullException(nameof(state));
             return new InteractionBuilder(state, _consumer ?? Context.ConsumerName, _provider, _description, _version ?? Context.Version, _configuration ?? new Configuration());
         }
-        /// <summary>
-        /// Call this method to define a provider state and start defining the request.
-        /// </summary>
-        /// <param name="state">The text recognized in the provider test to set up the test state (data).</param>
-        /// <returns>A builder to define the request to the provider.</returns>
-        /// <seealso cref="Given"/>
-        public IRequestPathBuilder WithProviderState(string state) => Given(state);
-        /// <param name="consumer">The consumer of the pact</param>
+        IRequestPathBuilder IPactBuilder.WithProviderState(string state) => ((IPactBuilder)this).Given(state);
         IPactBuilder IConsumerBuilder.And(string consumer)
         {
             this._consumer = consumer;
