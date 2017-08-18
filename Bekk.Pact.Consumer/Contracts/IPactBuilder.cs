@@ -1,5 +1,6 @@
 ﻿using System;
 using Bekk.Pact.Common.Contracts;
+using Bekk.Pact.Consumer.Server;
 
 namespace Bekk.Pact.Consumer.Contracts
 {
@@ -32,18 +33,18 @@ namespace Bekk.Pact.Consumer.Contracts
         IPactBuilder WithVersion(string version);
         /// <summary>
         /// The consumer of the pact. (The client calling a service.)
+        /// This value can also be set in the <seealso cref="Context"/>.
         /// </summary>
         /// <param name="name">The name used to recognize this client.</param>
         /// <seealso cref="Between"/>
         IPactBuilder ForConsumer(string name);
         /// <summary>
         /// The provider of the pact. (The service being called.)
-        /// This value can also be set in the <seealso cref="Context"/>.
         /// </summary>
         /// <param name="name">The name used by the service to fetch and recognize pacts.</param>
         /// <seealso cref="IConsumerBuilder.And"/>
         IPactBuilder ForProvider(string name);
-                /// <summary>
+        /// <summary>
         /// The provider of the pact. (The service being called.)
         /// </summary>
         /// <param name="provider">The name used by the service to fetch and recognize pacts.</param>
