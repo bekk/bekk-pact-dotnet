@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Consumer.Config;
 using Bekk.Pact.Consumer.Contracts;
@@ -16,6 +17,7 @@ namespace Bekk.Pact.Consumer.Builders
 
         private PactBuilder(string description, IConsumerConfiguration config)
         {
+            if(string.IsNullOrWhiteSpace(description))throw new ArgumentException("Please provide a description", nameof(description));
             this._description = description;
             _configuration = MergeConfigs(Context.Configuration, config);
         }
@@ -32,7 +34,7 @@ namespace Bekk.Pact.Consumer.Builders
             }
         }
 
-        public static IPactBuilder Build(string description) => new PactBuilder(description,null);
+        public static IPactBuilder Build([CallerMemberName]string description = "") => new PactBuilder(description,null);
 
         public IPactBuilder With(IConsumerConfiguration config)
         {
