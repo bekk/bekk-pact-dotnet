@@ -31,8 +31,8 @@ namespace Bekk.Pact.Consumer.Builders
         /// <listheader><description>Please provide the builder with:</description></listheader>
         /// <item>Consumer: Either with <see cref="ForConsumer"/>, <see cref="IConsumerBuilder.And"/> or <seealso cref="Context.ForConsumer"/>.</item>
         /// <item>Provider: Either with <see cref="ForProvider"/> or <see cref="Between"/>.</item>
-        /// <item>Version (optional): Either with <see cref="WithVersion"/>, <see cref="With"/> or in <seealso cref="Context"/>.</item>
-        /// <item>Configuration: Either with <see cref="With"/> or in <seealso cref="Context"/>.</item> 
+        /// <item>Version (optional): Either with <see cref="WithVersion"/>, <see cref="With(Version)"/> or in <seealso cref="Context"/>.</item>
+        /// <item>Configuration: Either with <see cref="With(IConsumerConfiguration)"/> or in <seealso cref="Context"/>.</item> 
         /// </list>
         /// Provide provider state by calling <see cref="WithProviderState"/> or <see cref="Given"/>.
         /// </remarks>
@@ -46,7 +46,7 @@ namespace Bekk.Pact.Consumer.Builders
         /// <summary>
         /// Provide a configuration with this method. The configuration will override configuration in the <seealso cref="Context"/>.
         /// </summary>
-        /// <param name="config">A configuration object. You may use <seealso cref="Bekk.Pact.Consumer.Config.Configuration"> for this.</param>
+        /// <param name="config">A configuration object. You may use <seealso cref="Bekk.Pact.Consumer.Config.Configuration"/> for this.</param>
         public IPactBuilder With(IConsumerConfiguration config)
         {
             _configuration = MergedConfiguration.MergeConfigs(_configuration, config);

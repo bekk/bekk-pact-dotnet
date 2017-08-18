@@ -13,7 +13,7 @@ namespace Bekk.Pact.Consumer.Contracts
         /// <summary>
         /// Call this method to verify and store the interaction in the repo.
         /// </summary>
-        /// <remarks>It is preferred to use the context for this.
+        /// <remarks>It is preferred to use the context for this.</remarks>
         Task VerifyAndSave();
     }
 }
