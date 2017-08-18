@@ -31,6 +31,7 @@ namespace Bekk.Pact.Consumer.Server
                 {
                     if(!(_listeners.TryGetValue(uri, out var listener) && ListenerIsActive(listener)))
                     {
+                        if(listener != null) _listeners.Remove(uri);
                         listener = new Listener();
                         _listeners.Add(uri, listener);
                         listener.Start(uri, ((IPactResponder)this).Respond);
