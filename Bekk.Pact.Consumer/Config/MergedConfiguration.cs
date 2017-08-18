@@ -22,6 +22,24 @@ namespace Bekk.Pact.Consumer.Config
         public Uri BrokerUri => GetValue(c => c.BrokerUri);
 
         public Action<string> Log => GetValue(c => c.Log);
+        
+        /// <summary>
+        /// Merges two configurations, letting <paramref name="right"/> override <paramref name="left"/>.
+        /// </summary>
+        /// <param name="left">The original config. May be <c>null</c>.</param>
+        /// <param name="right">The overriding config. May be <c>null</c>.</param>
+        /// <returns>If any parameter is null, the method may return the other parameter. Otherwise a merged configuration object.</returns>
+        public static IConsumerConfiguration MergeConfigs(IConsumerConfiguration left, IConsumerConfiguration right)
+        {
+            if(left == null)
+            {
+                return right;
+            }
+            else
+            {
+                return right == null ? left : new MergedConfiguration(left, right);
+            }
+        }
     }
 
 }

@@ -10,6 +10,11 @@ using Bekk.Pact.Consumer.Matching;
 
 namespace Bekk.Pact.Consumer.Server
 {
+    /// <summary>
+    /// Use this to create a context object to share between all pact tests.
+    /// It may provide configuration and publishing of pacts when all tests has passed.
+    /// Dispose after all tests are run.
+    /// </summary>
     public class Context : IDisposable
     {
         private static WebServerContainer _servers;
@@ -20,6 +25,10 @@ namespace Bekk.Pact.Consumer.Server
         private readonly IList<IPactInteractionDefinition> _successful = new List<IPactInteractionDefinition>();
         private readonly IList<IPactInteractionDefinition> _failures = new List<IPactInteractionDefinition>();
         private static object _lockToken = new object();
+        /// <summary>
+        /// Create a new instance of the shared context.
+        /// </summary>
+        /// <param name="configuration">A configuration that may be overridden by the individual interactions. This may be null.</param>
         public Context(IConsumerConfiguration configuration)
         {
             if (_instance != null) throw new InvalidOperationException("Dispose the old context before creating a new.");
@@ -33,20 +42,37 @@ namespace Bekk.Pact.Consumer.Server
                 }
             }
         }
-
+        /// <summary>
+        /// Provide a version number to be shared by the interactions. May be overridden.
+        /// </summary>
         public Context WithVersion(Version version)
         {
             _version = version;
             return this;
         }
+        /// <summary>
+        /// Provide a version number from the assembly.
+        /// </summary>
         public Context WithVersion(AssemblyName assemblyWithVersion)
         {
             _version = assemblyWithVersion.Version;
             return this;
         }
+        /// <summary>
+        /// Provide a version number from the assembly of the provided type.
+        /// </summary>
         public Context WithVersion(Type typeFromAssembly) => WithVersion(typeFromAssembly.GetTypeInfo().Assembly.GetName());
+        /// <summary>
+        /// Provide a version number from the assembly of the provided type parameter.
+        /// </summary>
         public Context WithVersion<T>() => WithVersion(typeof(T));
+        /// <summary>
+        /// Provide a valid parsable version number to be shared by the interactions.
+        /// </summary>
         public Context WithVersion(string version) => WithVersion(Version.Parse(version));
+        /// <summary>
+        /// Provide a consumer name to be used by all interactions.
+        /// </summary>
         public Context ForConsumer(string consumerName)
         {
             _consumerName = consumerName;
@@ -93,7 +119,9 @@ namespace Bekk.Pact.Consumer.Server
                 await repo.Put(pact);
             }
         }
-
+        /// <summary>
+        /// This method will dispose all tcp listeners and publish all pacts if all were succsessful.
+        /// </summary>
         public void Dispose()
         {
             _instance = null;

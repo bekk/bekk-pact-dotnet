@@ -14,17 +14,16 @@ using IPact = Bekk.Pact.Consumer.Contracts.IPact;
 
 namespace Bekk.Pact.Consumer.Builders
 {
-    class InteractionBuilder : IProviderStateBuilder, IRequestBuilder, IResponseBuilder, IPact, IPactInteractionDefinition, IPactDefinition
+    class InteractionBuilder : IRequestPathBuilder, IRequestBuilder, IResponseBuilder, IPact, IPactInteractionDefinition, IPactDefinition
     {
         private readonly IConsumerConfiguration configuration;
         private readonly List<string> queries = new List<string>();
         private IVerifyAndClosable handler;
-
         public string State { get; }
         public Version Version { get; }
         public string Description { get; }
-        public string Provider { get; private set; }
-        public string Consumer { get; private set; }
+        public string Provider { get; }
+        public string Consumer { get; }
         public string RequestPath { get; private set; }
         public string Query => queries.Any() ? $"?{string.Join("&", queries)}" : null;
         public IHeaderCollection RequestHeaders { get; } = new HeaderCollection();
@@ -35,6 +34,8 @@ namespace Bekk.Pact.Consumer.Builders
 
         public InteractionBuilder(string state, string consumer, string provider, string description, Version version, IConsumerConfiguration config)
         {
+            if(string.IsNullOrWhiteSpace(consumer)) throw new ArgumentException("Please provide a consumer name", nameof(consumer));
+            if(string.IsNullOrWhiteSpace(provider)) throw new ArgumentException("Please provide a provider name", nameof(provider));
             this.configuration = config;
             State = state;
             Consumer = consumer;
@@ -43,21 +44,9 @@ namespace Bekk.Pact.Consumer.Builders
             Version = version ?? new Version(1,0);
         }
 
-        IProviderStateBuilder IProviderStateBuilder.WithConsumer(string consumer)
-        {
-            Consumer = consumer;
-            return this;
-        }
-
-        IRequestBuilder IProviderStateBuilder.WhenRequesting(string path)
+        IRequestBuilder IRequestPathBuilder.WhenRequesting(string path)
         {
             RequestPath = path;
-            return this;
-        }
-
-        IRequestBuilder IRequestBuilder.FromProvider(string provider)
-        {
-            Provider = provider;
             return this;
         }
 
@@ -75,13 +64,13 @@ namespace Bekk.Pact.Consumer.Builders
             return this;
         }
 
-        IResponseBuilder IResponseBuilder.WithStatus(HttpStatusCode statusCode) => ((IResponseBuilder) this).WithStatus((int) statusCode);
-
-        IResponseBuilder IResponseBuilder.WithStatus(int statusCode)
+        IResponseBuilder IRequestBuilder.ThenRespondsWith(int statusCode)
         {
             ResponseStatusCode = statusCode;
             return this;
         }
+
+        IResponseBuilder IRequestBuilder.ThenRespondsWith(HttpStatusCode statusCode) => ((IRequestBuilder) this).ThenRespondsWith((int) statusCode);
 
         IResponseBuilder IResponseBuilder.WithHeader(string key, params string[] values)
         {
@@ -128,10 +117,6 @@ namespace Bekk.Pact.Consumer.Builders
             return this;
         }
 
-        IResponseBuilder IRequestBuilder.ThenResponds()
-        {
-            return this;
-        }
         IEnumerable<IPactInteractionDefinition> IPactDefinition.Interactions => new []{this};
         public void Dispose()
         {

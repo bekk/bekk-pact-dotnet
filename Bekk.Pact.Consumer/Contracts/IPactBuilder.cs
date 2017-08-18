@@ -5,7 +5,7 @@ namespace Bekk.Pact.Consumer.Contracts
 {
     public interface IPactBuilder
     {
-        IProviderStateBuilder Given(string state);
+        IRequestPathBuilder Given(string state);
         IConsumerBuilder Between(string provider);
         IPactBuilder With(IConsumerConfiguration config);
         IPactBuilder With(Version version);
