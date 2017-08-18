@@ -15,5 +15,9 @@ namespace Bekk.Pact.Consumer.Extensions
         /// Provide a header that is required in the request.
         /// </summary>
         public static IRequestBuilder WithHeader(this IRequestBuilder builder, string key, int value) => builder.WithHeader(key, value.ToString());
+        /// <summary>
+        /// Provide a query to add to the url.
+        /// </summary>
+        public static IRequestBuilder WithQuery(this IRequestBuilder builder, string key, int value) => builder.WithQuery(key, value.ToString());
     }
 }
