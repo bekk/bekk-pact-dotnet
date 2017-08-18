@@ -22,7 +22,9 @@ namespace Bekk.Pact.Consumer.Config
         public Uri BrokerUri => GetValue(c => c.BrokerUri);
 
         public Action<string> Log => GetValue(c => c.Log);
-        
+
+        public string PublishPath => GetValue(c => c.PublishPath);
+
         /// <summary>
         /// Merges two configurations, letting <paramref name="right"/> override <paramref name="left"/>.
         /// </summary>

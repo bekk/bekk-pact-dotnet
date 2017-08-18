@@ -8,6 +8,7 @@ using System.Linq;
 using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Common.Exceptions;
 using System.Text;
+using System.IO;
 
 namespace Bekk.Pact.Common.Utils
 {
@@ -23,6 +24,28 @@ namespace Bekk.Pact.Common.Utils
         
         protected async Task PutPacts(IPactPathMetadata metadata, string payload)
         {
+            var broker = PublishToBroker(metadata, payload);
+            var filesystem = PublishToFilesystem(metadata, payload);
+            await Task.WhenAll(new[]{broker, filesystem});
+        }
+
+        private async Task PublishToFilesystem(IPactPathMetadata metadata, string payload)
+        {
+            if(Configuration.PublishPath == null) return;
+            var folder = Path.Combine(Configuration.PublishPath, metadata.Consumer, metadata.Provider);
+            var filename = $"{metadata.Consumer}_{metadata.Provider}_{metadata.Version}.json";
+            var filePath = Path.Combine(folder, filename);
+            Directory.CreateDirectory(folder);
+            using(var file = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true))
+            {
+                var encoded = Encoding.Unicode.GetBytes(payload);
+                await file.WriteAsync(encoded, 0, encoded.Length);
+            }
+            Configuration.LogSafe($"Saved pact to {filePath}.");
+        }
+        private async Task PublishToBroker(IPactPathMetadata metadata, string payload)
+        {
+            if(Configuration.BrokerUri == null) return;
             var uri = new Uri(Configuration.BrokerUri, $"/pacts/provider/{metadata.Provider}/consumer/{metadata.Consumer}/version/{metadata.Version}");
             var client = Client;
             var result = await client.PutAsync(uri.ToString(), new StringContent(payload, Encoding.UTF8, "application/json"));
