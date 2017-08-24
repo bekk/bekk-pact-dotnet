@@ -54,7 +54,7 @@ namespace Bekk.Pact.Consumer.Server
                         var response = callback(pact);
                         using (var responder = new Responder(stream))
                         {
-                            responder.Respond(response ?? new UnknownResponse(pact));
+                            responder.Respond(response);
                         }
                     }
                 }

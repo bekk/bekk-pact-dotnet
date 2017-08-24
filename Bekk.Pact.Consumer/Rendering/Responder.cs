@@ -33,7 +33,6 @@ namespace Bekk.Pact.Consumer.Rendering
                 writer.Flush();
                 writer.Dispose();
             }
-
         }
 
         public void Dispose()

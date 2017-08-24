@@ -1,5 +1,7 @@
+#define CONTRACTS_FULL
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
@@ -63,12 +65,14 @@ namespace Bekk.Pact.Consumer.Server
         }
         IPactResponseDefinition IPactResponder.Respond(IPactRequestDefinition request)
         {
-            if(!_handlers.Any()) throw new InvalidOperationException("Request received, but no pacts are registered");
+            Contract.Requires<ArgumentNullException>(request != null);
+            if(!_handlers.Any()) throw new InvalidOperationException($"Request received to , but no pacts are registered");
             var result = _handlers
                 .Select(h => h.Respond(request))
                 .Where(r => r!= null)
                 .FirstOrDefault();
-            return result;
+            if(result != null) return result;
+            return new UnknownResponse(_handlers.Select(h => h.DiffGram(request)).ToArray());            
         }
 
         public async Task<IVerifyAndClosable> RegisterListener(IPactInteractionDefinition pact, IConsumerConfiguration config)

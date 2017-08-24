@@ -3,6 +3,7 @@ using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Consumer.Contracts;
 using Bekk.Pact.Consumer.Matching;
+using Newtonsoft.Json.Linq;
 
 namespace Bekk.Pact.Consumer.Server
 {
@@ -24,6 +25,8 @@ namespace Bekk.Pact.Consumer.Server
             this.config = config;
             this.unregister = () => unregister(this);
         }
+
+        public JObject DiffGram(IPactRequestDefinition request) => matcher.DiffGram(request);
 
         public IPactResponseDefinition Respond(IPactRequestDefinition request)
         {

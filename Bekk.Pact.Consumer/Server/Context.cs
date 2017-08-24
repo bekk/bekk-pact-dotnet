@@ -126,7 +126,15 @@ namespace Bekk.Pact.Consumer.Server
         {
             _instance = null;
             _servers?.Empty();
-            PublishIfSuccessful().Wait();
+            try
+            {
+                PublishIfSuccessful().Wait();
+            }
+            catch(Exception e)
+            {
+                _configuration.LogSafe($"Error occured while publishing: {e.Message} {e.StackTrace}");
+                throw;
+            }
         }
         public override string ToString() => $"Context {_version} {_configuration?.MockServiceBaseUri}";
         private class HandlerWrapper : IVerifyAndClosable
