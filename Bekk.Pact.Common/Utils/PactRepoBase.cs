@@ -56,8 +56,7 @@ namespace Bekk.Pact.Common.Utils
             catch(Exception e)
             {
                 var exception = e.InnerException??e;
-                Configuration.LogSafe($"Error when connecting to broker: {exception.Message}");
-                throw exception;
+                throw new PactException($"Error when connecting to broker <{uri}>: {exception.Message}", exception);
             }
             if(!result.IsSuccessStatusCode)
             {

@@ -7,5 +7,8 @@ namespace Bekk.Pact.Common.Exceptions
         public PactException(string message):base(message)
         {
         }
+        public PactException(string message, Exception inner):base(message, inner)
+        {
+        }
     }
 }
