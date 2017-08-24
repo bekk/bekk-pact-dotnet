@@ -1,4 +1,3 @@
-#define CONTRACTS_FULL
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
