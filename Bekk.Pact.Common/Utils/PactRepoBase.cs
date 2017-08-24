@@ -48,7 +48,17 @@ namespace Bekk.Pact.Common.Utils
             if(Configuration.BrokerUri == null) return;
             var uri = new Uri(Configuration.BrokerUri, $"/pacts/provider/{metadata.Provider}/consumer/{metadata.Consumer}/version/{metadata.Version}");
             var client = Client;
-            var result = await client.PutAsync(uri.ToString(), new StringContent(payload, Encoding.UTF8, "application/json"));
+            HttpResponseMessage result;
+            try
+            {
+                result = await client.PutAsync(uri.ToString(), new StringContent(payload, Encoding.UTF8, "application/json"));
+            }
+            catch(Exception e)
+            {
+                var exception = e.InnerException??e;
+                Configuration.LogSafe($"Error when connecting to broker: {exception.Message}");
+                throw exception;
+            }
             if(!result.IsSuccessStatusCode)
             {
                 Configuration.LogSafe($"Broker replied with {(int)result.StatusCode}: {result.ReasonPhrase}");
