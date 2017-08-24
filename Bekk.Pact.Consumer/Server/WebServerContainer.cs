@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
@@ -64,7 +63,7 @@ namespace Bekk.Pact.Consumer.Server
         }
         IPactResponseDefinition IPactResponder.Respond(IPactRequestDefinition request)
         {
-            Contract.Requires<ArgumentNullException>(request != null);
+            if(request == null) throw new ArgumentNullException(nameof(request));
             if(!_handlers.Any()) throw new InvalidOperationException($"Request received to , but no pacts are registered");
             var result = _handlers
                 .Select(h => h.Respond(request))
