@@ -132,8 +132,9 @@ namespace Bekk.Pact.Consumer.Server
             }
             catch(Exception e)
             {
-                _configuration.LogSafe($"Error occured while publishing: {e.Message} {e.StackTrace}");
-                throw;
+                var exception = e.InnerException??e;
+                _configuration.LogSafe($"Error occured while publishing: {exception.Message} {exception.StackTrace}");
+                throw exception;
             }
         }
         public override string ToString() => $"Context {_version} {_configuration?.MockServiceBaseUri}";
