@@ -83,6 +83,11 @@ namespace Bekk.Pact.Consumer.Builders
             ResponseBody = body;
             return this;
         }
+        IResponseBuilder IResponseBuilder.WithBodyArray(params object[] elements)
+        {
+            ResponseBody = elements;
+            return this;
+        }
 
         async Task<IPact> IResponseBuilder.InPact()
         {

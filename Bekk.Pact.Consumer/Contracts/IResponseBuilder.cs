@@ -15,6 +15,11 @@ namespace Bekk.Pact.Consumer.Contracts
         /// <param name="body">An object serializable to json.</param>
         IResponseBuilder WithBody(object body);
         /// <summary>
+        /// Define the message body of the response from the provider as an array of items.
+        /// </summary>
+        /// <param name="elements">The elements in the array body</param>
+        IResponseBuilder WithBodyArray(params object[] elements);
+        /// <summary>
         /// Call this method to create a pact object and start listening for a request.
         /// This method must be awaited.
         /// </summary>
