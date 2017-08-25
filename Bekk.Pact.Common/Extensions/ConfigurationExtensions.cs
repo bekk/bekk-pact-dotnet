@@ -21,7 +21,7 @@ namespace Bekk.Pact.Common.Extensions
         private static void LogToFile(string path, string text)
         {
             if(string.IsNullOrWhiteSpace(path)) return;
-            var txt = $"{DateTime.Now}: text";
+            var txt = $"{DateTime.Now:o}: text{Environment.NewLine}";
             System.IO.File.AppendAllText(path, text);
         }
     }
