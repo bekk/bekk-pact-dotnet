@@ -9,6 +9,7 @@ namespace Bekk.Pact.Common.Utils
         private string _publishPath;
         private Action<string> _log;
         private LogLevel _logLevel;
+        private string _logFile;
         /// <summary>
         /// Sets the value of <see cref="IConfiguration.BrokerUri"/>
         /// </summary>
@@ -18,11 +19,10 @@ namespace Bekk.Pact.Common.Utils
             return this as T;
         }
         /// <summary>
-        /// Sets the value of <see cref="IConfiguration.BrokerUri"/>
-        /// Must be parseable to an absoulte uri.
+        /// Sets the value of <see cref="IConfiguration.BrokerUri"/>.
+        /// Must be parsable to an absolute uri.
         /// </summary>
-        public T BrokerUri(Uri serverUri, string providerName) => BrokerUri(new Uri(serverUri,
-            $"/pacts/provider/{providerName}/latest"));
+        public T BrokerUrl(string url) => BrokerUri(new Uri(url));
         /// <summary>
         /// Sets the value of <see cref="IConfiguration.Log"/>.
         /// </summary>
@@ -47,5 +47,11 @@ namespace Bekk.Pact.Common.Utils
             return this as T;
         }
         LogLevel IConfiguration.LogLevel => _logLevel;
+        public T LogFile(string path)
+        {
+            _logFile = path;
+            return this as T;
+        }
+        string IConfiguration.LogFile => _logFile;
     }
 }

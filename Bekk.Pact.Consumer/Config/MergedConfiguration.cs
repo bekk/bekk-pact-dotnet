@@ -25,6 +25,7 @@ namespace Bekk.Pact.Consumer.Config
         public LogLevel LogLevel => GetValue(c => c.LogLevel);
 
         public string PublishPath => GetValue(c => c.PublishPath);
+        public string LogFile => GetValue(c => c.LogFile);
 
         /// <summary>
         /// Merges two configurations, letting <paramref name="right"/> override <paramref name="left"/>.

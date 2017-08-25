@@ -21,5 +21,9 @@ namespace Bekk.Pact.Common.Contracts
         /// A filter for throttling the log output
         /// </summary>
         LogLevel LogLevel { get; }
+        /// <summary>
+        /// Location of a log file to append log messages to
+        /// </summary>
+        string LogFile { get; }
     }
 }
