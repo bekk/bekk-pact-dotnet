@@ -22,7 +22,7 @@ namespace Bekk.Pact.Common.Extensions
         {
             if(string.IsNullOrWhiteSpace(path)) return;
             var txt = $"{DateTime.Now:o}: text{Environment.NewLine}";
-            System.IO.File.AppendAllText(path, text);
+            System.IO.File.AppendAllText(path, txt);
         }
     }
 }
