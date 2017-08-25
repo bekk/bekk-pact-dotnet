@@ -8,6 +8,7 @@ namespace Bekk.Pact.Common.Utils
         private Uri _brokerUri;
         private string _publishPath;
         private Action<string> _log;
+        private LogLevel _logLevel;
         /// <summary>
         /// Sets the value of <see cref="IConfiguration.BrokerUri"/>
         /// </summary>
@@ -40,5 +41,11 @@ namespace Bekk.Pact.Common.Utils
             return this as T;
         }
         string IConfiguration.PublishPath => _publishPath;
+        public T LogLevel(LogLevel level)
+        {
+            _logLevel = level;
+            return this as T;
+        }
+        LogLevel IConfiguration.LogLevel => _logLevel;
     }
 }

@@ -23,7 +23,7 @@ namespace Bekk.Pact.Provider
             foreach(var parsedPact in FetchPacts())
             {
                 var consumer = parsedPact.SelectToken("consumer.name").ToString();
-                configuration.LogSafe($"Parsing pact for {consumer}");
+                configuration.LogSafe(LogLevel.Verbose, $"Parsing pact for {consumer}");
                 foreach(var interaction in parsedPact["interactions"].Children().Select(i => i.ToObject<Interaction>()))
                 {
                     interaction.Consumer = consumer;

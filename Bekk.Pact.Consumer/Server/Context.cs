@@ -112,10 +112,10 @@ namespace Bekk.Pact.Consumer.Server
 
         private async Task PublishIfSuccessful()
         {
-            if(_configuration == null) System.Console.WriteLine("No configuration in context. Publishing is not possible.");
+            if(_configuration == null) return;
             if(_failures.Any())
             {
-                _configuration.LogSafe($"There are {_failures.Count} failing pacts. Publishing is omitted.");
+                _configuration.LogSafe(LogLevel.Error, $"There are {_failures.Count} failing pacts. Publishing is omitted.");
             }
             var repo = new PactRepo(_configuration);
             foreach(var pact in new PactGrouper(_successful))
@@ -137,7 +137,7 @@ namespace Bekk.Pact.Consumer.Server
             catch(Exception e)
             {
                 var exception = e.InnerException??e;
-                _configuration.LogSafe($"Error occured while publishing: {exception.Message} {exception.StackTrace}");
+                _configuration.LogSafe(LogLevel.Error, $"Error occured while publishing: {exception.Message} {exception.StackTrace}");
                 throw exception;
             }
         }

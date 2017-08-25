@@ -17,5 +17,9 @@ namespace Bekk.Pact.Common.Contracts
         /// Default is output to the console.
         /// </summary>
         Action<string> Log { get; }
+        /// <summary>
+        /// A filter for throttling the log output
+        /// </summary>
+        LogLevel LogLevel { get; }
     }
 }

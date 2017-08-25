@@ -32,7 +32,7 @@ namespace Bekk.Pact.Consumer.Server
         {
             if(matcher.Matches(request))
             {
-                config.LogSafe($"Request received at {request.RequestPath} matching expectation.");
+                config.LogSafe(LogLevel.Info, $"Request received at {request.RequestPath} matching expectation.");
                 matches++;
                 return pact;
             }

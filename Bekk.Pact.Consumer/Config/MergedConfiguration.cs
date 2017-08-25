@@ -22,6 +22,7 @@ namespace Bekk.Pact.Consumer.Config
         public Uri BrokerUri => GetValue(c => c.BrokerUri);
 
         public Action<string> Log => GetValue(c => c.Log);
+        public LogLevel LogLevel => GetValue(c => c.LogLevel);
 
         public string PublishPath => GetValue(c => c.PublishPath);
 

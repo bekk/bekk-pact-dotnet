@@ -41,7 +41,7 @@ namespace Bekk.Pact.Common.Utils
                 var encoded = Encoding.UTF8.GetBytes(payload);
                 await file.WriteAsync(encoded, 0, encoded.Length);
             }
-            Configuration.LogSafe($"Saved pact to {filePath}.");
+            Configuration.LogSafe(LogLevel.Info, $"Saved pact to {filePath}.");
         }
         private async Task PublishToBroker(IPactPathMetadata metadata, string payload)
         {
@@ -60,11 +60,11 @@ namespace Bekk.Pact.Common.Utils
             }
             if(!result.IsSuccessStatusCode)
             {
-                Configuration.LogSafe($"Broker replied with {(int)result.StatusCode}: {result.ReasonPhrase}");
-                Configuration.LogSafe(await result.Content.ReadAsStringAsync());
+                Configuration.LogSafe(LogLevel.Error, $"Broker replied with {(int)result.StatusCode}: {result.ReasonPhrase}");
+                Configuration.LogSafe(LogLevel.Verbose, await result.Content.ReadAsStringAsync());
                 throw new PactRequestException("Couldn't put pact to broker.", result);
             }
-            Configuration.LogSafe($"Uploaded pact to {uri}.");
+            Configuration.LogSafe(LogLevel.Info, $"Uploaded pact to {uri}.");
         }
 
         protected IEnumerable<JObject> FetchPacts()
@@ -72,7 +72,7 @@ namespace Bekk.Pact.Common.Utils
             var client = Client;
             foreach(var url in FetchUrls(Configuration).ConfigureAwait(false).GetAwaiter().GetResult())
             {
-                Configuration.LogSafe($"Fetching pact at {url}");
+                Configuration.LogSafe(LogLevel.Verbose, $"Fetching pact at {url}");
                 var pactSpecResponse = client.GetAsync(url).ConfigureAwait(false).GetAwaiter().GetResult();
                 pactSpecResponse.EnsureSuccessStatusCode();
                 var parsedPact = JObject.Parse(pactSpecResponse.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult());
