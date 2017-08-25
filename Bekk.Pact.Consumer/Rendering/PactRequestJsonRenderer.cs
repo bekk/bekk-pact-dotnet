@@ -5,18 +5,18 @@ namespace Bekk.Pact.Consumer.Rendering
 {
     class PactRequestJsonRenderer : PactBaseJsonRenderer
     {
-        private readonly IPactRequestDefinition pact;
+        private readonly IPactRequestDefinition _pact;
 
         public PactRequestJsonRenderer(IPactRequestDefinition pact)
         {
-            this.pact = pact;
+            _pact = pact;
         }
         public override JObject Render()
         {
             dynamic json = new JObject();
-            json.method = pact.HttpVerb;
-            json.path = pact.RequestPath + pact.Query;
-            json.headers = RenderHeaders(pact.RequestHeaders);
+            json.method = _pact.HttpVerb;
+            json.path = _pact.RequestPath + _pact.Query;
+            json.headers = RenderHeaders(_pact.RequestHeaders);
             return json;
         }
     }

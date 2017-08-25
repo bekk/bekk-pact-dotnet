@@ -14,15 +14,6 @@ namespace Bekk.Pact.Consumer.Rendering
             if (pact == null) throw new ArgumentNullException(nameof(pact));
             this.pact = pact;
         }
-        
-        public JObject RenderResponse(IPactResponseDefinition response)
-        {
-            dynamic json = new JObject();
-            json.status = response.ResponseStatusCode;
-            json.headers = RenderHeaders(response.ResponseHeaders);
-            json.body = new BodyRenderer(response).Render();
-            return json;
-        }
 
         private JObject RenderInteraction(IPactInteractionDefinition interaction)
         {
@@ -30,7 +21,7 @@ namespace Bekk.Pact.Consumer.Rendering
             if (interaction.Description != null) json.description = interaction.Description;
             if (interaction.State != null) json.provider_state = interaction.State;
             json.request = new PactRequestJsonRenderer(interaction).Render();
-            json.response = RenderResponse(interaction);
+            json.response = new PactResponseJsonRenderer(interaction).Render();
             return json;
         }
 
