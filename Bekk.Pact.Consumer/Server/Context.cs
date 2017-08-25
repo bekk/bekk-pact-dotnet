@@ -45,7 +45,7 @@ namespace Bekk.Pact.Consumer.Server
         /// <summary>
         /// The configuration provided in the context.!-- This may be overridden in tests.
         /// </summary>
-        public IConsumerConfiguration Configuration => _configuration;
+        public IConsumerConfiguration GetConfiguration() => _configuration;
         /// <summary>
         /// Provide a version number to be shared by the interactions. May be overridden.
         /// </summary>
