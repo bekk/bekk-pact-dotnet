@@ -19,7 +19,7 @@ namespace Bekk.Pact.Common.Utils
             Configuration = configuration;
         }
         private HttpClient _client;
-        private HttpClient Client => _client ?? (_client = new HttpClient());
+        protected HttpClient Client => _client ?? (_client = new HttpClient());
         protected IConfiguration Configuration { get; }
         
         protected async Task PutPacts(IPactPathMetadata metadata, string payload)
@@ -65,29 +65,6 @@ namespace Bekk.Pact.Common.Utils
                 throw new PactRequestException("Couldn't put pact to broker.", result);
             }
             Configuration.LogSafe(LogLevel.Info, $"Uploaded pact to {uri}.");
-        }
-
-        protected IEnumerable<JObject> FetchPacts()
-        {
-            var client = Client;
-            foreach(var url in FetchUrls(Configuration).ConfigureAwait(false).GetAwaiter().GetResult())
-            {
-                Configuration.LogSafe(LogLevel.Verbose, $"Fetching pact at {url}");
-                var pactSpecResponse = client.GetAsync(url).ConfigureAwait(false).GetAwaiter().GetResult();
-                pactSpecResponse.EnsureSuccessStatusCode();
-                var parsedPact = JObject.Parse(pactSpecResponse.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult());
-                yield return parsedPact;
-            }
-        }
-
-        private async Task<IEnumerable<Uri>> FetchUrls(IConfiguration configuration)
-        {
-            var client = Client;
-            var response = await client.GetAsync(configuration.BrokerUri);
-            response.EnsureSuccessStatusCode();
-            return JObject.Parse(
-                response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult())
-                .SelectToken("_links.pacts").Children().Select(t => t["href"].ToObject<Uri>());
         }
         public void Dispose()
         {
