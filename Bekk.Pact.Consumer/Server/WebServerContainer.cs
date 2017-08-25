@@ -69,8 +69,13 @@ namespace Bekk.Pact.Consumer.Server
                 .Select(h => h.Respond(request))
                 .Where(r => r!= null)
                 .FirstOrDefault();
-            if(result != null) return result;
-            return new UnknownResponse(_handlers.Select(h => h.DiffGram(request)).ToArray());            
+            if(result == null)
+            {
+                result = new UnknownResponse(_handlers.Select(h => h.DiffGram(request)).ToArray());   
+            }
+            var config = _handlers.Select(h => h.Configuration).FirstOrDefault(l => l != null);
+            config.LogSafe(LogLevel.Verbose, () => $"Replied to {request} with {result}");
+            return result;         
         }
 
         public async Task<IVerifyAndClosable> RegisterListener(IPactInteractionDefinition pact, IConsumerConfiguration config)

@@ -10,7 +10,6 @@ namespace Bekk.Pact.Consumer.Server
     class PactHandler : IPactResponder, IVerifyAndClosable
     {
         private readonly PactComparer matcher;
-        private readonly IConsumerConfiguration config;
         private readonly IPactInteractionDefinition pact;
         private readonly Action unregister;
         private int matches;
@@ -22,17 +21,18 @@ namespace Bekk.Pact.Consumer.Server
         {
             this.matcher = new PactComparer(pact);
             this.pact = pact;
-            this.config = config;
+            Configuration = config;
             this.unregister = () => unregister(this);
         }
 
+        public IConsumerConfiguration Configuration { get; }
         public JObject DiffGram(IPactRequestDefinition request) => matcher.DiffGram(request);
 
         public IPactResponseDefinition Respond(IPactRequestDefinition request)
         {
             if(matcher.Matches(request))
             {
-                config.LogSafe(LogLevel.Info, $"Request received at {request.RequestPath} matching expectation.");
+                Configuration.LogSafe(LogLevel.Info, $"Request received at {request.RequestPath} matching expectation.");
                 matches++;
                 return pact;
             }
