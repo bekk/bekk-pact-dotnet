@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 using Bekk.Pact.Provider.Model;
 using Bekk.Pact.Common.Utils;
+using Bekk.Pact.Common.Exceptions;
 
 namespace Bekk.Pact.Provider
 {
@@ -55,12 +56,24 @@ namespace Bekk.Pact.Provider
 
         private async Task<IEnumerable<Uri>> FetchUrls(Uri uri)
         {
-            var client = Client;
-            var response = await client.GetAsync(uri);
-            response.EnsureSuccessStatusCode();
-            return JObject.Parse(
-                response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult())
-                .SelectToken("_links.pacts").Children().Select(t => t["href"].ToObject<Uri>());
+            try
+            {
+                var client = Client;
+                var response = await client.GetAsync(uri);
+                response.EnsureSuccessStatusCode();
+                return JObject.Parse(
+                    response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult())
+                    .SelectToken("_links.pacts").Children().Select(t => t["href"].ToObject<Uri>());
+            }
+            catch(HttpRequestException e)
+            {
+                throw new PactBrokerException($"An error occured during request to the pact broker on {uri}. ({e.Message})", e);
+            }
+            catch(Exception e)
+            {
+                Configuration.LogSafe(LogLevel.Error, $"An error occured during request to the pact broker on {uri}. ({e.Message})");
+                throw;
+            }
         }
     }
 }
