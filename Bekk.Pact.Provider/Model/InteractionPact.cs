@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Extensions;
+using Bekk.Pact.Provider.Model.Validation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -33,7 +34,7 @@ namespace Bekk.Pact.Provider.Model
             {
                 errors.Add(ValidationTypes.StatusCode,$"Status code was {response.StatusCode}. Expected {expected.Status}.");
             }
-            errors.Add(ValidationTypes.Headers, ValidateHeaders(expected.Headers, response.Content.Headers));
+            errors.Add(ValidationTypes.Headers, new ResponseHeadersValidator().Validate(expected, response.Content.Headers));
             errors.Add(ValidationTypes.Body, await ValidateBody(response.Content, expected));
             return errors;
         }
@@ -47,11 +48,7 @@ namespace Bekk.Pact.Provider.Model
                 try
                 {
                     var actualAsString = await actual.ReadAsStringAsync();
-                    switch(expected.Body)
-                    {
-                        case JObject o: return ValidateBodyAsObject(actualAsString, o);
-                        case JArray a: return ValidateBodyAsArray(actualAsString, a);
-                    }
+                    return new ResponseBodyJsonValidator(Configuration).Validate(expected.Body, actualAsString);
                 }
                 catch (JsonReaderException exception)
                 {
@@ -61,51 +58,6 @@ namespace Bekk.Pact.Provider.Model
             else
             {
                 throw new NotImplementedException($"Only content type json is implemented. This seems to be {string.Join(", ", contentType)}");
-            }
-            return null;
-        }
-        private string ValidateBodyAsArray(string actual, JArray expected)
-        {
-            var actualJson = JArray.Parse(actual);
-            foreach(var e in expected)
-            {
-                throw new NotImplementedException("Bæm!");
-            }
-            return null;
-        }
-        private string ValidateBodyAsObject(string actual, JObject expected)
-        {
-            var actualJson = JObject.Parse(actual);
-            foreach (var token in expected.AsJEnumerable())
-            {
-                var actualToken = actualJson.GetValue(token.Path, Configuration.BodyKeyStringComparison);
-                var expectedValue = expected.GetValue(token.Path);
-                if (actualToken.IsNull() && !expectedValue.IsNull()) return $"Cannot find {token.Path} in body.";
-                if (!(actualToken.IsNull() && expectedValue.IsNull()) && !JToken.DeepEquals(actualToken, expectedValue))
-                {
-                    return $"Not match at {token.Path} in body. Expected: {token} but received {actualToken}.";
-                }
-            }
-            return null;
-        }
-        
-        private IEnumerable<string> ValidateHeaders(IDictionary<string,string> expected, HttpContentHeaders actual)
-        {
-            foreach(var expectedHeader in expected){
-                var actualHeader = actual
-                    .Where(a => a.Key.Equals(expectedHeader.Key, StringComparison.OrdinalIgnoreCase));
-                if (!actualHeader.Any())
-                {
-                    yield return $"Header {expectedHeader.Key} is missing";
-                }
-                else
-                {
-                    var value = string.Join(",", actualHeader.SelectMany(h => h.Value));
-                    if (!expectedHeader.Value.Equals(value))
-                    {
-                        yield return $"Header {expectedHeader.Key} had value {value}. Expected {expectedHeader.Value}.";
-                    }
-                }
             }
         }
 
