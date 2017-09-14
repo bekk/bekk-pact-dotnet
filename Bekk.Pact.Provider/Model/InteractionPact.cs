@@ -51,7 +51,7 @@ namespace Bekk.Pact.Provider.Model
                     {
                         var actualToken = actualJson.GetValue(token.Path, Configuration.BodyKeyStringComparison);
                         var expectedValue = expected.Body.GetValue(token.Path);
-                        if (actualToken == null && expectedValue != null) return $"Cannot find {token.Path} in body (with expected value {expectedValue} {expectedValue.GetType()})";
+                        if (actualToken == null && expectedValue != null && expectedValue.Type != JTokenType.Null) return $"Cannot find {token.Path} in body.";
                         if (!JToken.DeepEquals(actualToken, expectedValue))
                         {
                             return $"Not match at {token.Path} in body. Expected: {token} but received {actualToken}.";
