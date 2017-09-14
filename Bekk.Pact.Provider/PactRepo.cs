@@ -47,9 +47,9 @@ namespace Bekk.Pact.Provider
             foreach(var url in FetchUrls(brokerUri).ConfigureAwait(false).GetAwaiter().GetResult())
             {
                 Configuration.LogSafe(LogLevel.Verbose, $"Fetching pact at {url}");
-                var pactSpecResponse = client.GetAsync(url).ConfigureAwait(false).GetAwaiter().GetResult();
-                pactSpecResponse.EnsureSuccessStatusCode();
-                var parsedPact = JObject.Parse(pactSpecResponse.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult());
+                var brokerResponse = client.GetAsync(url).ConfigureAwait(false).GetAwaiter().GetResult();
+                brokerResponse.EnsureSuccessStatusCode();
+                var parsedPact = JObject.Parse(brokerResponse.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult());
                 yield return parsedPact;
             }
         }

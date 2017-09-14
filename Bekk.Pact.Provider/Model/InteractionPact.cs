@@ -46,16 +46,11 @@ namespace Bekk.Pact.Provider.Model
             if(contentType != null && contentType.Any() && contentType[0] == "application/json"){
                 try
                 {
-                    var actualJson = JObject.Parse(await actual.ReadAsStringAsync());
-                    foreach (var token in expected.Body.AsJEnumerable())
+                    var actualAsString = await actual.ReadAsStringAsync();
+                    switch(expected.Body)
                     {
-                        var actualToken = actualJson.GetValue(token.Path, Configuration.BodyKeyStringComparison);
-                        var expectedValue = expected.Body.GetValue(token.Path);
-                        if (actualToken.IsNull() && !expectedValue.IsNull()) return $"Cannot find {token.Path} in body.";
-                        if (!(actualToken.IsNull() && expectedValue.IsNull()) && !JToken.DeepEquals(actualToken, expectedValue))
-                        {
-                            return $"Not match at {token.Path} in body. Expected: {token} but received {actualToken}.";
-                        }
+                        case JObject o: return ValidateBodyAsObject(actualAsString, o);
+                        case JArray a: return ValidateBodyAsArray(actualAsString, a);
                     }
                 }
                 catch (JsonReaderException exception)
@@ -66,6 +61,30 @@ namespace Bekk.Pact.Provider.Model
             else
             {
                 throw new NotImplementedException($"Only content type json is implemented. This seems to be {string.Join(", ", contentType)}");
+            }
+            return null;
+        }
+        private string ValidateBodyAsArray(string actual, JArray expected)
+        {
+            var actualJson = JArray.Parse(actual);
+            foreach(var e in expected)
+            {
+                throw new NotImplementedException("Bæm!");
+            }
+            return null;
+        }
+        private string ValidateBodyAsObject(string actual, JObject expected)
+        {
+            var actualJson = JObject.Parse(actual);
+            foreach (var token in expected.AsJEnumerable())
+            {
+                var actualToken = actualJson.GetValue(token.Path, Configuration.BodyKeyStringComparison);
+                var expectedValue = expected.GetValue(token.Path);
+                if (actualToken.IsNull() && !expectedValue.IsNull()) return $"Cannot find {token.Path} in body.";
+                if (!(actualToken.IsNull() && expectedValue.IsNull()) && !JToken.DeepEquals(actualToken, expectedValue))
+                {
+                    return $"Not match at {token.Path} in body. Expected: {token} but received {actualToken}.";
+                }
             }
             return null;
         }
