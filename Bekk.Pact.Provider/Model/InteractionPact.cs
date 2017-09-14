@@ -28,14 +28,15 @@ namespace Bekk.Pact.Provider.Model
             Configuration.LogSafe(LogLevel.Verbose, $"Pact: {ProviderState}");
             Configuration.LogSafe(LogLevel.Verbose, $"Requesting service at {interaction.Request.Path}.");
             var response = await client.SendAsync(interaction.Request.BuildMessage());
-            var errors = new Result();
             var expected = interaction.Response;
+            var errors = new Result(expected);
             if (response.StatusCode != expected.Status)
             {
                 errors.Add(ValidationTypes.StatusCode,$"Status code was {response.StatusCode}. Expected {expected.Status}.");
             }
             errors.Add(ValidationTypes.Headers, new ResponseHeadersValidator().Validate(expected, response.Content.Headers));
             errors.Add(ValidationTypes.Body, await ValidateBody(response.Content, expected));
+            errors.Add(response);
             return errors;
         }
 
