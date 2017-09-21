@@ -84,6 +84,7 @@ namespace Bekk.Pact.Provider.Model.Validation
         }
         private string ValidateTokens(JToken actual, JToken expected)
         {
+            if (actual.IsNull() && expected.IsNull()) return null;
             if (actual.IsNull() && !expected.IsNull()) return $"Cannot find {actual.Path} in body.";
             if (!actual.IsNull() && expected.IsNull()) return $"Expected null, but found {actual} at {actual.Path} in body.";
             if (actual.Type != expected.Type) return $"Expected {expected}, but found {actual} at {actual.Path} in body.";
