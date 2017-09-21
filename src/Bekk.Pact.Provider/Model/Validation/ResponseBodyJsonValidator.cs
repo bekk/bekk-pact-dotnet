@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Bekk.Pact.Provider.Model.Validation
 {
-    class ResponseBodyJsonValidator
+    public class ResponseBodyJsonValidator
     {
         private readonly IProviderConfiguration configuration;
         public ResponseBodyJsonValidator(IProviderConfiguration configuration)
@@ -28,7 +28,7 @@ namespace Bekk.Pact.Provider.Model.Validation
             {
                 var actualToken = actualJson.GetValue(token.Path, configuration.BodyKeyStringComparison);
                 var expectedValue = expected.GetValue(token.Path);
-                return Validate(actualToken, expectedValue);
+                return ValidateTokens(actualToken, expectedValue);
             }
             return null;
         }
@@ -36,10 +36,10 @@ namespace Bekk.Pact.Provider.Model.Validation
         private string ValidateBodyAsArray(string actual, JArray expected)
         {
             var actualJson = JArray.Parse(actual);
-            return Validate(actual, expected);
+            return ValidateArrays(actualJson, expected);
         }
 
-        private string Validate(JArray actual, JArray expected)
+        private string ValidateArrays(JArray actual, JArray expected)
         {
             if (!expected.HasValues)
             {
@@ -58,13 +58,13 @@ namespace Bekk.Pact.Provider.Model.Validation
             while (e.MoveNext())
             {
                 if (!a.MoveNext()) return $"Element not found in array. Expected {e.Current} at {expected.Path}.";
-                var error = Validate(a.Current, e.Current);
+                var error = ValidateTokens(a.Current, e.Current);
                 if (error != null) return error;
             }
             if (a.MoveNext()) return $"Unexpected element found in array {a.Current} at {expected.Path}.";
             return null;
         }
-        private string Validate(JToken actual, JToken expected)
+        private string ValidateTokens(JToken actual, JToken expected)
         {
             if (actual.IsNull() && !expected.IsNull()) return $"Cannot find {actual.Path} in body.";
             if (!actual.IsNull() && expected.IsNull()) return $"Expected null, but found {actual} at {actual.Path} in body.";
@@ -73,11 +73,11 @@ namespace Bekk.Pact.Provider.Model.Validation
             {
                 case JObject o:
                 {
-                    return o.Properties().Select(p => Validate(actual[p.Name],p)).FirstOrDefault(r => r!=null);
+                    return o.Properties().Select(p => ValidateTokens(actual[p.Name],p.Value)).FirstOrDefault(r => r!=null);
                 }
                 case JArray a:
                 {
-                    return Validate(a, (JArray)actual);
+                    return ValidateArrays(a, (JArray)actual);
                 }
                 default:
                 {

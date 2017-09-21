@@ -3,15 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Provider", "Bekk.Pact.Provider\Bekk.Pact.Provider.csproj", "{5AE1BEAB-409B-4B20-A3CD-F41F8E778A7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Provider", "src\Bekk.Pact.Provider\Bekk.Pact.Provider.csproj", "{5AE1BEAB-409B-4B20-A3CD-F41F8E778A7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Consumer", "Bekk.Pact.Consumer\Bekk.Pact.Consumer.csproj", "{5AE1BEAB-409B-4B20-A3CD-F41F8E778A7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Consumer", "src\Bekk.Pact.Consumer\Bekk.Pact.Consumer.csproj", "{5AE1BEAB-409B-4B20-A3CD-F41F8E778A7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Common", "Bekk.Pact.Common\Bekk.Pact.Common.csproj", "{62FB8B31-219C-4A02-A66E-4FAF90AEBBBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Common", "src\Bekk.Pact.Common\Bekk.Pact.Common.csproj", "{62FB8B31-219C-4A02-A66E-4FAF90AEBBBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Web", "Bekk.Pact.Web\Bekk.Pact.Web.csproj", "{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Web", "src\Bekk.Pact.Web\Bekk.Pact.Web.csproj", "{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}"
 EndProject
-
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B3A6CBCB-5C43-41AF-9ED7-3FEEE310A53E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Provider.Tests", "tests\Bekk.Pact.Provider.Tests\Bekk.Pact.Provider.Tests.csproj", "{8401B888-8A5D-43F5-83E9-34CB9B8A8628}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,5 +76,20 @@ Global
 		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Release|x64.Build.0 = Release|x64
 		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Release|x86.ActiveCfg = Release|x86
 		{FD4335A7-9753-4DFC-952D-AC77E333781F}.Release|x86.Build.0 = Release|x86
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Debug|x64.ActiveCfg = Debug|x64
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Debug|x64.Build.0 = Debug|x64
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Debug|x86.ActiveCfg = Debug|x86
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Debug|x86.Build.0 = Debug|x86
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Release|x64.ActiveCfg = Release|x64
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Release|x64.Build.0 = Release|x64
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Release|x86.ActiveCfg = Release|x86
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8401B888-8A5D-43F5-83E9-34CB9B8A8628} = {B3A6CBCB-5C43-41AF-9ED7-3FEEE310A53E}
 	EndGlobalSection
 EndGlobal
