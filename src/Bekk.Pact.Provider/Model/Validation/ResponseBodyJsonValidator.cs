@@ -14,6 +14,10 @@ namespace Bekk.Pact.Provider.Model.Validation
         }
         public string Validate(JContainer expected, string actual)
         {
+            if(string.IsNullOrWhiteSpace(actual))
+            {
+                return expected.IsNullOrEmpty() ? null : "Body is not supposed to be empty.";
+            }
             switch (expected)
             {
                 case JObject o: return ValidateBodyAsObject(actual, o);
@@ -23,19 +27,33 @@ namespace Bekk.Pact.Provider.Model.Validation
         }
         private string ValidateBodyAsObject(string actual, JObject expected)
         {
-            var actualJson = JObject.Parse(actual);
-            foreach (var token in expected.AsJEnumerable())
+            JObject actualJson;
+            try
             {
+                actualJson = JObject.Parse(actual);
+            }
+            catch(Newtonsoft.Json.JsonReaderException)
+            {
+                return "Body is not parsable to object";
+            }
+            return expected.AsJEnumerable().Select(token => {
                 var actualToken = actualJson.GetValue(token.Path, configuration.BodyKeyStringComparison);
                 var expectedValue = expected.GetValue(token.Path);
-                return ValidateTokens(actualToken, expectedValue);
-            }
-            return null;
+                return  ValidateTokens(actualToken, expectedValue);
+            }).FirstOrDefault(r => r != null);
         }
 
         private string ValidateBodyAsArray(string actual, JArray expected)
         {
-            var actualJson = JArray.Parse(actual);
+            JArray actualJson;
+            try
+            {
+                actualJson = JArray.Parse(actual);
+            }
+            catch(Newtonsoft.Json.JsonReaderException)
+            {
+                return "Body is not parsable to array";
+            }
             return ValidateArrays(actualJson, expected);
         }
 
@@ -77,7 +95,7 @@ namespace Bekk.Pact.Provider.Model.Validation
                 }
                 case JArray a:
                 {
-                    return ValidateArrays(a, (JArray)actual);
+                    return ValidateArrays((JArray)actual, a);
                 }
                 default:
                 {
