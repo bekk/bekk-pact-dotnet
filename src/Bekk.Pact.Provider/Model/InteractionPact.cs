@@ -49,6 +49,7 @@ namespace Bekk.Pact.Provider.Model
                 try
                 {
                     var actualAsString = await actual.ReadAsStringAsync();
+                    Configuration.LogSafe(LogLevel.Verbose, $"Response body: \n{actualAsString}");
                     return new ResponseBodyJsonValidator(Configuration).Validate(expected.Body, actualAsString);
                 }
                 catch (JsonReaderException exception)
