@@ -86,5 +86,17 @@ namespace Bekk.Pact.Provider.Tests.Model.Validation
 
             Assert.Equal("Array is supposed to be empty at _f[0]._i in body.", result);
         }
+
+        [Fact]
+        public void Validate_ReceivesErrorMessage_ReturnsErrorText()
+        {
+            var expected = JObject.Parse("{\r\n          \"timeEntries\": [\r\n            {\r\n              \"timecode\": \"SomeCode\",\r\n              \"timecodeId\": 17,\r\n              \"comment\": \"Text\",\r\n              \"hours\": 7.5,\r\n              \"date\": \"2000-06-06T00:00:00\"\r\n            }\r\n          ],\r\n          \"timesheetLockDate\": \"2001-01-01T00:00:00\"\r\n        }\r\n");
+            var actual = "{\r\n  \"developerMessage\": \"The service threw an exception of type UriFormatException. Check out the log for more information. You`re awesome, thanks :)\",\r\n  \"traceUrl\": \"?q=0HL80UCROIL6L\",\r\n  \"requestTraceId\": \"0HL80UCROIL6L\"\r\n}";
+            var target = new ResponseBodyJsonValidator(configuration);
+
+            var result = target.Validate(expected, actual);
+
+            Assert.Equal("Cannot find timeEntries in body.", result);
+        }
     }
 }
