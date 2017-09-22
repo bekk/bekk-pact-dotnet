@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using Bekk.Pact.Provider.Web.Setup;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -43,6 +46,29 @@ namespace Bekk.Pact.Provider.Web.Tests.Setup
             Assert.True(target.JklWasCalled);
         }
 
+        [Fact]
+        public void ConfigureServices_WithMultipleKeysAndMethodDecoratedWithBoth_MethodIsCalledForBoth()
+        {
+            var target = new TargetClass();
+            target.ConfigureServices("Mno")(null);
+            target.ConfigureServices("Pqr")(null);
+
+            Assert.Equal(2, target.MnoPqrWasCalled);
+        }
+
+        [Fact] 
+        void GetClaims_WithKey_ReturnsClaimsFromAllDecoratedMethods()
+        {
+            var target = new TargetClass();
+
+            var result = target.GetClaims("Abc").OrderBy(c => c.Value);
+
+            Assert.Collection(result,
+                claim => Assert.Equal("0", claim.Value),
+                claim => Assert.Equal("1", claim.Value)                
+            );
+        }
+
         private class TargetClass : ProviderStateSetupBase
         {
             public static bool AbcWasCalled;
@@ -75,6 +101,29 @@ namespace Bekk.Pact.Provider.Web.Tests.Setup
             public void JklMethod(IServiceCollection svc)
             {
                 JklWasCalled = true;
+            }
+            public int MnoPqrWasCalled;
+            [ProviderState("Mno")]
+            [ProviderState("Pqr")]
+            public void MnoPqrMethod(IServiceCollection svc)
+            {
+                MnoPqrWasCalled++;
+            }
+
+            [ProviderState("Abc")]
+            public IEnumerable<Claim> Abc0ClaimsMethod()
+            {
+                yield return new Claim("Abc", "0");
+            }
+            [ProviderState("Abc")]
+            public IEnumerable<Claim> Abc1ClaimsMethod()
+            {
+                yield return new Claim("Abc", "1");
+            }
+            [ProviderState("Def")]
+            public IEnumerable<Claim> Def1ClaimsMethod()
+            {
+                yield return new Claim("Def", "0");
             }
         }
     }
