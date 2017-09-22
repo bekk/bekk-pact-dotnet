@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bekk.Pact.Web.Config
+namespace Bekk.Pact.Provider.Web.Config
 {
     public interface IProviderStateSetup
     {

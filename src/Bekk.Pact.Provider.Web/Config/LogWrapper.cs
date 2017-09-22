@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 
-namespace Bekk.Pact.Web.Config
+namespace Bekk.Pact.Provider.Web.Config
 {
     public class LogWrapper : ILoggerProvider, ILogger
     {

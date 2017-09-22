@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Consumer", "src\B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Common", "src\Bekk.Pact.Common\Bekk.Pact.Common.csproj", "{62FB8B31-219C-4A02-A66E-4FAF90AEBBBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Web", "src\Bekk.Pact.Web\Bekk.Pact.Web.csproj", "{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Provider.Web", "src\Bekk.Pact.Provider.Web\Bekk.Pact.Provider.Web.csproj", "{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B3A6CBCB-5C43-41AF-9ED7-3FEEE310A53E}"
 EndProject

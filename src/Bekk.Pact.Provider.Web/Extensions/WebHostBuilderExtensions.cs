@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
-using Bekk.Pact.Web.Config;
 using Bekk.Pact.Common.Contracts;
+using Bekk.Pact.Provider.Web.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bekk.Pact.Web.Extensions
+namespace Bekk.Pact.Provider.Web.Extensions
 {
     public static class WebHostBuilderExtensions
     {

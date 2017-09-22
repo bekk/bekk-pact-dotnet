@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bekk.Pact.Web.Config
+namespace Bekk.Pact.Provider.Web.Config
 {
     public class Startup
     {
