@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Security.Claims;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Provider.Web.Config;
+using Bekk.Pact.Provider.Web.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;

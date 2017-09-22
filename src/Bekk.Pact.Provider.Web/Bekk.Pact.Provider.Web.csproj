@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Description>A library for implementing Pact tests using Bekk.Pact.Provider package</Description>
+    <Description>A helper library for implementing Pact tests using Bekk.Pact.Provider package</Description>
     <IncludeSymbols>true</IncludeSymbols>
     <IncludeSource>true</IncludeSource>
     <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
