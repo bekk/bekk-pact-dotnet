@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\Bekk.Pact.Common\Bekk.Pact.Common.csproj" />
+    <ProjectReference Include="..\Bekk.Pact.Provider\Bekk.Pact.Provider.csproj" />
   </ItemGroup>
     
   <ItemGroup>
@@ -8,6 +9,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="1.1.2" />
     <PackageReference Include="System.Security.Claims" Version="4.3.0" />
+    <PackageReference Include="Microsoft.Aspnetcore.Testhost" Version="1.1.1" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
