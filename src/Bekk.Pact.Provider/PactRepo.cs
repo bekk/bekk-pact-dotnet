@@ -24,7 +24,6 @@ namespace Bekk.Pact.Provider
             var baseUri = configuration?.BrokerUri;
             if(baseUri == null) 
             {
-                configuration.LogSafe(LogLevel.Error, "Broker uri is not configured.");
                 throw new InvalidOperationException("Broker uri is missing");
             }
             var uri = new Uri(baseUri, $"/pacts/provider/{providerName}/latest");

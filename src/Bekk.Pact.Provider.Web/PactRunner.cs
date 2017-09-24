@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Exceptions;
+using Bekk.Pact.Provider.Exceptions;
 using Bekk.Pact.Provider.Web.Contracts;
 using Bekk.Pact.Provider.Web.Extensions;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +32,7 @@ namespace Bekk.Pact.Provider.Web
                         results.Add(await pact.Assert(client));
                     }
             }
-            if(results.Any(r=>! r.Success)) throw new PactException("Fail!!!");
+            if(results.Any(r=>! r.Success)) throw new AssertionFailedException(results);
         }
     }
 }

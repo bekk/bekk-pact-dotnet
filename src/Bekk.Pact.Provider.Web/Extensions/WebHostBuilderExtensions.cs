@@ -22,11 +22,11 @@ namespace Bekk.Pact.Provider.Web.Extensions
             Type startupType=null)
         {
             if (pact == null) throw new ArgumentNullException(nameof(pact));
-            if (pact.Configuration.Log != null)
+            if (pact.Configuration != null)
             {
                 hostBuilder.ConfigureLogging(fac =>
                 {
-                    var log = new LogWrapper(pact.Configuration.Log);
+                    var log = new LogWrapper(pact.Configuration);
                     fac.AddProvider(log);
                 });
             }

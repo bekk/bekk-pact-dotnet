@@ -11,14 +11,15 @@ namespace Bekk.Pact.Provider.Model
         private readonly List<string> errors;
         private readonly Response expected;
 
-        public Result(Response expected) : this(ValidationTypes.None)
+        public Result(string title, Response expected) : this(title, ValidationTypes.None)
         {
             this.expected = expected;
         }
-        public Result(ValidationTypes types, params string[] errors)
+        public Result(string title, ValidationTypes types, params string[] errors)
         {
             this.errors = errors.ToList(); ;
             ErrorTypes = types;
+            Title = title;
         }
 
         public bool Success => ErrorTypes == ValidationTypes.None;
@@ -48,12 +49,19 @@ namespace Bekk.Pact.Provider.Model
         }
 
         public ValidationTypes ErrorTypes { get; private set; }
+        public string Title { get; }
 
         public string ExpectedResponseBody => expected.Body.ToString();
 
         public HttpResponseMessage ActualResponse { get; private set; }
 
-        public override string ToString() => Success ? "Ok" : string.Join(Environment.NewLine, errors);
+        public override string ToString() => Success ? $"Ok ({Title})" : 
+            string.Concat(
+                Title,
+                Environment.NewLine,
+                new string('-', 40),
+                Environment.NewLine,
+                string.Join(Environment.NewLine, errors));
 
     }
 }

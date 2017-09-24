@@ -6,11 +6,14 @@ using System.Reflection;
 using Bekk.Pact.Provider.Web.Config;
 using Bekk.Pact.Provider.Web.Contracts;
 using Microsoft.Extensions.DependencyInjection;
+using Bekk.Pact.Common.Contracts;
+using Bekk.Pact.Common.Extensions;
 
 namespace Bekk.Pact.Provider.Web.Setup
 {
     public abstract class ProviderStateSetupBase : IProviderStateSetup
     {
+        protected IProviderConfiguration Configuration { get; set; } 
         public virtual Action<IServiceCollection> ConfigureServices(string providerState)
         {
             var allMethods = GetMethods(providerState);
@@ -20,10 +23,12 @@ namespace Bekk.Pact.Provider.Web.Setup
             var methods = allMethods
                 .Where(IsServiceMethod)
                 .Select<MethodInfo, Action<IServiceCollection>>(method => svc=> method.Invoke(this, new object[]{svc})).Cast<Action<IServiceCollection>>();
+            var allCallbacks = callBacks.Union(methods);
+            if(!allCallbacks.Any()) Configuration.LogSafe(LogLevel.Error, $"No setup method was found in {GetType()} for {providerState} using reflection. Consider implementing a void method with a IServiceCollection parameter and decorating it with {typeof(ProviderStateAttribute).Name}.");
             return svc => {
                 try
                 {
-                    foreach(var callBack in callBacks.Union(methods)) callBack(svc);
+                    foreach(var callBack in allCallbacks) callBack(svc);
                 }
                 catch(TargetParameterCountException e)
                 {
