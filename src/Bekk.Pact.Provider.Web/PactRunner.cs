@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
@@ -21,15 +22,15 @@ namespace Bekk.Pact.Provider.Web
         public async Task Assert(string providerName)
         {
             var repo = new PactRepo(configuration);
-            var asserts = repo.FetchAll(providerName)
-                .Select(pact => {
-                    using (var server = new TestServer(new WebHostBuilder().UseStartup<TStartup>(pact, setup)))
+            var results = new List<ITestResult>();
+            foreach(var pact in repo.FetchAll(providerName))
+            {
+                using (var server = new TestServer(new WebHostBuilder().UseStartup<TStartup>(pact, setup)))
                     using (var client = server.CreateClient())
                     {
-                        return pact.Assert(client);
+                        results.Add(await pact.Assert(client));
                     }
-                });
-            var results = await Task.WhenAll(asserts);
+            }
             if(results.Any(r=>! r.Success)) throw new PactException("Fail!!!");
         }
     }
