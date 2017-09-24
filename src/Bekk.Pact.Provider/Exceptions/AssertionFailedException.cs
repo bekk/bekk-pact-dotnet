@@ -21,7 +21,7 @@ namespace Bekk.Pact.Provider.Exceptions
             var errors = results.Where(r => ! r.Success).ToList();
             if(!errors.Any()) throw new ArgumentException("No test results without success.", nameof(results));
             var messages = string.Join(Environment.NewLine, errors.Select(e => e.ToString()));
-            return $"Assertions has failed for {errors.Count()} pacts. {errors}";
+            return $"Assertions has failed for {errors.Count()} pacts. {messages}";
         }
     }
 }

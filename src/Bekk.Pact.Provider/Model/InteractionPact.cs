@@ -71,6 +71,6 @@ namespace Bekk.Pact.Provider.Model
             return null;
         }
 
-        public override string ToString() => $"{interaction.Consumer}: {interaction.Request.Method} {interaction.Request.Path} :: {interaction.Description}";
+        public override string ToString() => $"{interaction.Consumer}: {interaction.Request.Method} {interaction.Request.Path} [{interaction.Description}]";
     }
 }
