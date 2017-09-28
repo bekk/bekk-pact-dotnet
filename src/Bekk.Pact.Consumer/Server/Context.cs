@@ -7,6 +7,7 @@ using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Consumer.Contracts;
 using Bekk.Pact.Consumer.Matching;
+using Bekk.Pact.Consumer.Repo;
 
 namespace Bekk.Pact.Consumer.Server
 {

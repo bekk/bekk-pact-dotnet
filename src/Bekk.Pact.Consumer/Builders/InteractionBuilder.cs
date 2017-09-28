@@ -9,6 +9,7 @@ using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Utils;
 using Bekk.Pact.Consumer.Contracts;
 using Bekk.Pact.Consumer.Rendering;
+using Bekk.Pact.Consumer.Repo;
 using Bekk.Pact.Consumer.Server;
 using IPact = Bekk.Pact.Consumer.Contracts.IPact;
 

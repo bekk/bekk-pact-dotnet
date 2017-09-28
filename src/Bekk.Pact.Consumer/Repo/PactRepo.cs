@@ -10,7 +10,7 @@ using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Consumer.Contracts;
 using Bekk.Pact.Consumer.Rendering;
 
-namespace Bekk.Pact.Consumer
+namespace Bekk.Pact.Consumer.Repo
 {
     class PactRepo : Common.Utils.PactRepoBase
     {
