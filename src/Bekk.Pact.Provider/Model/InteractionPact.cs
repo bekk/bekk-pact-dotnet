@@ -15,18 +15,21 @@ namespace Bekk.Pact.Provider.Model
     class InteractionPact : IPact
     {
         private readonly Interaction interaction;
+        private readonly JObject json;
 
-        public InteractionPact(Interaction interaction, IProviderConfiguration config)
+        public InteractionPact(Interaction interaction, IProviderConfiguration config, JObject json)
         {
             this.interaction = interaction;
             Configuration = config;
+            Description = interaction.Description;
+            this.json = json;
         }
         public string ProviderState => interaction.ProviderState;
 
         public async Task<ITestResult> Assert(HttpClient client)
         {
-            Configuration.LogSafe(LogLevel.Info, ToString());
-            Configuration.LogSafe(LogLevel.Verbose, $"Pact: {ProviderState}");
+            Configuration.LogSafe(LogLevel.Scarce, ToString());
+            Configuration.LogSafe(LogLevel.Verbose, $"Provider state: {ProviderState}");
             var response = await client.SendAsync(interaction.Request.BuildMessage());
             var expected = interaction.Response;
             var errors = new Result(ToString(), expected);
@@ -41,6 +44,8 @@ namespace Bekk.Pact.Provider.Model
         }
 
         public IProviderConfiguration Configuration { get; }
+
+        public string Description { get; }
 
         private async Task<string> ValidateBody(HttpContent actual, Response expected)
         {
@@ -72,5 +77,6 @@ namespace Bekk.Pact.Provider.Model
         }
 
         public override string ToString() => $"{interaction.Consumer}: {interaction.Request.Method} {interaction.Request.Path} [{interaction.Description}]";
+        string IPact.ToString(bool asJson) => asJson ? json.ToString() : ToString();
     }
 }

@@ -14,6 +14,9 @@ using Newtonsoft.Json;
 
 namespace Bekk.Pact.Provider.Repo
 {
+    /// <summary>
+    /// This class is responsible for fetching all available pacts.
+    /// </summary>
     public class PactRepo : PactRepoBase
     {
         private readonly IProviderConfiguration configuration;
@@ -21,6 +24,11 @@ namespace Bekk.Pact.Provider.Repo
         {
             this.configuration = configuration;
         }
+        /// <summary>
+        /// Fetches all pacts for the provider
+        /// </summary>
+        /// <param name="providerName">The provider name to filter on.</param>
+        /// <returns>A collection of parsed pacts.</returns>
         public IEnumerable<IPact> FetchAll(string providerName)
         {
             if(Configuration.BrokerUri == null && string.IsNullOrWhiteSpace(Configuration.PublishPath))
@@ -34,26 +42,33 @@ namespace Bekk.Pact.Provider.Repo
         private IEnumerable<IPact> FetchAndParseNewestFromFileSystem(string path, string providerName)
         {
             if(string.IsNullOrWhiteSpace(path)) return Enumerable.Empty<IPact>();            
-            var result = new List<IPact>();
-            foreach(var file in Directory.EnumerateFiles(path, "*.json", SearchOption.AllDirectories))
+            try
             {
-                Configuration.LogSafe(LogLevel.Verbose, $"Parsing pact file {file}");
-                try
+                var result = new List<IPact>();
+                foreach(var file in Directory.EnumerateFiles(path, "*.json", SearchOption.AllDirectories))
                 {
-                    using(var stream = File.OpenText(file))
-                    using(var reader = new JsonTextReader(stream))
+                    Configuration.LogSafe(LogLevel.Verbose, $"Parsing pact file {file}");
+                    try
                     {
-                        result.AddRange(ReadInteractionFromJson((JObject)JToken.ReadFrom(reader), providerName));
+                        using(var stream = File.OpenText(file))
+                        using(var reader = new JsonTextReader(stream))
+                        {
+                            result.AddRange(ReadInteractionFromJson((JObject)JToken.ReadFrom(reader), providerName));
+                        }
+                        Configuration.LogSafe(LogLevel.Verbose, $"Parsing pact file successful.");
                     }
-                    Configuration.LogSafe(LogLevel.Verbose, $"Parsing pact file {file} successful.");
+                    catch(Exception e)
+                    {
+                        Configuration.LogSafe(LogLevel.Error, $"Error when parsing pact file {file}");
+                        Configuration.LogSafe(LogLevel.Error, $"Inner exception: {e.Message}");
+                    }
                 }
-                catch(Exception e)
-                {
-                    Configuration.LogSafe(LogLevel.Error, $"Error when parsing pact file {file}");
-                    Configuration.LogSafe(LogLevel.Error, $"Inner exception: {e.Message}");
-                }
+                return result;
             }
-            return result;
+            catch(DirectoryNotFoundException e)
+            {
+                throw new ConfigurationException($"Couldn't open folder path {Configuration.PublishPath} ({e.Message})", Configuration, e);
+            }
         }
 
         private IEnumerable<IPact> FetchAndParseAllFromBroker(Uri uri, string providerName)
@@ -76,8 +91,8 @@ namespace Bekk.Pact.Provider.Repo
             foreach(var interaction in parsedPact["interactions"].Children().Select(i => i.ToObject<Interaction>()))
             {
                 interaction.Consumer = consumer;
-                interaction.Created = parsedPact["createdAt"].ToObject<DateTime>();
-                yield return new InteractionPact(interaction, configuration);
+                interaction.Created = parsedPact["createdAt"]?.ToObject<DateTime>()??DateTime.Now;
+                yield return new InteractionPact(interaction, configuration, parsedPact);
             }
         }
 

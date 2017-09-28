@@ -3,6 +3,9 @@ using Bekk.Pact.Common.Contracts;
 
 namespace Bekk.Pact.Provider.Config
 {
+    /// <summary>
+    /// Use this class to build a configuration object.
+    /// </summary>
     public class Configuration : Bekk.Pact.Common.Utils.Configuration<Configuration>, IProviderConfiguration
     {
         private Configuration()

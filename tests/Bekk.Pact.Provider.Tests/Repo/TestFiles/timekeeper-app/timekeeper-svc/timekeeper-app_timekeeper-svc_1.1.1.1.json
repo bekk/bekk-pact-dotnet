@@ -1,0 +1,97 @@
+{
+  "provider": {
+    "name": "timekeeper-svc"
+  },
+  "consumer": {
+    "name": "timekeeper-app"
+  },
+  "interactions": [
+    {
+      "description": "GetTimeCode_WithId_ReturnsTimecode",
+      "provider_state": "There is a billable timecode with id 1, project-id 2 and name ABC.",
+      "request": {
+        "method": "GET",
+        "path": "/timecodes/1",
+        "headers": {
+          "accept": "application/json, application/xml, text/json, text/x-json, text/javascript, text/xml"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "id": 1,
+          "projectId": 2,
+          "name": "ABC",
+          "code": null,
+          "billable": true
+        }
+      }
+    },
+    {
+      "description": "GetTimecodesFromLegacyIds_WithIds_ReturnsSetOfTimecodes",
+      "provider_state": "There are two billable timecodes for legacy project ids 7 and 34",
+      "request": {
+        "method": "GET",
+        "path": "/timecodes/lookup?legacyId=7&legacyId=34",
+        "headers": {}
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8"
+        },
+        "body": [
+          {
+            "id": 1007,
+            "projectId": 10007,
+            "name": "Seven",
+            "code": "107",
+            "billable": true
+          },
+          {
+            "id": 1034,
+            "projectId": 10034,
+            "name": "Thirtyfour",
+            "code": "134",
+            "billable": true
+          }
+        ]
+      }
+    },
+    {
+      "description": "GetTimeSheet_ForEmployee1_ReturnsTimesheet",
+      "provider_state": "There is an employee with id 1 and one time entry",
+      "request": {
+        "method": "GET",
+        "path": "/v2/timesheets/employees/1?from=2000-01-01&to=2001-01-01",
+        "headers": {
+          "accept": "application/json, application/xml, text/json, text/x-json, text/javascript, text/xml"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "timeEntries": [
+            {
+              "timecode": "SomeCode",
+              "timecodeId": 17,
+              "comment": "Text",
+              "hours": 7.5,
+              "date": "2000-06-06T00:00:00"
+            }
+          ],
+          "timesheetLockDate": "2001-01-01T00:00:00"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecificationVersion": "1.0.0"
+  }
+}

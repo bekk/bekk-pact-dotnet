@@ -24,10 +24,10 @@ namespace Bekk.Pact.Provider.Web.Extensions
             if (pact == null) throw new ArgumentNullException(nameof(pact));
             if (pact.Configuration != null)
             {
-                hostBuilder.ConfigureLogging(fac =>
+                hostBuilder.ConfigureLogging(factory =>
                 {
                     var log = new LogWrapper(pact.Configuration);
-                    fac.AddProvider(log);
+                    factory.AddProvider(log);
                 });
             }
             var startup = new Startup(startupType)

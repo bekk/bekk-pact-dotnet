@@ -1,0 +1,35 @@
+{
+  "provider": {
+    "name": "employee-svc"
+  },
+  "consumer": {
+    "name": "timekeeper-app"
+  },
+  "interactions": [
+    {
+      "description": "Get_WithId_ReturnsEmployee",
+      "provider_state": "There is an employee with id 99",
+      "request": {
+        "method": "GET",
+        "path": "/employees/99",
+        "headers": {}
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "id": 99,
+          "name": "Willy Knickersen",
+          "hireDate": "1970-02-13T00:00:00",
+          "resignationDate": "2017-01-01T00:00:00",
+          "hoursLockedToDate": "2001-04-06T00:00:00"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecificationVersion": "1.0.0"
+  }
+}
