@@ -6,7 +6,8 @@ namespace Bekk.Pact.Common.Contracts
     public enum LogLevel
     {
         Error = 0,
-        Info = 1,
-        Verbose = 2
+        Scarce = 1,
+        Info = 2,
+        Verbose = 3
     }
 }

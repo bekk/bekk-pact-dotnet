@@ -50,6 +50,7 @@ namespace Bekk.Pact.Provider.Repo
                 catch(Exception e)
                 {
                     Configuration.LogSafe(LogLevel.Error, $"Error when parsing pact file {file}");
+                    Configuration.LogSafe(LogLevel.Error, $"Inner exception: {e.Message}");
                 }
             }
             return result;

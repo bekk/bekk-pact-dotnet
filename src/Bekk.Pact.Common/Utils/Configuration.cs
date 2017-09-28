@@ -9,7 +9,7 @@ namespace Bekk.Pact.Common.Utils
         private Uri _brokerUri;
         private string _publishPath;
         private Action<string> _log;
-        private LogLevel _logLevel;
+        private LogLevel _logLevel = Bekk.Pact.Common.Contracts.LogLevel.Scarce;
         private string _logFile;
         /// <summary>
         /// Sets the value of <see cref="IConfiguration.BrokerUri"/>
