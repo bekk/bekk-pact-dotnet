@@ -68,7 +68,7 @@ namespace Bekk.Pact.Provider.Web
                     if(!result.Success)
                     {
                          AssertionFailed?.Invoke(this, args);
-                         pact.Configuration.LogSafe(LogLevel.Error, result.ToString());
+                         pact.Configuration.LogSafe(LogLevel.Error, $"Validation failed:{Environment.NewLine}{result}{Environment.NewLine}");
                     }
                     results.Add(result);
                 }
