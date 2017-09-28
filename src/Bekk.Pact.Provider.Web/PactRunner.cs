@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Exceptions;
+using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Provider.Exceptions;
 using Bekk.Pact.Provider.Repo;
 using Bekk.Pact.Provider.Web.Contracts;
@@ -64,7 +65,11 @@ namespace Bekk.Pact.Provider.Web
                     var result = await pact.Assert(client);
                     var args = new PactResultEventArgs(pact, result);
                     Asserted?.Invoke(this, args);
-                    if(!result.Success) AssertionFailed?.Invoke(this, args);
+                    if(!result.Success)
+                    {
+                         AssertionFailed?.Invoke(this, args);
+                         pact.Configuration.LogSafe(LogLevel.Error, result.ToString());
+                    }
                     results.Add(result);
                 }
             }
