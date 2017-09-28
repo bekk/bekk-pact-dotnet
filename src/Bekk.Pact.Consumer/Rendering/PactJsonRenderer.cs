@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using Bekk.Pact.Consumer.Contracts;
 using Newtonsoft.Json.Linq;
 
@@ -37,8 +38,12 @@ namespace Bekk.Pact.Consumer.Rendering
             dynamic json = new JObject();
             json.Add("provider", RenderProviderConsumer(pact.Provider));
             json.Add("consumer", RenderProviderConsumer(pact.Consumer));
+            json.Add("createdAt", DateTimeOffset.Now);
             json.interactions = new JArray(pact.Interactions.Select(RenderInteraction));
-            json.Add("metadata", new JObject(new JProperty("pactSpecificationVersion", "1.0.0")));
+            json.Add("metadata", new JObject(
+                new JProperty("pactSpecificationVersion", "1.0.0",
+                new JProperty("bekkPactVersion", "1.0.0.0")
+                )));
             return json;
         }
     }

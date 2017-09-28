@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Exceptions;
 using Bekk.Pact.Provider.Exceptions;
+using Bekk.Pact.Provider.Repo;
 using Bekk.Pact.Provider.Web.Contracts;
 using Bekk.Pact.Provider.Web.Extensions;
 using Microsoft.AspNetCore.Hosting;
