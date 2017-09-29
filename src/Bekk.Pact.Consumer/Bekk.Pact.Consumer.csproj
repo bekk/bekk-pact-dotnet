@@ -3,6 +3,7 @@
     <TargetFrameworks>netstandard1.3</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <AssemblyVersion>0.0.1</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Description>A library for implementing Pact consumer tests</Description>
@@ -11,7 +12,6 @@
     <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
     <IconUrl>https://pbs.twimg.com/profile_images/1891657237/twitter-avatar_400x400.png</IconUrl>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Version>0.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
