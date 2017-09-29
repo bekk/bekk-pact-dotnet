@@ -1,7 +1,8 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Bekk.Pact.Common.Contracts;
 
-namespace Bekk.Pact.Common.Contracts
+namespace Bekk.Pact.Provider.Contracts
 {
     public interface IPact
     {

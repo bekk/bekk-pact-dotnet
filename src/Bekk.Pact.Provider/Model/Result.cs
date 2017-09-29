@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using Bekk.Pact.Common.Contracts;
+using Bekk.Pact.Provider.Contracts;
 
 namespace Bekk.Pact.Provider.Model
 {
@@ -11,15 +12,18 @@ namespace Bekk.Pact.Provider.Model
         private readonly List<string> errors;
         private readonly Response expected;
 
-        public Result(string title, Response expected) : this(title, ValidationTypes.None)
+        public Result(string title, IPactInformation info, Response expected) : this(title, info, ValidationTypes.None)
         {
             this.expected = expected;
         }
-        public Result(string title, ValidationTypes types, params string[] errors)
+        public Result(string title, IPactInformation info, ValidationTypes types, params string[] errors)
         {
             this.errors = errors.ToList(); ;
             ErrorTypes = types;
             Title = title;
+            Description = info.Description;
+            Consumer = info.Consumer;
+            ProviderState = info.ProviderState;
         }
 
         public bool Success => ErrorTypes == ValidationTypes.None;
@@ -55,11 +59,17 @@ namespace Bekk.Pact.Provider.Model
 
         public HttpResponseMessage ActualResponse { get; private set; }
 
+        public string Consumer { get; }
+
+        public string Description { get; }
+
+        public string ProviderState { get; }
+
         public override string ToString() => Success ? $"Ok ({Title})" : 
             string.Concat(
-                Title,
+                $"Validation has failed for {Title} from {Consumer}:",
                 Environment.NewLine,
-                new string('-', 40),
+                new string('-', 3),
                 Environment.NewLine,
                 string.Join(Environment.NewLine, errors));
 

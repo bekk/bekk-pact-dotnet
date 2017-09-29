@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Exceptions;
+using Bekk.Pact.Provider.Contracts;
 
 namespace Bekk.Pact.Provider.Exceptions
 {

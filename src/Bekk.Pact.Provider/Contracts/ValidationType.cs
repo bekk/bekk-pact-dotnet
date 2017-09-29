@@ -1,6 +1,6 @@
 using System;
 
-namespace Bekk.Pact.Common.Contracts
+namespace Bekk.Pact.Provider.Contracts
 {
     [Flags]
     public enum ValidationTypes

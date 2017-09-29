@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Exceptions;
 using Bekk.Pact.Common.Extensions;
+using Bekk.Pact.Provider.Contracts;
 using Bekk.Pact.Provider.Exceptions;
 using Bekk.Pact.Provider.Repo;
 using Bekk.Pact.Provider.Web.Contracts;

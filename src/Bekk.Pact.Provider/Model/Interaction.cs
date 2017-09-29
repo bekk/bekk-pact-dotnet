@@ -1,9 +1,10 @@
 using System;
+using Bekk.Pact.Common.Contracts;
 using Newtonsoft.Json;
 
 namespace Bekk.Pact.Provider.Model
 {
-    class Interaction
+    class Interaction : IPactInformation
     {
         public string Description { get; set; }
         [JsonPropertyAttribute("provider_state")]

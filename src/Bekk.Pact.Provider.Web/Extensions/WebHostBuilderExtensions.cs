@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
 using Bekk.Pact.Common.Contracts;
+using Bekk.Pact.Provider.Contracts;
 using Bekk.Pact.Provider.Web.Config;
 using Bekk.Pact.Provider.Web.Contracts;
 using Microsoft.AspNetCore.Builder;

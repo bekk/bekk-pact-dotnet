@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Extensions;
+using Bekk.Pact.Provider.Contracts;
 using Bekk.Pact.Provider.Model.Validation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -32,7 +33,7 @@ namespace Bekk.Pact.Provider.Model
             Configuration.LogSafe(LogLevel.Verbose, $"Provider state: {ProviderState}");
             var response = await client.SendAsync(interaction.Request.BuildMessage());
             var expected = interaction.Response;
-            var errors = new Result(ToString(), expected);
+            var errors = new Result(ToString(), interaction, expected);
             if (response.StatusCode != expected.Status)
             {
                 errors.Add(ValidationTypes.StatusCode,$"Status code was {response.StatusCode}. Expected {expected.Status}.");

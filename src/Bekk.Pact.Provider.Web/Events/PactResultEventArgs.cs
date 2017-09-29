@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using Bekk.Pact.Common.Contracts;
+using Bekk.Pact.Provider.Contracts;
 
 namespace Bekk.Pact.Provider.Web.Events
 {

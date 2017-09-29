@@ -11,6 +11,7 @@ using Bekk.Pact.Common.Utils;
 using Bekk.Pact.Common.Exceptions;
 using System.IO;
 using Newtonsoft.Json;
+using Bekk.Pact.Provider.Contracts;
 
 namespace Bekk.Pact.Provider.Repo
 {
