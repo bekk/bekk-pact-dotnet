@@ -2,8 +2,17 @@ namespace Bekk.Pact.Common.Contracts
 {
     public interface IPactInformation
     {
-         string Description { get; }
-         string Consumer { get; }
-         string ProviderState { get; }
+        /// <summary>
+        /// The consumer defining the pact.
+        /// </summary>
+        string Consumer { get; }
+        /// <summary>
+        /// The description of the pact
+        /// </summary>
+        string Description { get; }
+        /// <summary>
+        /// The provider satte property of the pact
+        /// </summary>
+        string ProviderState { get; }
     }
 }

@@ -19,18 +19,6 @@ namespace Bekk.Pact.Provider.Contracts
         /// </summary>
         ValidationTypes ErrorTypes { get; }
         /// <summary>
-        /// The consumer defining the pact.
-        /// </summary>
-        string Consumer { get; }
-        /// <summary>
-        /// The description of the pact
-        /// </summary>
-        string Description { get; }
-        /// <summary>
-        /// The provider satte property of the pact
-        /// </summary>
-        string ProviderState { get; }
-        /// <summary>
         /// The expected response
         /// </summary>
         string ExpectedResponseBody { get; }
