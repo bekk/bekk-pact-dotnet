@@ -1,5 +1,6 @@
 using System;
 using Bekk.Pact.Common.Contracts;
+using Bekk.Pact.Common.Exceptions;
 
 namespace Bekk.Pact.Common.Extensions
 {
@@ -8,21 +9,29 @@ namespace Bekk.Pact.Common.Extensions
         public static void LogSafe(this Contracts.IConfiguration config, LogLevel level, string text)
         {
             if(config == null || level > config.LogLevel || text == null) return;
-            config.Log(text);
-            LogToFile(config.LogFile, level, text);
+            config.Log?.Invoke(text);
+            LogToFile(config, level, text);
         }
         public static void LogSafe(this Contracts.IConfiguration config, LogLevel level, Func<string> logMsg)
         {
             if(config == null || level > config.LogLevel || logMsg == null) return;
             var text = logMsg.Invoke();
-            config.Log(text);
-            LogToFile(config.LogFile, level, text);
+            config.Log?.Invoke(text);
+            LogToFile(config, level, text);
         }
-        private static void LogToFile(string path, LogLevel level, string text)
+        private static void LogToFile(Contracts.IConfiguration config, LogLevel level, string text)
         {
+            var path = config.LogFile;
             if(string.IsNullOrWhiteSpace(path)) return;
             var txt = $"{DateTime.Now:o} {level}: {text}{Environment.NewLine}";
-            System.IO.File.AppendAllText(path, txt);
+            try
+            {
+                System.IO.File.AppendAllText(path, txt);
+            }
+            catch(Exception e)
+            {
+                throw new ConfigurationException($"Couldn't write to log file at {path} ({e.Message}).", config);
+            }
         }
     }
 }
