@@ -53,11 +53,12 @@ namespace Bekk.Pact.Consumer.Repo
             try
             {
                 result = await client.PutAsync(url, new StringContent(payload, Encoding.UTF8, "application/json"));
+                Configuration.LogSafe(LogLevel.Scarce, $"Pact publiseh to broker at {url}.");
             }
             catch(Exception e)
             {
                 var exception = e.InnerException??e;
-                throw new PactException($"Error when connecting to broker <{Configuration.BrokerUri}{url}>: {exception.Message}", exception);
+                throw new PactException($"Error when connecting to broker <{BuildUri(url)}>: {exception.Message}", exception);
             }
             if(!result.IsSuccessStatusCode)
             {
@@ -65,7 +66,7 @@ namespace Bekk.Pact.Consumer.Repo
                 Configuration.LogSafe(LogLevel.Verbose, await result.Content.ReadAsStringAsync());
                 throw new PactRequestException("Couldn't put pact to broker.", result);
             }
-            Configuration.LogSafe(LogLevel.Info, $"Uploaded pact to {Configuration.BrokerUri}{url}.");
+            Configuration.LogSafe(LogLevel.Info, $"Uploaded pact to {BuildUri(url)}.");
         }
     }
 }

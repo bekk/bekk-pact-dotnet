@@ -22,6 +22,10 @@ namespace Bekk.Pact.Common.Utils
         private HttpClient _client;
         protected HttpClient BrokerClient => _client ?? (_client = InitializeClient());
         protected IConfiguration Configuration { get; }
+        protected Uri BuildUri(string relativeUrl)
+        {
+            return new Uri(Configuration.BrokerUri, relativeUrl);
+        }
         private HttpClient InitializeClient()
         {
             if(Configuration.BrokerUri == null) throw new InvalidOperationException("Broker url is not configured.");

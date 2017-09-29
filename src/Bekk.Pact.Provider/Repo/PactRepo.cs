@@ -123,11 +123,11 @@ namespace Bekk.Pact.Provider.Repo
             }
             catch(HttpRequestException e)
             {
-                throw new PactBrokerException($"An error occured during request to the pact broker on {Configuration.BrokerUri}{url}. ({e.Message})", e);
+                throw new PactBrokerException($"An error occured during request to the pact broker on {BuildUri(url)}. ({e.Message})", e);
             }
             catch(Exception e)
             {
-                Configuration.LogSafe(LogLevel.Error, $"An error occured during request to the pact broker on {Configuration.BrokerUri}{url}. ({e.Message})");
+                Configuration.LogSafe(LogLevel.Error, $"An error occured during request to the pact broker on {BuildUri(url)}. ({e.Message})");
                 throw;
             }
         }
