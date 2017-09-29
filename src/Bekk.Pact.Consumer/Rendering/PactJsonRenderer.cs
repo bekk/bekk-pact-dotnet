@@ -39,11 +39,11 @@ namespace Bekk.Pact.Consumer.Rendering
             json.Add("provider", RenderProviderConsumer(pact.Provider));
             json.Add("consumer", RenderProviderConsumer(pact.Consumer));
             json.Add("createdAt", DateTimeOffset.Now);
-            json.Add("interactions", new JArray(pact.Interactions.Select(RenderInteraction)).ToArray());
+            json.Add("interactions", new JArray(pact.Interactions.Select(RenderInteraction)));
             json.Add("metadata", new JObject(
-                new JProperty("pactSpecificationVersion", "1.0.0",
+                new JProperty("pactSpecificationVersion", "1.0.0"),
                 new JProperty("bekkPactVersion", "1.0.0.0")
-                )));
+                ));
             return json;
         }
     }
