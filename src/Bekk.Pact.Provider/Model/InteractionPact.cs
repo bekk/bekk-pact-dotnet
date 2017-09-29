@@ -27,7 +27,7 @@ namespace Bekk.Pact.Provider.Model
         }
         public string ProviderState => interaction.ProviderState;
 
-        public async Task<ITestResult> Assert(HttpClient client)
+        public async Task<ITestResult> Verify(HttpClient client)
         {
             Configuration.LogSafe(LogLevel.Scarce, ToString());
             Configuration.LogSafe(LogLevel.Verbose, $"Provider state: {ProviderState}");

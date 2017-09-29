@@ -4,6 +4,9 @@ using Bekk.Pact.Common.Contracts;
 
 namespace Bekk.Pact.Provider.Contracts
 {
+    /// <summary>
+    /// Represents a pact (or rather an interaction from a pact).
+    /// </summary>
     public interface IPact
     {
         /// <summary>
@@ -15,11 +18,11 @@ namespace Bekk.Pact.Provider.Contracts
         /// </summary>
         string Description { get; }
         /// <summary>
-        /// Call this method to test the pact.
+        /// Call this method to verify the pact.
         /// </summary>
         /// <param name="client">A web client to use to call the server hosting the provider service.</param>
         /// <returns>A test result.</returns>
-        Task<ITestResult> Assert(HttpClient client);
+        Task<ITestResult> Verify(HttpClient client);
         /// <summary>
         /// The configuration used to test the pact.
         /// </summary>

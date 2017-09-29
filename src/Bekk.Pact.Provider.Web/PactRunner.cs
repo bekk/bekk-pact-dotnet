@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.TestHost;
 namespace Bekk.Pact.Provider.Web
 {
     /// <summary>
-    /// Fetches, parses and runs pacts for a provider.
+    /// Fetches, parses and verifies pacts for a provider.
     /// </summary>
     /// <typeparam name="TStartup">The class to use to startup the web server</typeparam>
     public class PactRunner<TStartup> where TStartup : class
@@ -30,31 +30,31 @@ namespace Bekk.Pact.Provider.Web
             this.configuration = configuration;
         }
         /// <summary>
-        /// Event is raised after each interaction test.
+        /// Event is raised after each pact verification.
         /// </summary>
-        public event EventHandler<PactResultEventArgs> Asserted;
+        public event EventHandler<PactResultEventArgs> Verified;
         /// <summary>
-        /// Event is raised after each failing interaction test.
+        /// Event is raised after each failing pact verifion.
         /// </summary>
-        public event EventHandler<PactResultEventArgs> AssertionFailed;
+        public event EventHandler<PactResultEventArgs> VerificationFailed;
         /// <summary>
         /// Fetches all pacts and asserts them.
         /// Throws exception after all pacts are run if any assertion fails.
-        /// Use <seealso cref="Run" /> to avoid the exception.
+        /// Use <seealso cref="Verify" /> to avoid the exception.
         /// </summary>
         /// <param name="providerName">The name of the provider, as stated in the pacts.</param>
         /// <exception cref="AssertionFailedException">Thrown when one or more pact assertions fails</exception>
         public async Task Assert(string providerName)
         {
-            var results = await Run(providerName);
+            var results = await Verify(providerName);
             if(results.Any(r=>! r.Success)) throw new AssertionFailedException(results);
         }
         /// <summary>
-        /// Fetches all pacts and asserts them.
+        /// Fetches all pacts and verifies them. Returns all test results.
         /// </summary>
         /// <param name="providerName">The name of the provider, as stated in the pacts.</param>
         /// <returns>Testresults. Use <seealso cref="ITestResult.Success" /> to check the results of each pact.</returns>
-        public async Task<IEnumerable<ITestResult>> Run(string providerName)
+        public async Task<IEnumerable<ITestResult>> Verify(string providerName)
         {
             var repo = new PactRepo(configuration);
             var results = new List<ITestResult>();
@@ -63,12 +63,12 @@ namespace Bekk.Pact.Provider.Web
                 using (var server = new TestServer(new WebHostBuilder().UseStartup<TStartup>(pact, setup)))
                 using (var client = server.CreateClient())
                 {
-                    var result = await pact.Assert(client);
+                    var result = await pact.Verify(client);
                     var args = new PactResultEventArgs(pact, result);
-                    Asserted?.Invoke(this, args);
+                    Verified?.Invoke(this, args);
                     if(!result.Success)
                     {
-                         AssertionFailed?.Invoke(this, args);
+                         VerificationFailed?.Invoke(this, args);
                          pact.Configuration.LogSafe(LogLevel.Error, $"Assertion failed:{Environment.NewLine}{result}{Environment.NewLine}");
                     }
                     results.Add(result);

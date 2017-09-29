@@ -4,14 +4,14 @@ using Bekk.Pact.Common.Contracts;
 namespace Bekk.Pact.Provider.Contracts
 {
     /// <summary>
-    /// The result of a pact test.
+    /// The result of a pact verification.
     /// Use <seealso cref="Success"/> to test
-    /// if the test was successful.
+    /// if the verification passed.
     /// </summary>
     public interface ITestResult : IPactInformation
     {
         /// <summary>
-        /// True if the test was successful.
+        /// True if the verification was successful.
         /// </summary>
         bool Success { get; }
         /// <summary>
