@@ -33,8 +33,8 @@ namespace Bekk.Pact.Consumer.Repo
         private async Task PublishToFilesystem(IPactPathMetadata metadata, string payload)
         {
             if(Configuration.PublishPath == null) return;
-            var folder = Path.Combine(Configuration.PublishPath, "pacts", metadata.Consumer, metadata.Provider);
-            var filename = $"{metadata.Consumer}_{metadata.Provider}_{metadata.Version}.json";
+            var folder = Path.Combine(Configuration.PublishPath, "pacts", metadata.Provider, metadata.Consumer);
+            var filename = $"{metadata.Provider}_{metadata.Consumer}_{metadata.Version}.json";
             var filePath = Path.Combine(folder, filename);
             Directory.CreateDirectory(folder);
             using(var file = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true))
