@@ -9,6 +9,7 @@ using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Common.Exceptions;
 using System.Text;
 using System.IO;
+using System.Net.Http.Headers;
 
 namespace Bekk.Pact.Common.Utils
 {
@@ -19,9 +20,23 @@ namespace Bekk.Pact.Common.Utils
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
         private HttpClient _client;
-        protected HttpClient Client => _client ?? (_client = new HttpClient());
+        protected HttpClient BrokerClient => _client ?? (_client = InitializeClient());
         protected IConfiguration Configuration { get; }
-        
+        private HttpClient InitializeClient()
+        {
+            if(Configuration.BrokerUri == null) throw new InvalidOperationException("Broker url is not configured.");
+            var client = new HttpClient();
+            client.BaseAddress = Configuration.BrokerUri;
+            if(Configuration.BrokerUserName != null || Configuration.BrokerPassword != null)
+            {
+                client.DefaultRequestHeaders.Authorization = 
+                    new AuthenticationHeaderValue("Basic", Convert.ToBase64String(
+                        System.Text.ASCIIEncoding.ASCII.GetBytes(string.Concat(Configuration.BrokerUserName,":",Configuration.BrokerPassword))
+                    ));
+            }
+            return client;
+        }
+
         public void Dispose()
         {
             _client?.Dispose();

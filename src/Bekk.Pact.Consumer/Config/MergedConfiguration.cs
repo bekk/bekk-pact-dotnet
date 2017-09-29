@@ -27,6 +27,10 @@ namespace Bekk.Pact.Consumer.Config
         public string PublishPath => GetValue(c => c.PublishPath);
         public string LogFile => GetValue(c => c.LogFile);
 
+        public string BrokerUserName => GetValue(c => c.BrokerUserName);
+
+        public string BrokerPassword => GetValue(c => c.BrokerPassword);
+
         /// <summary>
         /// Merges two configurations, letting <paramref name="right"/> override <paramref name="left"/>.
         /// </summary>

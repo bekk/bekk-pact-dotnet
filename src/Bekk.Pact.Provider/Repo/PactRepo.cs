@@ -36,7 +36,7 @@ namespace Bekk.Pact.Provider.Repo
             {
                 throw new InvalidOperationException("Broker uri and publish path is missing in configuration. Please provide one of them.");
             }
-            return FetchAndParseAllFromBroker(configuration.BrokerUri, providerName)
+            return FetchAndParseAllFromBroker(providerName)
                 .Union(FetchAndParseNewestFromFileSystem(configuration.PublishPath, providerName));
         }
 
@@ -72,11 +72,11 @@ namespace Bekk.Pact.Provider.Repo
             }
         }
 
-        private IEnumerable<IPact> FetchAndParseAllFromBroker(Uri uri, string providerName)
+        private IEnumerable<IPact> FetchAndParseAllFromBroker(string providerName)
         {
-            if(uri == null) return Enumerable.Empty<IPact>();
-            var brokerUri = new Uri(uri, $"/pacts/provider/{providerName}/latest");
-            return FetchPacts(brokerUri).SelectMany(json => ReadInteractionFromJson(json, providerName));
+            if(Configuration.BrokerUri == null) return Enumerable.Empty<IPact>();
+            var brokerUrl = $"/pacts/provider/{providerName}/latest";
+            return FetchPacts(brokerUrl).SelectMany(json => ReadInteractionFromJson(json, providerName));
         }
 
         private IEnumerable<IPact> ReadInteractionFromJson(JObject parsedPact, string providerName)
@@ -97,10 +97,10 @@ namespace Bekk.Pact.Provider.Repo
             }
         }
 
-        private IEnumerable<JObject> FetchPacts(Uri brokerUri)
+        private IEnumerable<JObject> FetchPacts(string brokerUrl)
         {
-            var client = Client;
-            foreach(var url in FetchUrls(brokerUri).ConfigureAwait(false).GetAwaiter().GetResult())
+            var client = BrokerClient;
+            foreach(var url in FetchUrls(brokerUrl).ConfigureAwait(false).GetAwaiter().GetResult())
             {
                 Configuration.LogSafe(LogLevel.Verbose, $"Fetching pact at {url}");
                 var brokerResponse = client.GetAsync(url).ConfigureAwait(false).GetAwaiter().GetResult();
@@ -110,12 +110,12 @@ namespace Bekk.Pact.Provider.Repo
             }
         }
 
-        private async Task<IEnumerable<Uri>> FetchUrls(Uri uri)
+        private async Task<IEnumerable<Uri>> FetchUrls(string url)
         {
             try
             {
-                var client = Client;
-                var response = await client.GetAsync(uri);
+                var client = BrokerClient;
+                var response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
                 return JObject.Parse(
                     response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult())
@@ -123,11 +123,11 @@ namespace Bekk.Pact.Provider.Repo
             }
             catch(HttpRequestException e)
             {
-                throw new PactBrokerException($"An error occured during request to the pact broker on {uri}. ({e.Message})", e);
+                throw new PactBrokerException($"An error occured during request to the pact broker on {Configuration.BrokerUri}{url}. ({e.Message})", e);
             }
             catch(Exception e)
             {
-                Configuration.LogSafe(LogLevel.Error, $"An error occured during request to the pact broker on {uri}. ({e.Message})");
+                Configuration.LogSafe(LogLevel.Error, $"An error occured during request to the pact broker on {Configuration.BrokerUri}{url}. ({e.Message})");
                 throw;
             }
         }

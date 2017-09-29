@@ -9,12 +9,19 @@ namespace Bekk.Pact.Common.Contracts
         /// </summary>
         Uri BrokerUri { get; }
         /// <summary>
+        /// The user name for the broker service
+        /// </summary>
+        string BrokerUserName { get; }
+        /// <summary>
+        /// The password for the broker service
+        /// </summary>
+        string BrokerPassword { get; }
+        /// <summary>
         /// The file path to store published pacts
         /// </summary>
         string PublishPath { get; }
         /// <summary>
         /// A delegate for outputting log informastion.
-        /// Default is output to the console.
         /// </summary>
         Action<string> Log { get; }
         /// <summary>
