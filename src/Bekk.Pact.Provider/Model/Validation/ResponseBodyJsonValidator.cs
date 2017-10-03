@@ -37,7 +37,7 @@ namespace Bekk.Pact.Provider.Model.Validation
                 return "Body is not parsable to object";
             }
             return expected.AsJEnumerable().Select(token => {
-                var actualToken = actualJson.GetValue(token.Path, configuration.BodyKeyStringComparison);
+                var actualToken = actualJson.GetValue(token.Path, configuration.BodyKeyStringComparison.GetValueOrDefault());
                 var expectedValue = expected.GetValue(token.Path);
                 return  ValidateTokens(actualToken, expectedValue);
             }).FirstOrDefault(r => r != null);

@@ -31,7 +31,7 @@ namespace Bekk.Pact.Provider.Web.Config
 
         public bool IsEnabled(Microsoft.Extensions.Logging.LogLevel logLevel)
         {
-            switch (configuration.LogLevel){
+            switch (configuration.GetLevel()){
                 case Common.Contracts.LogLevel.Error: return logLevel > Microsoft.Extensions.Logging.LogLevel.Critical;
                 case Common.Contracts.LogLevel.Scarce: return logLevel >= Microsoft.Extensions.Logging.LogLevel.Warning;
                 case Bekk.Pact.Common.Contracts.LogLevel.Info: return logLevel >=  Microsoft.Extensions.Logging.LogLevel.Information;

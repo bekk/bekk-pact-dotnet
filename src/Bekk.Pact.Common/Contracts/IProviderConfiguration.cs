@@ -11,6 +11,6 @@ namespace Bekk.Pact.Common.Contracts
         /// The comparison type used when matching property names in the message body.
         /// </summary>
         /// <remarks>Default in the configuration builder is <seeAlso cref="StringComparison.CurrentCultureIgnoreCase"/>.</remarks>
-        StringComparison BodyKeyStringComparison { get; }
+        StringComparison? BodyKeyStringComparison { get; }
     }
 }

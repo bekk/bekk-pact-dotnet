@@ -2,10 +2,25 @@ using System;
 using System.IO;
 using Bekk.Pact.Common.Contracts;
 
-namespace Bekk.Pact.Common.Utils
+namespace Bekk.Pact.Common.Config
 {
     public abstract class Configuration<T> : IConfiguration where T: class
     {
+        protected Configuration(IConfiguration inner)
+        {
+            if(inner != null)
+            {
+                Inner = inner;
+                brokerUri = Inner.BrokerUri;
+                brokerUserName = Inner.BrokerUserName;
+                brokerPassword = Inner.BrokerPassword;
+                publishPath = Inner.PublishPath;
+                log = Inner.Log;
+                logLevel = Inner.LogLevel.GetValueOrDefault(logLevel);
+                logFile = Inner.LogFile;
+            }
+            Log(Console.WriteLine);
+        }
         private Uri brokerUri;
         private string brokerUserName;
         private string brokerPassword;
@@ -13,13 +28,15 @@ namespace Bekk.Pact.Common.Utils
         private Action<string> log;
         private LogLevel logLevel = Bekk.Pact.Common.Contracts.LogLevel.Scarce;
         private string logFile;
+        protected IConfiguration Inner { get; }
+
         /// <summary>
         /// Sets the values of <see cref="IConfiguration.BrokerUserName" /> and <see cref="IConfiguration.BrokerPassword" />.
         /// </summary>
         public T BrokerCredentials(string userName, string password)
         {
-            brokerUserName = userName;
-            brokerPassword = password;
+            brokerUserName = Inner?.BrokerUserName ?? userName;
+            brokerPassword = Inner?.BrokerPassword ?? password;
             return this as T;
         }
         string IConfiguration.BrokerUserName => brokerUserName;
@@ -29,7 +46,7 @@ namespace Bekk.Pact.Common.Utils
         /// </summary>
         public T BrokerUri(Uri uri)
         {
-            brokerUri = uri;
+            brokerUri = Inner?.BrokerUri ?? uri;
             return this as T;
         }
         /// <summary>
@@ -41,7 +58,7 @@ namespace Bekk.Pact.Common.Utils
         /// Sets the value of <see cref="IConfiguration.Log"/>.
         /// </summary>
         public T Log(Action<string> log){
-            this.log = log;
+            this.log = Inner?.Log ?? log;
             return this as T;
         }
         Action<string> IConfiguration.Log => log;
@@ -51,7 +68,7 @@ namespace Bekk.Pact.Common.Utils
         /// </summary>
         public T PublishPath(string path)
         {
-            publishPath = path;
+            publishPath = Inner?.PublishPath ?? path;
             return this as T;
         }
         /// <summary>
@@ -65,16 +82,16 @@ namespace Bekk.Pact.Common.Utils
         /// </summary>
         public T LogLevel(LogLevel level)
         {
-            logLevel = level;
+            logLevel = Inner?.LogLevel ?? level;
             return this as T;
         }
-        LogLevel IConfiguration.LogLevel => logLevel;
+        LogLevel? IConfiguration.LogLevel => logLevel;
         /// <summary>
         /// Sets the value of <see cref="IConfiguration.LogFile"/>.
         /// </summary>
         public T LogFile(string path)
         {
-            logFile = path;
+            logFile = Inner?.LogFile ?? path;
             return this as T;
         }
         /// <summary>
