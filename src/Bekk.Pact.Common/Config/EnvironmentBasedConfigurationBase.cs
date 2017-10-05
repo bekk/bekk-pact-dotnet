@@ -9,7 +9,7 @@ namespace Bekk.Pact.Common.Config
     {
         private string[] separators = new[]{":", "__"};
         protected string Prefix { get; } = "Bekk:Pact";
-        public Uri BrokerUri => GetUriValue(Prefix, nameof(BrokerUri));
+        public Uri BrokerUri => GetUriValue(null, nameof(BrokerUri));
 
         public string BrokerUserName => GetValue(nameof(BrokerUserName));
 

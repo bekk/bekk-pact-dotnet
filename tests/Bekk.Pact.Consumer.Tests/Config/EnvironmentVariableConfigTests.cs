@@ -18,6 +18,7 @@ namespace Bekk.Pact.Consumer.Tests.Config
             Environment.SetEnvironmentVariable("Bekk:Pact:LogLevel", null);
             Environment.SetEnvironmentVariable("Bekk__Pact__BrokerUserName", null);            
             Environment.SetEnvironmentVariable("Bekk__Pact__Consumer__MockServiceBaseUri", null);            
+            Environment.SetEnvironmentVariable("Bekk__Pact__BrokerUri", null);
         }
 
         [Fact]
@@ -58,11 +59,14 @@ namespace Bekk.Pact.Consumer.Tests.Config
         {
             Environment.SetEnvironmentVariable("Bekk__Pact__BrokerUserName", "test1");
             Environment.SetEnvironmentVariable("Bekk__Pact__Consumer__MockServiceBaseUri", "http://localhost:21");
+            Environment.SetEnvironmentVariable("Bekk__Pact__BrokerUri", "https://ww.bekk.no/pactbroker/");
+            
 
             var target = Configuration.FromEnvironmentVartiables();
 
             Assert.Equal("test1", target.BrokerUserName);
             Assert.Equal("http://localhost:21/", target.MockServiceBaseUri?.ToString());
+            Assert.Equal("https://ww.bekk.no/pactbroker/", target.BrokerUri?.ToString());
         }
     }
 }
