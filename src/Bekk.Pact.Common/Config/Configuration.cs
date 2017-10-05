@@ -8,17 +8,7 @@ namespace Bekk.Pact.Common.Config
     {
         protected Configuration(IConfiguration inner)
         {
-            if(inner != null)
-            {
-                Inner = inner;
-                brokerUri = Inner.BrokerUri;
-                brokerUserName = Inner.BrokerUserName;
-                brokerPassword = Inner.BrokerPassword;
-                publishPath = Inner.PublishPath;
-                log = Inner.Log;
-                logLevel = Inner.LogLevel.GetValueOrDefault(logLevel);
-                logFile = Inner.LogFile;
-            }
+            Inner = inner;
             Log(Console.WriteLine);
         }
         private Uri brokerUri;
@@ -35,18 +25,18 @@ namespace Bekk.Pact.Common.Config
         /// </summary>
         public T BrokerCredentials(string userName, string password)
         {
-            brokerUserName = Inner?.BrokerUserName ?? userName;
-            brokerPassword = Inner?.BrokerPassword ?? password;
+            brokerUserName = userName;
+            brokerPassword = password;
             return this as T;
         }
-        string IConfiguration.BrokerUserName => brokerUserName;
-        string IConfiguration.BrokerPassword => brokerPassword;
+        string IConfiguration.BrokerUserName => Inner?.BrokerUserName ?? brokerUserName;
+        string IConfiguration.BrokerPassword => Inner?.BrokerPassword ?? brokerPassword;
         /// <summary>
         /// Sets the value of <see cref="IConfiguration.BrokerUri"/>
         /// </summary>
         public T BrokerUri(Uri uri)
         {
-            brokerUri = Inner?.BrokerUri ?? uri;
+            brokerUri = uri;
             return this as T;
         }
         /// <summary>
@@ -58,17 +48,17 @@ namespace Bekk.Pact.Common.Config
         /// Sets the value of <see cref="IConfiguration.Log"/>.
         /// </summary>
         public T Log(Action<string> log){
-            this.log = Inner?.Log ?? log;
+            this.log = log;
             return this as T;
         }
-        Action<string> IConfiguration.Log => log;
-        Uri IConfiguration.BrokerUri => brokerUri;
+        Action<string> IConfiguration.Log => Inner?.Log ?? log;
+        Uri IConfiguration.BrokerUri => Inner?.BrokerUri ?? brokerUri;
         /// <summary>
         /// Sets the value of <see cref="IConfiguration.PublishPath"/>.
         /// </summary>
         public T PublishPath(string path)
         {
-            publishPath = Inner?.PublishPath ?? path;
+            publishPath = path;
             return this as T;
         }
         /// <summary>
@@ -76,22 +66,22 @@ namespace Bekk.Pact.Common.Config
         /// </summary>
         /// <param name="path">A path appended to the temp path.</param>
         public T PublishPathInTemp(string path = null) => PublishPath(path == null ? Path.GetTempPath() : Path.Combine(Path.GetTempPath(), path));
-        string IConfiguration.PublishPath => publishPath;
+        string IConfiguration.PublishPath => Inner?.PublishPath ?? publishPath;
         /// <summary>
         /// Sets the value of <see cref="IConfiguration.LogLevel"/>.
         /// </summary>
         public T LogLevel(LogLevel level)
         {
-            logLevel = Inner?.LogLevel ?? level;
+            logLevel = level;
             return this as T;
         }
-        LogLevel? IConfiguration.LogLevel => logLevel;
+        LogLevel? IConfiguration.LogLevel => Inner?.LogLevel ?? logLevel;
         /// <summary>
         /// Sets the value of <see cref="IConfiguration.LogFile"/>.
         /// </summary>
         public T LogFile(string path)
         {
-            logFile = Inner?.LogFile ?? path;
+            logFile = path;
             return this as T;
         }
         /// <summary>
@@ -99,6 +89,6 @@ namespace Bekk.Pact.Common.Config
         /// </summary>
         /// <param name="filename">The filename of the logfile in the temp folder.</param>
         public T LogFileInTemp(string filename) => LogFile(Path.Combine(Path.GetTempPath(), filename));
-        string IConfiguration.LogFile => logFile;
+        string IConfiguration.LogFile => Inner?.LogFile ?? logFile;
     }
 }

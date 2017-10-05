@@ -11,18 +11,18 @@ namespace Bekk.Pact.Provider.Config
         private Configuration(IProviderConfiguration inner) : base(inner)
         {
             this.inner = inner;
-            comparison = inner?.BodyKeyStringComparison ?? StringComparison.CurrentCultureIgnoreCase;
+            comparison = StringComparison.CurrentCultureIgnoreCase;
         }
         public static Configuration With => new Configuration(FromEnvironmentVartiables());
         public static IProviderConfiguration FromEnvironmentVartiables() => new EnvironmentBasedConfiguration();
         public Configuration Comparison(StringComparison comparison)
         {
-            this.comparison = inner?.BodyKeyStringComparison ?? comparison;
+            this.comparison = comparison;
             return this;
         }
         private Uri mockServiceUri = new Uri("http://localhost:1234");
         private IProviderConfiguration inner;
         private StringComparison comparison;
-        StringComparison? IProviderConfiguration.BodyKeyStringComparison => comparison;
+        StringComparison? IProviderConfiguration.BodyKeyStringComparison => inner?.BodyKeyStringComparison ?? comparison;
     }
 }

@@ -37,6 +37,7 @@ namespace Bekk.Pact.Consumer.Tests.Config
             Environment.SetEnvironmentVariable("Bekk:Pact:PublishPath", "expectedPath");
             Environment.SetEnvironmentVariable("Bekk:Pact:LogFile", "expectedLogFile");
             Environment.SetEnvironmentVariable("Bekk:Pact:LogLevel", "Info");
+            Environment.SetEnvironmentVariable("Bekk:Pact:Consumer:MockServiceBaseUri", "http://localhost:42");
 
             IConsumerConfiguration target = Configuration.With
                 .PublishPath("Not expected")
@@ -46,6 +47,7 @@ namespace Bekk.Pact.Consumer.Tests.Config
             Assert.Equal("expectedPath", target.PublishPath);
             Assert.Equal("expectedLogFile", target.LogFile);
             Assert.Equal(LogLevel.Info, target.LogLevel);
+            Assert.Equal("http://localhost:42/", target.MockServiceBaseUri.ToString());
         }
     }
 }

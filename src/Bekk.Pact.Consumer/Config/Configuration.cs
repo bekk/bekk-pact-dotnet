@@ -15,12 +15,8 @@ namespace Bekk.Pact.Consumer.Config
         }
         internal Configuration(IConsumerConfiguration inner) : base(inner)
         {
-            if(inner != null)
-            {
-               mockServiceUri = inner.MockServiceBaseUri;
-               this.inner = inner;
-            }
-            MockServiceBaseUri(new Uri("http://127.0.0.1:1234"));
+           this.inner = inner;
+           MockServiceBaseUri(new Uri("http://127.0.0.1:1234"));
         }
         /// <summary>
         /// Create a new instance.
@@ -45,11 +41,11 @@ namespace Bekk.Pact.Consumer.Config
         /// </summary>
         public Configuration MockServiceBaseUri(Uri uri)
         {
-            mockServiceUri = inner?.MockServiceBaseUri ?? uri;
+            mockServiceUri = uri;
             return this;
         }
 
-        Uri IConsumerConfiguration.MockServiceBaseUri => mockServiceUri;
+        Uri IConsumerConfiguration.MockServiceBaseUri => inner?.MockServiceBaseUri ?? mockServiceUri;
     }
 
 }
