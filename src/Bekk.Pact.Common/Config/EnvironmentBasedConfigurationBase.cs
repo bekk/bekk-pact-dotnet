@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Exceptions;
 
@@ -6,8 +7,9 @@ namespace Bekk.Pact.Common.Config
 {
     public abstract class EnvironmentBasedConfigurationBase : IConfiguration
     {
+        private string[] separators = new[]{":", "__"};
         protected string Prefix { get; } = "Bekk:Pact";
-        public Uri BrokerUri => GetUriValue(nameof(BrokerUri));
+        public Uri BrokerUri => GetUriValue(Prefix, nameof(BrokerUri));
 
         public string BrokerUserName => GetValue(nameof(BrokerUserName));
 
@@ -28,10 +30,11 @@ namespace Bekk.Pact.Common.Config
             }
         }
         public string LogFile => GetValue(nameof(LogFile));
-        protected string GetValue(string key)=> Environment.GetEnvironmentVariable(string.Concat(Prefix, ":", key));
-        protected Uri GetUriValue(string key)
+        protected string GetValue(string prefix, string key)=> separators.Select(sep => $"{(prefix == null ? Prefix : string.Concat(Prefix, sep, prefix)).Replace(":", sep)}{sep}{key}").Select(Environment.GetEnvironmentVariable).FirstOrDefault(v => v != null);
+        private string GetValue(string key) => GetValue(null, key);
+        protected Uri GetUriValue(string prefix, string key)
         {
-            var value = GetValue(key);
+            var value = GetValue(prefix, key);
             if(value == null) return null;
             try
             {

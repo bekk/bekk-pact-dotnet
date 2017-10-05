@@ -5,6 +5,6 @@ namespace Bekk.Pact.Consumer.Config
 {
     public class EnvironmentBasedConfiguration : Bekk.Pact.Common.Config.EnvironmentBasedConfigurationBase, IConsumerConfiguration
     {
-        public Uri MockServiceBaseUri => GetUriValue($"Consumer:{nameof(MockServiceBaseUri)}");
+        public Uri MockServiceBaseUri => GetUriValue("Consumer", nameof(MockServiceBaseUri));
     }
 }

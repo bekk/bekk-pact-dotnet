@@ -16,6 +16,8 @@ namespace Bekk.Pact.Consumer.Tests.Config
             Environment.SetEnvironmentVariable("Bekk:Pact:PublishPath", null);
             Environment.SetEnvironmentVariable("Bekk:Pact:LogFile", null);
             Environment.SetEnvironmentVariable("Bekk:Pact:LogLevel", null);
+            Environment.SetEnvironmentVariable("Bekk__Pact__BrokerUserName", null);            
+            Environment.SetEnvironmentVariable("Bekk__Pact__Consumer__MockServiceBaseUri", null);            
         }
 
         [Fact]
@@ -47,7 +49,20 @@ namespace Bekk.Pact.Consumer.Tests.Config
             Assert.Equal("expectedPath", target.PublishPath);
             Assert.Equal("expectedLogFile", target.LogFile);
             Assert.Equal(LogLevel.Info, target.LogLevel);
-            Assert.Equal("http://localhost:42/", target.MockServiceBaseUri.ToString());
+            Assert.Equal("http://localhost:42/", target.MockServiceBaseUri?.ToString());
+        }
+
+
+        [Fact]
+        public void FromEnvironmentVariables_UsingUnderscore_ReturnsObjectReadFromEnvironment()
+        {
+            Environment.SetEnvironmentVariable("Bekk__Pact__BrokerUserName", "test1");
+            Environment.SetEnvironmentVariable("Bekk__Pact__Consumer__MockServiceBaseUri", "http://localhost:21");
+
+            var target = Configuration.FromEnvironmentVartiables();
+
+            Assert.Equal("test1", target.BrokerUserName);
+            Assert.Equal("http://localhost:21/", target.MockServiceBaseUri?.ToString());
         }
     }
 }
