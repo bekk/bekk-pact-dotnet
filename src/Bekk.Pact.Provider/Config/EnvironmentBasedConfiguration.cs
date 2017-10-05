@@ -13,7 +13,7 @@ namespace Bekk.Pact.Provider.Config
                 var result = GetValue("Consumer", nameof(BodyKeyStringComparison));
                 if(result == null) return null;
                 if(Enum.TryParse<StringComparison>(result, out var comparison)) return comparison;
-                throw new ConfigurationException($"Couldn't parse configurationVariable {Prefix}:Consumer:{nameof(BodyKeyStringComparison)} value {result} to a valid string comparison.", this);
+                throw new ConfigurationException($"Couldn't parse configurationVariable {Prefix}:Consumer:{nameof(BodyKeyStringComparison)} value {result} to a valid string comparison. Use one of {ListOfEnums<StringComparison>()}", this);
             }
         }
     }

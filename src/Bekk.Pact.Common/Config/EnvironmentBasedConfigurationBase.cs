@@ -26,7 +26,7 @@ namespace Bekk.Pact.Common.Config
                 var result = GetValue(nameof(LogLevel));
                 if(result == null) return null;
                 if(Enum.TryParse<LogLevel>(result, out var level)) return level;
-                throw new ConfigurationException($"Couldn't parse configurationVariable {Prefix}:{nameof(LogLevel)} value {result} to a valid loglevel.", this);
+                throw new ConfigurationException($"Couldn't parse configurationVariable {Prefix}:{nameof(LogLevel)} value {result} to a valid loglevel. Use either of {ListOfEnums<LogLevel>()}.", this);
             }
         }
         public string LogFile => GetValue(nameof(LogFile));
@@ -45,6 +45,6 @@ namespace Bekk.Pact.Common.Config
                 throw new ConfigurationException($"Couldn't parse configurationVariable {Prefix}:{key} value {value} to an Uri.", this, e);
             }
         }
-
+        protected string ListOfEnums<T>() => string.Join(", ", Enum.GetValues(typeof(T)).Cast<object>().Select(e => e.ToString()));
     }
 }
