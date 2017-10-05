@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Exceptions;
 using Bekk.Pact.Common.Extensions;
+using Bekk.Pact.Provider.Config;
 using Bekk.Pact.Provider.Contracts;
 using Bekk.Pact.Provider.Exceptions;
 using Bekk.Pact.Provider.Repo;
@@ -24,10 +25,22 @@ namespace Bekk.Pact.Provider.Web
     {
         private readonly IProviderConfiguration configuration;
         private readonly IProviderStateSetup setup;
+        /// <summary>
+        /// Creates a new wrapper object to setup a test server and fetch all pacts. Configuration is read solely from environment variables.
+        /// </summary>
+        /// <param name="setup">A setup object responsible for mocking in front of each verification.</param>
+        public PactRunner(IProviderStateSetup setup) : this(null, setup)
+        {
+        }
+        /// <summary>
+        /// Creates a new wrapper object to setup a test server and fetch all pacts.
+        /// </summary>
+        /// <param name="configuration"> A configuration object</param>
+        /// <param name="setup">A setup object responsible for mocking in front of each verification.</param>
         public PactRunner(IProviderConfiguration configuration, IProviderStateSetup setup)
         {
             this.setup = setup;
-            this.configuration = configuration;
+            this.configuration = configuration ?? new EnvironmentBasedConfiguration();
         }
         /// <summary>
         /// Event is raised after each pact verification.
