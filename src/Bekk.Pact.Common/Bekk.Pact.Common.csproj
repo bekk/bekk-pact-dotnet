@@ -10,7 +10,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <IncludeSource>true</IncludeSource>
     <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
-    <IconUrl>https://pbs.twimg.com/profile_images/1891657237/twitter-avatar_400x400.png</IconUrl>
+    <PackageIconUrl>http://res.cloudinary.com/bekkforvaltning/image/upload/v1507291795/BEKK_logo_svart_atq9ug.svg</PackageIconUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.json" Version="10.0.2" />
