@@ -10,6 +10,7 @@
     <IncludeSource>true</IncludeSource>
     <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
     <IconUrl>https://pbs.twimg.com/profile_images/1891657237/twitter-avatar_400x400.png</IconUrl>
+    <PackageProjectUrl>https://www.bekk.no/</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>

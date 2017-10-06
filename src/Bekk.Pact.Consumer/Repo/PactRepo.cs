@@ -63,6 +63,10 @@ namespace Bekk.Pact.Consumer.Repo
             if(!result.IsSuccessStatusCode)
             {
                 Configuration.LogSafe(LogLevel.Error, $"Broker replied with {(int)result.StatusCode}: {result.ReasonPhrase}");
+                if(result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    Configuration.LogSafe(LogLevel.Error, "The broker requires username and password. Please verify these configuration values.");
+                }
                 Configuration.LogSafe(LogLevel.Verbose, await result.Content.ReadAsStringAsync());
                 throw new PactRequestException("Couldn't put pact to broker.", result);
             }

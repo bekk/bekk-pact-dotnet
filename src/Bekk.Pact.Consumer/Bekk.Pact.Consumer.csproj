@@ -11,6 +11,7 @@
     <IncludeSource>true</IncludeSource>
     <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
     <PackageIconUrl>http://res.cloudinary.com/bekkforvaltning/image/upload/v1507291795/BEKK_logo_svart_atq9ug.svg</PackageIconUrl>
+    <PackageProjectUrl>https://www.bekk.no/</PackageProjectUrl>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
