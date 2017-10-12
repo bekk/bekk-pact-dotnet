@@ -12,6 +12,7 @@ using Bekk.Pact.Common.Exceptions;
 using System.IO;
 using Newtonsoft.Json;
 using Bekk.Pact.Provider.Contracts;
+using System.Net;
 
 namespace Bekk.Pact.Provider.Repo
 {
@@ -116,6 +117,11 @@ namespace Bekk.Pact.Provider.Repo
             {
                 var client = BrokerClient;
                 var response = await client.GetAsync(url);
+                if(response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    Configuration.LogSafe(LogLevel.Error, $"No pacts where found at {url}. Please verify the configuration.");
+                    return Enumerable.Empty<Uri>();
+                }
                 response.EnsureSuccessStatusCode();
                 return JObject.Parse(
                     response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult())
