@@ -1,0 +1,27 @@
+prod-pact-broker-db:
+  autoredeploy: true
+  environment:
+    POSTGRES_USER: &db_user 4e9618a6-cf87-4aac-afb9-d849876480fe
+    POSTGRES_PASSWORD: &db_passwd c4d17cd0-c079-44bb-865c-d27593be2764
+    POSTGRES_DB: &db_name pact
+  image: postgres
+  restart: always
+  tags:
+    - prod
+prod-pact-broker-server:
+  autoredeploy: true
+  links: 
+    - prod-pact-broker-db
+  environment:
+    PACT_BROKER_DATABASE_USERNAME: *db_user
+    PACT_BROKER_DATABASE_PASSWORD: *db_passwd
+    PACT_BROKER_DATABASE_HOST: prod-pact-broker-db
+    PACT_BROKER_DATABASE_NAME: *db_name
+    PACT_BROKER_BASIC_AUTH_USERNAME: pact_user
+    PACT_BROKER_BASIC_AUTH_PASSWORD: pact_pass
+  ports: 
+    - '80:80'
+  image: 'dius/pact-broker:latest'
+  restart: always
+  tags:
+    - prod
