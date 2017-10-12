@@ -42,9 +42,10 @@ namespace Bekk.Pact.Consumer.Rendering
             json.Add("interactions", new JArray(pact.Interactions.Select(RenderInteraction)));
             json.Add("metadata", new JObject(
                 new JProperty("pactSpecificationVersion", "1.0.0"),
-                new JProperty("bekkPactVersion", "1.0.0.0")
+                new JProperty("bekkPactVersion", GetAssemblyVersion().ToString())
                 ));
             return json;
         }
+        private Version GetAssemblyVersion() => GetType().GetTypeInfo().Assembly.GetName().Version;
     }
 }
