@@ -1,0 +1,30 @@
+version: '2'
+
+services: 
+
+  db:
+    image: postgres
+    networks:
+      pactnet:
+    environment: 
+      POSTGRES_USER: &db_user 4e9618a6-cf87-4aac-afb9-d849876480fe
+      POSTGRES_PASSWORD: &db_passwd c4d17cd0-c079-44bb-865c-d27593be2764
+      POSTGRES_DB: &db_name pact
+  
+  pact-broker:
+    image: dius/pact-broker
+    networks:
+      pactnet:
+    ports:
+      - '80:80'
+    environment:
+      PACT_BROKER_DATABASE_USERNAME: *db_user
+      PACT_BROKER_DATABASE_PASSWORD: *db_passwd
+      PACT_BROKER_DATABASE_HOST: db
+      PACT_BROKER_DATABASE_NAME: *db_name
+      PACT_BROKER_BASIC_AUTH_USERNAME: pact_user
+      PACT_BROKER_BASIC_AUTH_PASSWORD: pact_pass
+
+networks:
+  pactnet:
+    driver: bridge

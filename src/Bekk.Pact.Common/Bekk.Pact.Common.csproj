@@ -1,17 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CommonProps.targets" />
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
-    <AssemblyVersion>$(Version)</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup>
+    <Title>BEKK Pact Common Library</Title>
     <Description>A base code library for implementing Pact tests</Description>
-    <IncludeSymbols>true</IncludeSymbols>
-    <IncludeSource>true</IncludeSource>
-    <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
-    <PackageIconUrl>http://res.cloudinary.com/bekkforvaltning/image/upload/v1507291795/BEKK_logo_svart_atq9ug.svg</PackageIconUrl>
-    <PackageProjectUrl>https://www.bekk.no/</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.json" Version="10.0.2" />

@@ -1,18 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CommonProps.targets" />
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3</TargetFrameworks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
-    <AssemblyVersion>0.0.1</AssemblyVersion>
-  </PropertyGroup>
-  <PropertyGroup>
+    <Title>BEKK Pact Consumer test tool</Title>
     <Description>A library for implementing Pact consumer tests</Description>
-    <IncludeSymbols>true</IncludeSymbols>
-    <IncludeSource>true</IncludeSource>
-    <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
-    <PackageIconUrl>http://res.cloudinary.com/bekkforvaltning/image/upload/v1507291795/BEKK_logo_svart_atq9ug.svg</PackageIconUrl>
-    <PackageProjectUrl>https://www.bekk.no/</PackageProjectUrl>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />

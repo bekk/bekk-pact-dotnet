@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CommonProps.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Bekk.Pact.Common\Bekk.Pact.Common.csproj" />
     <ProjectReference Include="..\Bekk.Pact.Provider\Bekk.Pact.Provider.csproj" />
@@ -13,14 +14,7 @@
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup>
+    <Title>BEKK Pact Provider test tool helper</Title>
     <Description>A helper library for implementing Pact tests using Bekk.Pact.Provider package</Description>
-    <IncludeSymbols>true</IncludeSymbols>
-    <IncludeSource>true</IncludeSource>
-    <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
-    <PackageIconUrl>http://res.cloudinary.com/bekkforvaltning/image/upload/v1507291795/BEKK_logo_svart_atq9ug.svg</PackageIconUrl>
-    <PackageProjectUrl>https://www.bekk.no/</PackageProjectUrl>
   </PropertyGroup>
 </Project>

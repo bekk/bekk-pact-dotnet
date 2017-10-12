@@ -1,0 +1,19 @@
+<Project>  
+   <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <VersionPrefix>0.0.1</VersionPrefix>
+    <Company>BEKK</Company>
+    <Copyright>Bekk Consulting</Copyright>
+    <Product>Bekk.Pact</Product>
+    <Authors>Øyvind Skaar</Authors>
+    <PackageTags>pact;dotnet;dotnetcore;</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>false</IncludeSource>
+    <RepositoryUrl>https://github.com/bekk/bekk-pact-dotnet</RepositoryUrl>
+    <PackageIconUrl>http://res.cloudinary.com/bekkforvaltning/image/upload/v1507295177/BEKK_logo_svart_jv6n8y.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/bekk/bekk-pact-dotnet/</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/bekk/bekk-pact-dotnet/blob/master/Licence.txt</PackageLicenseUrl>
+  </PropertyGroup>
+</Project>  

@@ -1,0 +1,2 @@
+Pact for dotnet core
+====================
