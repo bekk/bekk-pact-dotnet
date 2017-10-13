@@ -71,6 +71,7 @@ namespace Bekk.Pact.Provider.Web
         {
             var repo = new PactRepo(configuration);
             var results = new List<ITestResult>();
+            if(!DoNotGenerateOneDummyTestResult) results.Add(new DummyTestResult());
             foreach(var pact in repo.FetchAll(providerName))
             {
                 using (var server = new TestServer(new WebHostBuilder().UseStartup<TStartup>(pact, setup)))
@@ -89,5 +90,10 @@ namespace Bekk.Pact.Provider.Web
             }
             return results;
         }
+        /// <summary>
+        /// Set this to false to omit one dummy successful result.
+        /// </summary>
+        /// <returns></returns>
+        public bool DoNotGenerateOneDummyTestResult { private get; set; } = false;
     }
 }

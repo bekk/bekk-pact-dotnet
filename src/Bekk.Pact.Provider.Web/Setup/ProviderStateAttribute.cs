@@ -5,7 +5,7 @@ namespace Bekk.Pact.Provider.Web.Setup
     /// <summary>
     /// Use this attribute to decorate methods for setting up
     /// for each provider state in classes inheriting from 
-    /// <seealso="ProviderStateSetupBase" />.
+    /// <seealso cref="ProviderStateSetupBase" />.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class ProviderStateAttribute: Attribute
