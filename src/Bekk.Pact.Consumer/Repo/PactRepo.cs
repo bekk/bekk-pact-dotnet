@@ -53,7 +53,7 @@ namespace Bekk.Pact.Consumer.Repo
             try
             {
                 result = await client.PutAsync(url, new StringContent(payload, Encoding.UTF8, "application/json"));
-                Configuration.LogSafe(LogLevel.Scarce, $"Pact publiseh to broker at {url}.");
+                Configuration.LogSafe(LogLevel.Scarce, $"Pact published to broker at {url}.");
             }
             catch(Exception e)
             {
