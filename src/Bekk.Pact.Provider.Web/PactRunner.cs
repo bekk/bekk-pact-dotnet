@@ -71,7 +71,6 @@ namespace Bekk.Pact.Provider.Web
         {
             var repo = new PactRepo(configuration);
             var results = new List<ITestResult>();
-            if(!DoNotGenerateOneDummyTestResult) results.Add(new DummyTestResult());
             foreach(var pact in repo.FetchAll(providerName))
             {
                 using (var server = new TestServer(new WebHostBuilder().UseStartup<TStartup>(pact, setup)))
@@ -88,12 +87,13 @@ namespace Bekk.Pact.Provider.Web
                     results.Add(result);
                 }
             }
+            if(!(DoNotGenerateOneDummyTestResultWhenNoPactsAreFound || results.Any())) results.Add(new DummyTestResult());            
             return results;
         }
         /// <summary>
-        /// Set this to false to omit one dummy successful result.
+        /// Set this to false to omit one dummy successful result instead of an empty set when no pacts are fetched.
         /// </summary>
         /// <returns></returns>
-        public bool DoNotGenerateOneDummyTestResult { private get; set; } = false;
+        public bool DoNotGenerateOneDummyTestResultWhenNoPactsAreFound { private get; set; } = false;
     }
 }
