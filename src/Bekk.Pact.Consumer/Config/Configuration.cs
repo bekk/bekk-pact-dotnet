@@ -1,6 +1,7 @@
 ﻿using System;
 using Bekk.Pact.Common.Config;
 using Bekk.Pact.Common.Contracts;
+using Newtonsoft.Json.Linq;
 
 namespace Bekk.Pact.Consumer.Config
 {
@@ -36,6 +37,7 @@ namespace Bekk.Pact.Consumer.Config
         /// Must be parseable to an uri (absolute).
         /// </summary>
         public Configuration MockServiceBaseUri(string url) => MockServiceBaseUri(new Uri(url));
+
         /// <summary>
         /// Sets the value of <see cref="IConsumerConfiguration.MockServiceBaseUri"/>
         /// </summary>
@@ -43,6 +45,15 @@ namespace Bekk.Pact.Consumer.Config
         {
             mockServiceUri = uri;
             return this;
+        }
+
+        protected override void ReadFromJson(JToken json)
+        {
+            var data = json?["Consumer"];
+            if(data != null)
+            {
+                Read(data, nameof(IConsumerConfiguration.MockServiceBaseUri), (Uri uri) => MockServiceBaseUri(uri));
+            }
         }
 
         Uri IConsumerConfiguration.MockServiceBaseUri => inner?.MockServiceBaseUri ?? mockServiceUri;

@@ -1,6 +1,9 @@
 using System;
 using System.IO;
 using Bekk.Pact.Common.Contracts;
+using Bekk.Pact.Common.Exceptions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Bekk.Pact.Common.Config
 {
@@ -19,6 +22,60 @@ namespace Bekk.Pact.Common.Config
         private LogLevel logLevel = Bekk.Pact.Common.Contracts.LogLevel.Scarce;
         private string logFile;
         protected IConfiguration Inner { get; }
+        /// <summary>
+        /// Read configuration from a json file.
+        /// </summary>
+        public T ConfigurationFile(string filePath)
+        {
+            try
+            {
+                using(var stream = File.OpenText(filePath))
+                using(var reader = new JsonTextReader(stream))
+                {
+                    var json = JToken.ReadFrom(reader);
+                    var pact = json["Bekk"]?["Pact"];
+                    if(pact != null)
+                    {
+                        ReadFromJson(pact);
+                        Read(pact, nameof(IConfiguration.BrokerUri), (Uri uri) => BrokerUri(uri));
+                        Read(pact, nameof(IConfiguration.BrokerUserName), (v) => { brokerUserName = v; return this as T;});
+                        Read(pact, nameof(IConfiguration.BrokerPassword), (v) => { brokerPassword = v; return this as T;});
+                        Read(pact, nameof(IConfiguration.PublishPath), PublishPath);
+                        ReadEnum<LogLevel>(pact, nameof(IConfiguration.LogLevel), LogLevel);
+                        Read(pact, nameof(IConfiguration.LogFile), LogFile);
+                    }
+                }
+                return this as T;
+            }
+            catch(FileNotFoundException e)
+            {
+                throw new ConfigurationException("Configuration file not found.", this, e);
+            }
+        }
+
+        protected void Read<TData>(JToken json, string key, Func<TData,T> setter)
+        {
+            var value = json.Value<TData>(key);
+            if(!Equals(value, default(TData))) setter(value);
+        }
+        protected void Read(JToken json, string key, Func<string,T> setter)
+        {
+            var value = json.Value<string>(key);
+            if(!string.IsNullOrWhiteSpace(value)) setter(value);
+        }
+        protected void Read(JToken json, string key, Func<Uri,T> setter)
+        {
+            Read(json, key, (url) => {
+                if(!string.IsNullOrWhiteSpace(url)) setter(new Uri(url));
+                return this as T;
+            });
+        }
+        protected void ReadEnum<TData>(JToken json, string key, Func<TData,T> setter)
+        {
+            Read(json, key, (v) => setter((TData)Enum.Parse(typeof(TData),v)));
+        }
+
+        protected abstract void ReadFromJson(JToken json);
 
         /// <summary>
         /// Sets the values of <see cref="IConfiguration.BrokerUserName" /> and <see cref="IConfiguration.BrokerPassword" />.
