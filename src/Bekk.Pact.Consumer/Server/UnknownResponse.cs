@@ -31,5 +31,7 @@ namespace Bekk.Pact.Consumer.Server
         public int? ResponseStatusCode => 501;
 
         public object ResponseBody => _request;
+
+        IJsonable IPactResponseDefinition.ResponseBody => null;
     }
 }

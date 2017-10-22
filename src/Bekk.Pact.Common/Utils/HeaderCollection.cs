@@ -60,6 +60,8 @@ namespace Bekk.Pact.Common.Utils
             return Add(key, value);
         }
 
+        public IHeaderCollection AddIfAbsent(string key, params string[] values) => headers.ContainsKey(key) ? this : Add(key, values);
+
         public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
         {
             return headers.Keys.Select((k)=>new KeyValuePair<string, string>(k, headers[k])).GetEnumerator();
@@ -72,6 +74,5 @@ namespace Bekk.Pact.Common.Utils
 
         public override string ToString() => 
             string.Join(Environment.NewLine, headers.Select(hdr => $"{hdr.Key}: {hdr.Value}"));
-
     }
 }

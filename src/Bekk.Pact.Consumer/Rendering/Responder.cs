@@ -29,7 +29,7 @@ namespace Bekk.Pact.Consumer.Rendering
                     writer.Write($"{header.Key}: {header.Value}{crlf}");
                 }
                 writer.Write(crlf);
-                writer.Write(new BodyRenderer(response));
+                writer.Write(new JsonBody(response));
                 writer.Flush();
                 writer.Dispose();
             }

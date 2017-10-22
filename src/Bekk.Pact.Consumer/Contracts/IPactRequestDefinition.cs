@@ -8,5 +8,6 @@ namespace Bekk.Pact.Consumer.Contracts
         string Query { get; }
         IHeaderCollection RequestHeaders { get; }
         string HttpVerb { get; }
+        IJsonable RequestBody { get; }
     }
 }

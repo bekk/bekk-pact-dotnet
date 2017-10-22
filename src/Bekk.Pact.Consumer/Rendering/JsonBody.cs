@@ -1,4 +1,5 @@
 using System;
+using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Common.Extensions;
 using Bekk.Pact.Consumer.Contracts;
 using Newtonsoft.Json;
@@ -7,23 +8,18 @@ using Newtonsoft.Json.Serialization;
 
 namespace Bekk.Pact.Consumer.Rendering
 {
-    class BodyRenderer
+    class JsonBody : IJsonable
     {
-        private readonly IPactResponseDefinition pact;
         private object body;
 
-        public BodyRenderer(IPactResponseDefinition pact)
+        public JsonBody(object body)
         {
-            this.pact = pact;
+            this.body = body;
         }
 
         public JContainer Render()
         {
-            body = pact?.ResponseBody;
             if (body == null) return null;
-            var contentType = HeaderExtensions.ContentType(pact.ResponseHeaders);
-            if (contentType != null && contentType != "application/json; charset=utf-8") throw new NotSupportedException(
-                $"Only content-type: application/json; charset=utf-8 is supported. Found: {contentType}");
             return Render(body);
         }
 

@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="156.43709mm"
+   height="117.35816mm"
+   viewBox="0 0 156.43709 117.35816"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   sodipodi:docname="packages.svg">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker2199"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Send">
+      <path
+         transform="matrix(-0.2,0,0,-0.2,-1.2,0)"
+         style="fill:#000000;fill-opacity:0.54509804;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:0.3254902"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path2197"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Send"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path1076"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:0.54509804;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:0.3254902"
+         transform="matrix(-0.2,0,0,-0.2,-1.2,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Send"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1655"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1653"
+         style="fill:#000000;fill-opacity:0.32512315;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:0.32512315"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Send"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Send"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path1094"
+         style="fill:#000000;fill-opacity:0.32512315;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:0.32512315"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4510">
+      <stop
+         style="stop-color:#f2f2f2;stop-opacity:1;"
+         offset="0"
+         id="stop4506" />
+      <stop
+         style="stop-color:#f2f2f2;stop-opacity:0.63981044"
+         offset="1"
+         id="stop4508" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4510"
+       id="linearGradient4608"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.69673754,0,0,0.54515909,49.755341,-66.275147)"
+       x1="73.705353"
+       y1="55.662201"
+       x2="100.91965"
+       y2="81.553574" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4510"
+       id="linearGradient4632"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.69673754,0,0,0.54515909,49.755341,-66.275147)"
+       x1="73.705353"
+       y1="55.662201"
+       x2="100.91965"
+       y2="81.553574" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4510"
+       id="linearGradient178"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.69673754,0,0,0.54515909,49.755341,-66.275147)"
+       x1="73.705353"
+       y1="55.662201"
+       x2="100.91965"
+       y2="81.553574" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4510"
+       id="linearGradient204"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.69673754,0,0,0.54515909,49.755341,-66.275147)"
+       x1="73.705353"
+       y1="55.662201"
+       x2="100.91965"
+       y2="81.553574" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4510"
+       id="linearGradient228"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.69673754,0,0,0.54515909,101.472,-152.2023)"
+       x1="73.705353"
+       y1="55.662201"
+       x2="100.91965"
+       y2="81.553574" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4510"
+       id="linearGradient2452"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.69673754,0,0,0.54515909,54.699847,-62.041814)"
+       x1="73.705353"
+       y1="55.662201"
+       x2="100.91965"
+       y2="81.553574" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4510"
+       id="linearGradient2474"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.69673754,0,0,0.54515909,101.472,-109.30554)"
+       x1="73.705353"
+       y1="55.662201"
+       x2="100.91965"
+       y2="81.553574" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4510"
+       id="linearGradient2495"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.69673754,0,0,0.54515909,8.328572,-152.2023)"
+       x1="73.705353"
+       y1="55.662201"
+       x2="100.91965"
+       y2="81.553574" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.8531188"
+     inkscape:cx="295.62914"
+     inkscape:cy="214.4355"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="1001"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <sodipodi:guide
+       position="33.704223,77.45656"
+       orientation="1,0"
+       id="guide1053"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="7.5165154,79.25844"
+       orientation="0,1"
+       id="guide1055"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="124.87946,89.96674"
+       orientation="1,0"
+       id="guide1057"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-28.035036,-17.892163)">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4526"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"><flowRegion
+         id="flowRegion4528"><rect
+           id="rect4530"
+           width="213.14218"
+           height="42.426407"
+           x="272.74118"
+           y="153.7834" /></flowRegion><flowPara
+         id="flowPara4532" /></flowRoot>    <rect
+       transform="scale(1,-1)"
+       style="fill:url(#linearGradient2452);fill-opacity:1;stroke:#595959;stroke-width:0.61630577;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.63921569"
+       y="-44.781689"
+       x="74.714462"
+       height="26.581373"
+       width="62.677349"
+       id="rect10" />
+    <text
+       transform="scale(0.84763254,1.1797565)"
+       id="text4516"
+       y="22.97485"
+       x="125.08242"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.14147469"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.14147469"
+         y="22.97485"
+         x="125.08242"
+         id="tspan4514"
+         sodipodi:role="line">Bekk.Pact.Common</tspan></text>
+    <text
+       transform="scale(0.89243332,1.1205319)"
+       id="text4520"
+       y="29.935923"
+       x="118.90948"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12715951"
+       xml:space="preserve"><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.12715951"
+         y="29.935923"
+         x="118.90948"
+         id="tspan4518"
+         sodipodi:role="line">netstandard1.3</tspan></text>
+    <flowRoot
+       transform="matrix(0.26458333,0,0,0.26458333,4.6772361,-8.7769153)"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       id="flowRoot4534"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4536"><rect
+           y="156.81386"
+           x="273.75134"
+           height="53.436932"
+           width="226.83693"
+           id="rect4538" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
+         id="flowPara4540">Common interfaces and base types</flowPara></flowRoot>    <g
+       transform="translate(51.716662,43.030394)"
+       id="g4630"
+       clip-path="none">
+      <g
+         inkscape:label="Clip"
+         id="g4628">
+        <rect
+           transform="scale(1,-1)"
+           style="fill:url(#linearGradient4632);fill-opacity:1;stroke:#595959;stroke-width:0.61630577;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.63921569"
+           y="-49.015022"
+           x="69.769958"
+           height="26.581373"
+           width="62.677349"
+           id="rect4610" />
+        <text
+           transform="scale(0.84763254,1.1797565)"
+           id="text4614"
+           y="26.56316"
+           x="119.24911"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.14147469"
+           xml:space="preserve"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.14147469"
+             y="26.56316"
+             x="119.24911"
+             id="tspan4612"
+             sodipodi:role="line">Bekk.Pact.Provider</tspan></text>
+        <text
+           transform="scale(0.89243332,1.1205319)"
+           id="text4618"
+           y="33.71389"
+           x="113.369"
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12715951"
+           xml:space="preserve"><tspan
+             style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.12715951"
+             y="33.71389"
+             x="113.369"
+             id="tspan4616"
+             sodipodi:role="line">netstandard1.3</tspan></text>
+        <flowRoot
+           transform="matrix(0.26458333,0,0,0.26458333,-0.26726953,-4.543582)"
+           style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           id="flowRoot4626"
+           xml:space="preserve"><flowRegion
+             id="flowRegion4622"><rect
+               y="156.81386"
+               x="273.75134"
+               height="53.436932"
+               width="226.83693"
+               id="rect4620" /></flowRegion><flowPara
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
+             id="flowPara4624">Package for building Provider tests</flowPara></flowRoot>      </g>
+    </g>
+    <rect
+       id="rect2454"
+       width="62.677349"
+       height="26.581373"
+       x="121.48662"
+       y="-92.045418"
+       style="fill:url(#linearGradient2474);fill-opacity:1;stroke:#595959;stroke-width:0.61630577;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.63921569"
+       transform="scale(1,-1)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.14147469"
+       x="180.26218"
+       y="63.037121"
+       id="text2458"
+       transform="scale(0.84763254,1.1797565)"><tspan
+         sodipodi:role="line"
+         id="tspan2456"
+         x="180.26218"
+         y="63.037121"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.14147469">Bekk.Pact.Common</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12715951"
+       x="171.31917"
+       y="72.115646"
+       id="text2462"
+       transform="scale(0.89243332,1.1205319)"><tspan
+         sodipodi:role="line"
+         id="tspan2460"
+         x="171.31917"
+         y="72.115646"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.12715951">netstandard1.3</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2470"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,51.449392,38.486812)"><flowRegion
+         id="flowRegion2466"><rect
+           id="rect2464"
+           width="226.83693"
+           height="53.436932"
+           x="273.75134"
+           y="156.81386" /></flowRegion><flowPara
+         id="flowPara2468"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start">Common interfaces and base types</flowPara></flowRoot>    <g
+       clip-path="none"
+       id="g176"
+       transform="translate(-41.426769,43.030394)">
+      <rect
+         transform="scale(1,-1)"
+         style="fill:url(#linearGradient178);fill-opacity:1;stroke:#595959;stroke-width:0.61630577;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.63921569"
+         y="-49.015022"
+         x="69.769958"
+         height="26.581373"
+         width="62.677349"
+         id="rect156" />
+      <text
+         transform="scale(0.84763254,1.1797565)"
+         id="text160"
+         y="26.56316"
+         x="119.24911"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.14147469"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.14147469"
+           y="26.56316"
+           x="119.24911"
+           id="tspan158"
+           sodipodi:role="line">Bekk.Pact.Consumer</tspan></text>
+      <text
+         transform="scale(0.89243332,1.1205319)"
+         id="text164"
+         y="33.71389"
+         x="113.369"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12715951"
+         xml:space="preserve"><tspan
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.12715951"
+           y="33.71389"
+           x="113.369"
+           id="tspan162"
+           sodipodi:role="line">netstandard1.3</tspan></text>
+      <flowRoot
+         transform="matrix(0.26458333,0,0,0.26458333,-0.26726953,-4.543582)"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         id="flowRoot172"
+         xml:space="preserve"><flowRegion
+           id="flowRegion168"><rect
+             y="156.81386"
+             x="273.75134"
+             height="53.436932"
+             width="226.83693"
+             id="rect166" /></flowRegion><flowPara
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
+           id="flowPara170">Package for building Consumer tests</flowPara></flowRoot>    </g>
+    <rect
+       transform="scale(1,-1)"
+       style="fill:url(#linearGradient2495);fill-opacity:1;stroke:#595959;stroke-width:0.61630577;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.63921569"
+       y="-134.94217"
+       x="28.343189"
+       height="26.581373"
+       width="62.677349"
+       id="rect182" />
+    <text
+       transform="scale(0.84763254,1.1797565)"
+       id="text186"
+       y="99.397812"
+       x="70.37561"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.14147469"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.14147469"
+         y="99.397812"
+         x="70.37561"
+         id="tspan184"
+         sodipodi:role="line">Bekk.Pact.Consumer.Extensions</tspan></text>
+    <text
+       transform="scale(0.89243332,1.1205319)"
+       id="text190"
+       y="110.39815"
+       x="66.94899"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12715951"
+       xml:space="preserve"><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.12715951"
+         y="110.39815"
+         x="66.94899"
+         id="tspan188"
+         sodipodi:role="line">netstandard2.0</tspan></text>
+    <flowRoot
+       transform="matrix(0.26458333,0,0,0.26458333,-41.694039,81.383572)"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       id="flowRoot198"
+       xml:space="preserve"><flowRegion
+         id="flowRegion194"><rect
+           y="156.81386"
+           x="273.75134"
+           height="53.436932"
+           width="226.83693"
+           id="rect192" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
+         id="flowPara196">Helper classes for consumer testing</flowPara></flowRoot>    <rect
+       id="rect206"
+       width="62.677349"
+       height="26.581373"
+       x="121.48662"
+       y="-134.94217"
+       style="fill:url(#linearGradient228);fill-opacity:1;stroke:#595959;stroke-width:0.61630577;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.63921569"
+       transform="scale(1,-1)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.14147469"
+       x="180.26218"
+       y="99.397812"
+       id="text210"
+       transform="scale(0.84763254,1.1797565)"><tspan
+         sodipodi:role="line"
+         id="tspan208"
+         x="180.26218"
+         y="99.397812"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.14147469">Bekk.Pact.Provider.Web</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12715951"
+       x="171.31917"
+       y="110.39815"
+       id="text214"
+       transform="scale(0.89243332,1.1205319)"><tspan
+         sodipodi:role="line"
+         id="tspan212"
+         x="171.31917"
+         y="110.39815"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.12715951">netstandard1.6</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot222"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,51.449392,81.383572)"><flowRegion
+         id="flowRegion218"><rect
+           id="rect216"
+           width="226.83693"
+           height="53.436932"
+           x="273.75134"
+           y="156.81386" /></flowRegion><flowPara
+         id="flowPara220"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start">Helper classes for provider tests</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:1.66499996;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.32512315;marker-end:url(#Arrow2Send)"
+       d="m 61.739261,63.406432 -3e-6,-7.414551 h 36.063205 v -8.231095"
+       id="path1059"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.66499996;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.32512315;marker-end:url(#marker1655)"
+       d="m 153.08482,63.406432 v -7.414551 h -36.0632 v -8.231095"
+       id="path1651"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#000000;fill-opacity:0.54509804;stroke:#000000;stroke-width:1.64999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.3254902;marker-end:url(#Arrow1Send)"
+       d="M 61.739258,105.09032 V 97.808688"
+       id="path2101"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path2195"
+       d="M 152.9145,105.09032 V 97.808688"
+       style="fill:#000000;fill-opacity:0.54509804;stroke:#000000;stroke-width:1.64999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.3254902;marker-end:url(#marker2199)" />
+  </g>
+</svg>

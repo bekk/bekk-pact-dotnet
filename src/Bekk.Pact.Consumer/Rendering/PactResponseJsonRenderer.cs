@@ -17,7 +17,10 @@ namespace Bekk.Pact.Consumer.Rendering
             dynamic json = new JObject();
             json.status = _pact.ResponseStatusCode;
             json.headers = RenderHeaders(_pact.ResponseHeaders);
-            json.body = new BodyRenderer(_pact).Render();
+            if(_pact.ResponseBody != null)
+            {
+                json.body = _pact.ResponseBody.Render();
+            }
             return json;
         }
     }

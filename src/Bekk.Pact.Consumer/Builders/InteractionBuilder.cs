@@ -26,12 +26,13 @@ namespace Bekk.Pact.Consumer.Builders
         public string Provider { get; }
         public string Consumer { get; }
         public string RequestPath { get; private set; }
+        public IJsonable RequestBody { get; private set; }
         public string Query => queries.Any() ? $"?{string.Join("&", queries)}" : null;
         public IHeaderCollection RequestHeaders { get; } = new HeaderCollection();
         public IHeaderCollection ResponseHeaders { get; } = new HeaderCollection();
         public string HttpVerb { get; private set; } = "GET";
         public int? ResponseStatusCode { get; private set; }
-        public object ResponseBody { get; private set; }
+        public IJsonable ResponseBody { get; private set; }
 
         public InteractionBuilder(string state, string consumer, string provider, string description, Version version, IConsumerConfiguration config)
         {
@@ -64,6 +65,13 @@ namespace Bekk.Pact.Consumer.Builders
             HttpVerb = verb;
             return this;
         }
+    
+        IRequestBuilder IRequestBuilder.WithJsonBody(object content)
+        {
+            RequestBody = new JsonBody(content);
+            RequestHeaders.AddIfAbsent("content-type", "application/json");
+            return this;
+        }
 
         IResponseBuilder IRequestBuilder.ThenRespondsWith(int statusCode)
         {
@@ -81,12 +89,12 @@ namespace Bekk.Pact.Consumer.Builders
 
         IResponseBuilder IResponseBuilder.WithBody(object body)
         {
-            ResponseBody = body;
+            ResponseBody = new JsonBody(body);
             return this;
         }
         IResponseBuilder IResponseBuilder.WithBodyArray(params object[] elements)
         {
-            ResponseBody = elements;
+            ResponseBody = new JsonBody(elements);
             return this;
         }
 

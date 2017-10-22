@@ -35,5 +35,23 @@ namespace Bekk.Pact.Consumer.Tests.Builders
             Assert.NotNull(result);
             output.WriteLine(result);
         }
+
+        [Fact]
+        public async Task BuildPactWithJsonBody_AddsHeader()
+        {
+            var pact = await PactBuilder.Build("A test pact")
+                .With(Configuration.With.Log(output.WriteLine))
+                .Between("Test provider").And("Test consumer")
+                .WithProviderState("Some test assumptions")
+                .WhenRequesting("/serviceurl/something/1")
+                .WithVerb("POST")
+                .WithJsonBody(new { A = "B", C = new [] {"D"} })
+                .ThenRespondsWith(200)
+                .InPact();
+            var result = pact.ToString();
+
+            output.WriteLine(result);
+            Assert.True(false);
+        }
     }
 }

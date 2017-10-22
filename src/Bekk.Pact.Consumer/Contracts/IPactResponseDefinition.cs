@@ -6,6 +6,6 @@ namespace Bekk.Pact.Consumer.Contracts
     {
         IHeaderCollection ResponseHeaders { get; }
         int? ResponseStatusCode { get; }
-        object ResponseBody { get; }
+        IJsonable ResponseBody { get; }
     }
 }

@@ -22,6 +22,11 @@ namespace Bekk.Pact.Consumer.Contracts
         /// </summary>
         IRequestBuilder WithHeader(string key, params string[] values);
         /// <summary>
+        /// Define the body of the request as json.
+        /// Will also set the content type header if it is not defined.
+        /// </summary>
+        IRequestBuilder WithJsonBody(object content);
+        /// <summary>
         /// Provide the expected status code in the reply from the provider.
         /// </summary>
         /// <param name="statusCode">A http status code. Default is 200.</param>

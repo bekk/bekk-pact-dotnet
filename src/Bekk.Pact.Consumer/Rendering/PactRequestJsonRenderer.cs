@@ -17,6 +17,10 @@ namespace Bekk.Pact.Consumer.Rendering
             json.method = _pact.HttpVerb;
             json.path = _pact.RequestPath + _pact.Query;
             json.headers = RenderHeaders(_pact.RequestHeaders);
+            if(_pact.RequestBody != null)
+            {
+                json.body = _pact.RequestBody.Render();
+            }
             return json;
         }
     }

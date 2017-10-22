@@ -35,6 +35,7 @@ namespace Bekk.Pact.Consumer.Server
         public string Query { get; private set; }
         public IHeaderCollection RequestHeaders { get; }
         public string HttpVerb { get; private set; }
+        public IJsonable RequestBody { get; private set; }
 
         public override string ToString()
         {
