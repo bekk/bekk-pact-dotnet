@@ -24,7 +24,7 @@ namespace Bekk.Pact.Consumer.Matching
             if (!CompareAcceptEmptyAsNull(Template.Query, request.Query)) return false;
             foreach (var header in Template.RequestHeaders)
             {
-                if (!request.RequestHeaders[header.Key].Equals(header.Value)) return false;
+                if (request.RequestHeaders[header.Key]?.Equals(header.Value) != true) return false;
             }
             var bodyComparison = new BodyComparer(Template, Config);
             return bodyComparison.Matches(request);
