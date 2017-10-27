@@ -32,5 +32,10 @@ namespace Bekk.Pact.Common.Contracts
         /// Location of a log file to append log messages to
         /// </summary>
         string LogFile { get; }
+        /// <summary>
+        /// The comparison type used when matching property names in the message body.
+        /// </summary>
+        /// <remarks>Default in the configuration builder is <seeAlso cref="StringComparison.CurrentCultureIgnoreCase"/>.</remarks>
+        StringComparison? BodyKeyStringComparison { get; }
     }
 }

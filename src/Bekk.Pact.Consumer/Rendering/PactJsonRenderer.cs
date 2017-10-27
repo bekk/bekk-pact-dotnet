@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Bekk.Pact.Consumer.Rendering
 {
-    class PactJsonRenderer:PactBaseJsonRenderer
+    class PactJsonRenderer: PactBaseJsonRenderer
     {
         private readonly IPactDefinition pact;
 

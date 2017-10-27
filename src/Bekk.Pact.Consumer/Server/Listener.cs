@@ -14,7 +14,6 @@ namespace Bekk.Pact.Consumer.Server
         private TcpListener listener;
         private Func<IPactRequestDefinition, IPactResponseDefinition> callback;
         private CancellationTokenSource cancellation;
-
         public void Start(Uri uri, Func<IPactRequestDefinition, IPactResponseDefinition> callback)
         {
             var address = uri.HostNameType == UriHostNameType.IPv4 ? 
@@ -23,7 +22,8 @@ namespace Bekk.Pact.Consumer.Server
             var port = uri.Port;
             listener = new TcpListener(address, port);
             this.callback = callback;
-            Listen(uri).ConfigureAwait(false);
+            cancellation = new CancellationTokenSource();
+            Task.Run(() => Listen(uri), cancellation.Token);
         }
 
         private async Task Listen(Uri baseUri)
@@ -36,8 +36,8 @@ namespace Bekk.Pact.Consumer.Server
                 while (State < ListenerState.Cancelled && !(cancellation?.IsCancellationRequested).GetValueOrDefault())
                 {
                     State = ListenerState.Listening;
-                    cancellation = new CancellationTokenSource();
-                    using (var client = await Task.Run(() => listener.AcceptTcpClientAsync(), cancellation.Token))
+                    await Task.Yield();
+                    using (var client = await Task.Run(() => listener.AcceptTcpClientAsync(), cancellation.Token).ConfigureAwait(false))
                     {
                         if (client == null || State == ListenerState.Cancelled) continue;
                         State = ListenerState.Parsing;
@@ -48,8 +48,8 @@ namespace Bekk.Pact.Consumer.Server
                         {
                             var numberOfBytesRead = stream.Read(readBuffer, 0, readBuffer.Length);
                             request.AppendFormat("{0}", Encoding.ASCII.GetString(readBuffer, 0, numberOfBytesRead));
-                        } while (stream.DataAvailable);
-
+                        } 
+                        while (stream.DataAvailable);
                         var pact = new RequestParser(request.ToString(), baseUri);
                         var response = callback(pact);
                         using (var responder = new Responder(stream))
@@ -68,8 +68,7 @@ namespace Bekk.Pact.Consumer.Server
             }
             catch(Exception e)
             {
-                System.Console.WriteLine(e.Message);
-                System.Console.WriteLine(e.GetType());
+                System.Console.WriteLine($"{e.GetType()}: {e.Message}");
                 throw;
             }
             finally

@@ -19,7 +19,7 @@ namespace Bekk.Pact.Consumer.Server
             IConsumerConfiguration config,
             Action<PactHandler> unregister)
         {
-            this.matcher = new PactComparer(pact);
+            this.matcher = new PactComparer(pact, config);
             this.pact = pact;
             Configuration = config;
             this.unregister = () => unregister(this);

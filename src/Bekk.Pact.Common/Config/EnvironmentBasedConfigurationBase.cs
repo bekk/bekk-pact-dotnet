@@ -45,6 +45,17 @@ namespace Bekk.Pact.Common.Config
                 throw new ConfigurationException($"Couldn't parse configurationVariable {Prefix}:{key} value {value} to an Uri.", this, e);
             }
         }
+
+        public StringComparison? BodyKeyStringComparison 
+        {
+            get
+            {
+                var result = GetValue("Consumer", nameof(BodyKeyStringComparison));
+                if(result == null) return null;
+                if(Enum.TryParse<StringComparison>(result, out var comparison)) return comparison;
+                throw new ConfigurationException($"Couldn't parse configurationVariable {Prefix}:Consumer:{nameof(BodyKeyStringComparison)} value {result} to a valid string comparison. Use one of {ListOfEnums<StringComparison>()}", this);
+            }
+        }
         protected string ListOfEnums<T>() => string.Join(", ", Enum.GetValues(typeof(T)).Cast<object>().Select(e => e.ToString()));
     }
 }

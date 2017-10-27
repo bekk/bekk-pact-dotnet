@@ -31,6 +31,8 @@ namespace Bekk.Pact.Consumer.Config
 
         public string BrokerPassword => GetValue(c => c.BrokerPassword);
 
+        public StringComparison? BodyKeyStringComparison => GetValue(c => c.BodyKeyStringComparison);
+
         /// <summary>
         /// Merges two configurations, letting <paramref name="right"/> override <paramref name="left"/>.
         /// </summary>

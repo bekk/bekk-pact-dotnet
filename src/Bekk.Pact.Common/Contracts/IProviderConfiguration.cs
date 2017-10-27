@@ -7,10 +7,5 @@ namespace Bekk.Pact.Common.Contracts
     /// </summary>
     public interface IProviderConfiguration : IConfiguration
     {
-        /// <summary>
-        /// The comparison type used when matching property names in the message body.
-        /// </summary>
-        /// <remarks>Default in the configuration builder is <seeAlso cref="StringComparison.CurrentCultureIgnoreCase"/>.</remarks>
-        StringComparison? BodyKeyStringComparison { get; }
     }
 }

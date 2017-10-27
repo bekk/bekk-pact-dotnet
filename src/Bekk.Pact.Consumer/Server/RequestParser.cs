@@ -18,16 +18,28 @@ namespace Bekk.Pact.Consumer.Server
 
         private void Parse(string req, Uri baseUri)
         {
-            var lines = new Queue<string>(req.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries));
+            var lines = new Queue<string>(req.Split(new[] {"\r\n"}, StringSplitOptions.None));
             var startLine = lines.Dequeue().Split(' ').ToArray();
             HttpVerb = startLine[0];
             var uri = new Uri(baseUri, startLine[1]);
             RequestPath = uri.LocalPath;
             Query = uri.Query;
             string hdr;
-            while(lines.Count > 0 &&(hdr = lines.Dequeue()) != "\r\n" && hdr != null)
+            while(lines.Count > 0 &&(hdr = lines.Dequeue()) != String.Empty && hdr != null)
             {
                 RequestHeaders.ParseAndAdd(hdr);
+            }
+            var body = string.Join(Environment.NewLine, lines);
+            if(!string.IsNullOrEmpty(body))
+            {
+                switch(RequestHeaders["Content-Type"]?.Split(new[]{';'}).FirstOrDefault())
+                {
+                    case "application/json":
+                        RequestBody = new Jsonable(body);
+                        break;
+                    default:
+                        throw new NotImplementedException("Only json so far");
+                }
             }
         }
 

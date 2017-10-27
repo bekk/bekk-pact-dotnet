@@ -13,6 +13,7 @@ namespace Bekk.Pact.Common.Config
         {
             Inner = inner;
             Log(Console.WriteLine);
+            comparison = StringComparison.CurrentCultureIgnoreCase;
         }
         private Uri brokerUri;
         private string brokerUserName;
@@ -147,5 +148,13 @@ namespace Bekk.Pact.Common.Config
         /// <param name="filename">The filename of the logfile in the temp folder.</param>
         public T LogFileInTemp(string filename) => LogFile(Path.Combine(Path.GetTempPath(), filename));
         string IConfiguration.LogFile => Inner?.LogFile ?? logFile;
+
+        private StringComparison comparison;
+        public T Comparison(StringComparison comparison)
+        {
+            this.comparison = comparison;
+            return this as T;
+        }
+        StringComparison? IConfiguration.BodyKeyStringComparison => Inner?.BodyKeyStringComparison ?? comparison;
     }
 }

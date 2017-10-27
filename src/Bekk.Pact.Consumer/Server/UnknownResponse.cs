@@ -18,7 +18,7 @@ namespace Bekk.Pact.Consumer.Server
         {
             _request = request;
         }
-        public UnknownResponse(params JObject[] contents): this()
+        public  UnknownResponse(params JObject[] contents): this()
         {
             switch(contents.Length)
             {

@@ -66,10 +66,9 @@ namespace Bekk.Pact.Consumer.Builders
             return this;
         }
     
-        IRequestBuilder IRequestBuilder.WithJsonBody(object content)
+        IRequestBuilder IRequestBuilder.WithBody(IJsonable body)
         {
-            RequestBody = new JsonBody(content);
-            RequestHeaders.AddIfAbsent("content-type", "application/json");
+            RequestBody = body;
             return this;
         }
 
@@ -87,14 +86,9 @@ namespace Bekk.Pact.Consumer.Builders
             return this;
         }
 
-        IResponseBuilder IResponseBuilder.WithBody(object body)
+        IResponseBuilder IResponseBuilder.WithBody(IJsonable body)
         {
-            ResponseBody = new JsonBody(body);
-            return this;
-        }
-        IResponseBuilder IResponseBuilder.WithBodyArray(params object[] elements)
-        {
-            ResponseBody = new JsonBody(elements);
+            ResponseBody = body;
             return this;
         }
 

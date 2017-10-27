@@ -71,7 +71,7 @@ namespace Bekk.Pact.Consumer.Server
                 .FirstOrDefault();
             if(result == null)
             {
-                result = new UnknownResponse(_handlers.Select(h => h.DiffGram(request)).ToArray());   
+                result = new UnknownResponse(_handlers.Select(h => h.DiffGram(request)).Where(d => d != null).ToArray());   
             }
             var config = _handlers.Select(h => h.Configuration).FirstOrDefault(l => l != null);
             config.LogSafe(LogLevel.Verbose, () => $"Replied to {new Rendering.PactRequestJsonRenderer(request)} with {new Rendering.PactResponseJsonRenderer(result)}");

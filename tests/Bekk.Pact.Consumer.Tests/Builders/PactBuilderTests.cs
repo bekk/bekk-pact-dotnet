@@ -1,6 +1,14 @@
+using System;
+using System.Linq;
+using System.Net.Http;
+using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
+using Bekk.Pact.Common.Contracts;
 using Bekk.Pact.Consumer.Builders;
 using Bekk.Pact.Consumer.Config;
+using Bekk.Pact.Consumer.Extensions;
+using Newtonsoft.Json.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -26,7 +34,7 @@ namespace Bekk.Pact.Consumer.Tests.Builders
                 .WithVerb("PUT")
                 .ThenRespondsWith(200)
                 .WithHeader("Some reply header", "Some result")
-                .WithBody(new {
+                .WithJsonBody(new {
                     Test="ABC"
                 })
                 .InPact();
@@ -39,19 +47,32 @@ namespace Bekk.Pact.Consumer.Tests.Builders
         [Fact]
         public async Task BuildPactWithJsonBody_AddsHeader()
         {
-            var pact = await PactBuilder.Build("A test pact")
-                .With(Configuration.With.Log(output.WriteLine))
+            var body = new { A = "B", C = new [] {"D"} };
+            var baseAddress = new Uri("http://localhost:8978");
+            using(var pact = await PactBuilder.Build("A test pact")
+                .With(Configuration.With
+                    .Log(output.WriteLine)
+                    .LogLevel(LogLevel.Verbose)
+                    .Comparison(StringComparison.InvariantCultureIgnoreCase)
+                    .MockServiceBaseUri(baseAddress))
                 .Between("Test provider").And("Test consumer")
                 .WithProviderState("Some test assumptions")
-                .WhenRequesting("/serviceurl/something/1")
+                .WhenRequesting("/serviceurl/something/else/1")
                 .WithVerb("POST")
-                .WithJsonBody(new { A = "B", C = new [] {"D"} })
+                .WithJsonBody(body)
                 .ThenRespondsWith(200)
-                .InPact();
-            var result = pact.ToString();
+                .InPact())
+            {
+                using(var client = new HttpClient())
+                {
+                    client.BaseAddress = baseAddress;
+                    var response = await client.PostAsync("/serviceurl/something/else/1", new StringContent(JObject.FromObject(body).ToString() ,Encoding.UTF8, "application/json")); 
+                    output.WriteLine(await response.Content.ReadAsStringAsync());
+                    Assert.Equal(200, (int)response.StatusCode);
+                }
 
-            output.WriteLine(result);
-            Assert.True(false);
+                pact.Verify();
+            }  
         }
     }
 }
