@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Bekk.Pact.Common.Contracts;
 
 namespace Bekk.Pact.Common.Utils
@@ -37,6 +38,7 @@ namespace Bekk.Pact.Common.Utils
         }
         public IHeaderCollection Add(string key, params string[] values)
         {
+            VerifyKey(key);
             var value = string.Join(", ", values);
             if(string.IsNullOrEmpty(value)) return this;
             var normalizedKey = key.ToLower();
@@ -65,6 +67,12 @@ namespace Bekk.Pact.Common.Utils
         public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
         {
             return headers.Keys.Select((k)=>new KeyValuePair<string, string>(k, headers[k])).GetEnumerator();
+        }
+
+        private void VerifyKey(string key)
+        {
+            if(string.IsNullOrEmpty(key)) throw new ArgumentNullException(nameof(key), "Header key is empty.");
+            if(Regex.IsMatch(key, @"\s+")) throw new ArgumentException("Header key may not contain whitespace", nameof(key));
         }
 
         IEnumerator IEnumerable.GetEnumerator()

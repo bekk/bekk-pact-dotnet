@@ -37,8 +37,13 @@ namespace Bekk.Pact.Consumer.Server
                     case "application/json":
                         RequestBody = new Jsonable(body);
                         break;
+                    case "application/x-www-form-urlencoded":
+                    case "":
+                    case null:
+                        RequestBody = new UrlEncodedFormData(body);
+                        break;
                     default:
-                        throw new NotImplementedException("Only json so far");
+                        throw new NotImplementedException($"Content type {RequestHeaders["Content-Type"]} is not implemented.");
                 }
             }
         }
