@@ -32,6 +32,8 @@ namespace Bekk.Pact.Consumer.Rendering
             };
             switch (body)
             {
+                case IJsonable json:
+                    return json.Render();
                 case string serialized:
                     return JObject.Parse(serialized);
                 case Array array:

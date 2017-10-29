@@ -42,19 +42,32 @@ namespace Bekk.Pact.Consumer.Server
                         if (client == null || State == ListenerState.Cancelled) continue;
                         State = ListenerState.Parsing;
                         var stream = client.GetStream();
-                        byte[] readBuffer = new byte[1024];
-                        var request = new StringBuilder();
-                        do
+                            
+                        try
                         {
-                            var numberOfBytesRead = stream.Read(readBuffer, 0, readBuffer.Length);
-                            request.AppendFormat("{0}", Encoding.ASCII.GetString(readBuffer, 0, numberOfBytesRead));
-                        } 
-                        while (stream.DataAvailable);
-                        var pact = new RequestParser(request.ToString(), baseUri);
-                        var response = callback(pact);
-                        using (var responder = new Responder(stream))
+                            byte[] readBuffer = new byte[1024];
+                            var request = new StringBuilder();
+                            do
+                            {
+                                var numberOfBytesRead = stream.Read(readBuffer, 0, readBuffer.Length);
+                                request.AppendFormat("{0}", Encoding.ASCII.GetString(readBuffer, 0, numberOfBytesRead));
+                            } 
+                            while (stream.DataAvailable);
+                            var pact = new RequestParser(request.ToString(), baseUri);
+                            var response = callback(pact);
+                            using (var responder = new Responder(stream))
+                            {
+                                responder.Respond(response);
+                            }
+                        }
+                        catch(Exception e)
                         {
-                            responder.Respond(response);
+                            if(stream.CanWrite)
+                            using (var responder = new Responder(stream))
+                            {
+                                responder.Respond(new ExceptionResponse(e));
+                            }
+                            throw;
                         }
                     }
                 }
