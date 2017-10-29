@@ -69,7 +69,8 @@ namespace Bekk.Pact.Consumer.Tests.Builders
                 using(var client = new HttpClient())
                 {
                     client.BaseAddress = baseAddress;
-                    var response = await client.PostAsync(url, new FormUrlEncodedContent(data)); 
+                    var content = new FormUrlEncodedContent(data);
+                    var response = await client.PostAsync(url, content); 
                     output.WriteLine(await response.Content.ReadAsStringAsync());
                     Assert.Equal(200, (int)response.StatusCode);
                 }
@@ -101,8 +102,7 @@ namespace Bekk.Pact.Consumer.Tests.Builders
                 using(var client = new HttpClient())
                 {
                     client.BaseAddress = baseAddress;
-                    var jsonBody = JObject.FromObject(body).ToString();
-                    var content = new StringContent(jsonBody , Encoding.UTF8, "application/json");
+                    var content = new StringContent(JObject.FromObject(body).ToString() , Encoding.UTF8, "application/json");
                     var response = await client.PostAsync(url, content); 
                     output.WriteLine(await response.Content.ReadAsStringAsync());
                     Assert.Equal(200, (int)response.StatusCode);
