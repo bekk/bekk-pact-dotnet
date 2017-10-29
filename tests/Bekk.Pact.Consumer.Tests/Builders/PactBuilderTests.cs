@@ -101,7 +101,9 @@ namespace Bekk.Pact.Consumer.Tests.Builders
                 using(var client = new HttpClient())
                 {
                     client.BaseAddress = baseAddress;
-                    var response = await client.PostAsync(url, new StringContent(JObject.FromObject(body).ToString() , Encoding.UTF8, "application/json")); 
+                    var jsonBody = JObject.FromObject(body).ToString();
+                    var content = new StringContent(jsonBody , Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync(url, content); 
                     output.WriteLine(await response.Content.ReadAsStringAsync());
                     Assert.Equal(200, (int)response.StatusCode);
                 }
