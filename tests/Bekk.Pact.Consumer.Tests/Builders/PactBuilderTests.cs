@@ -85,7 +85,7 @@ namespace Bekk.Pact.Consumer.Tests.Builders
             }
         }
 
-        [Fact(Skip="Desperate")]
+        [Fact]
         public async Task BuildPactWithJsonBody_AddsHeader()
         {
             var body = new { A = "B", C = new [] {"D"} };
@@ -107,10 +107,12 @@ namespace Bekk.Pact.Consumer.Tests.Builders
             {
                 using(var client = new HttpClient{BaseAddress=baseAddress})
                 {
-                    client.DefaultRequestHeaders.Add("Connection", "close");
-                    var jsonBody = JObject.FromObject(body).ToString();
-                    var content = new StringContent(jsonBody , Encoding.UTF8, "application/json");
-                    var response = await client.PostAsync(url, content); 
+                    var message = new HttpRequestMessage(HttpMethod.Post, url)
+                    {
+                        Version = HttpVersion.Version10,
+                        Content = new StringContent(JObject.FromObject(body).ToString() , Encoding.UTF8, "application/json")
+                    };
+                    var response = await client.SendAsync(message); 
                     output.WriteLine(await response.Content.ReadAsStringAsync());
                     Assert.Equal(200, (int)response.StatusCode);
                 }
