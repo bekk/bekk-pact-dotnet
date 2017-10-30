@@ -4,7 +4,7 @@ using Bekk.Pact.Common.Contracts;
 
 namespace Bekk.Pact.Consumer.Contracts
 {
-    public interface IRequestBuilder
+    public interface IRequestBuilder : IMessageBuilder<IRequestBuilder>
     {
         /// <summary>
         /// Provide a query to add to the url.
@@ -18,14 +18,6 @@ namespace Bekk.Pact.Consumer.Contracts
         /// Define the http verb to use. Default is <c>GET</c>.
         /// </summary>
         IRequestBuilder WithVerb(string verb);
-        /// <summary>
-        /// Provide a header that is required in the request.
-        /// </summary>
-        IRequestBuilder WithHeader(string key, params string[] values);
-        /// <summary>
-        /// Define the body of the request.
-        /// </summary>
-        IRequestBuilder WithBody(IJsonable body);
         /// <summary>
         /// Provide the expected status code in the reply from the provider.
         /// </summary>

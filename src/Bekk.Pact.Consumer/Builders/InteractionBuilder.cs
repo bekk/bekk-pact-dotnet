@@ -66,7 +66,7 @@ namespace Bekk.Pact.Consumer.Builders
             return this;
         }
     
-        IRequestBuilder IRequestBuilder.WithBody(IJsonable body)
+        IRequestBuilder IMessageBuilder<IRequestBuilder>.WithBody(IJsonable body)
         {
             RequestBody = body;
             return this;
@@ -80,13 +80,13 @@ namespace Bekk.Pact.Consumer.Builders
 
         IResponseBuilder IRequestBuilder.ThenRespondsWith(HttpStatusCode statusCode) => ((IRequestBuilder) this).ThenRespondsWith((int) statusCode);
 
-        IResponseBuilder IResponseBuilder.WithHeader(string key, params string[] values)
+        IResponseBuilder IMessageBuilder<IResponseBuilder>.WithHeader(string key, params string[] values)
         {
             ResponseHeaders.Add(key, values);
             return this;
         }
 
-        IResponseBuilder IResponseBuilder.WithBody(IJsonable body)
+        IResponseBuilder IMessageBuilder<IResponseBuilder>.WithBody(IJsonable body)
         {
             ResponseBody = body;
             return this;
@@ -119,7 +119,7 @@ namespace Bekk.Pact.Consumer.Builders
             await Save();
         }
 
-        IRequestBuilder IRequestBuilder.WithHeader(string key, params string[] values)
+        IRequestBuilder IMessageBuilder<IRequestBuilder>.WithHeader(string key, params string[] values)
         {
             RequestHeaders.Add(key, values);
             return this;

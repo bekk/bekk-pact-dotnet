@@ -9,36 +9,24 @@ namespace Bekk.Pact.Consumer.Extensions
         /// <summary>
         /// A shortcut to add header with key <value>Content-Type</value> and value <value>application/json; charset=utf-8</value>
         /// </summary>
-        public static IRequestBuilder WithContentTypeJson(this IRequestBuilder builder)
-        {
-            return builder.WithHeader("Content-Type", "application/json; charset=utf-8");
-        }
+        public static TBuilder WithContentTypeJson<TBuilder>(this IMessageBuilder<TBuilder> builder) => builder.WithHeader("Content-Type", "application/json; charset=utf-8");
         /// <summary>
         /// A shortcut to add header with key <value>Content-Type</value> and value <value>application/x-www-form-urlencoded</value>
         /// </summary>
-        public static IRequestBuilder WithContentTypeFormUrlEncoded(this IRequestBuilder builder)
-        {
-            return builder.WithHeader("Content-Type", "application/x-www-form-urlencoded");
-        }
+        public static IRequestBuilder WithContentTypeFormUrlEncoded(this IRequestBuilder builder) => builder.WithHeader("Content-Type", "application/x-www-form-urlencoded");
         /// <summary>
-        /// A shortcut to add header with key <value>Content-Type</value> and value <value>application/json; charset=utf-8</value>
+        /// Synonymous with <see cref="IRequestBuilder.ThenRespondsWith(int)"/> with a value of <c>200</c>. 
         /// </summary>
-        public static IResponseBuilder WithContentTypeJson(this IResponseBuilder builder)
-        {
-            return builder.WithHeader("Content-Type", "application/json; charset=utf-8");
-        }
+        /// <returns>A builder for defining the response.</returns>
+        public static IResponseBuilder ThenResponds(this IRequestBuilder builder) => builder.ThenRespondsWith();
         /// <summary>
         /// Provide a header that is required in the request.
         /// </summary>
-        public static IRequestBuilder WithHeader(this IRequestBuilder builder, string key, int value) => builder.WithHeader(key, value.ToString());
+        public static TBuilder WithHeader<TBuilder>(this IMessageBuilder<TBuilder> builder, string key, int value) => builder.WithHeader(key, value.ToString());
         /// <summary>
         /// Provide a query to add to the url.
         /// </summary>
         public static IRequestBuilder WithQuery(this IRequestBuilder builder, string key, int value) => builder.WithQuery(key, value.ToString());
-        /// <summary>
-        /// Defines the body as json, setting the content type header and adding the body to the interaction.
-        /// </summary>
-        public static IRequestBuilder WithJsonBody(this IRequestBuilder builder, object body) => builder.WithContentTypeJson().WithBody(new JsonBody(body));
         /// <summary>
         /// Defines the body as url encoded form data, setting the content type header and adding the body to the interaction.
         /// </summary>
@@ -52,6 +40,14 @@ namespace Bekk.Pact.Consumer.Extensions
         /// <summary>
         /// Defines the body as json, setting the content type header and adding the body to the interaction.
         /// </summary>
-        public static IResponseBuilder WithJsonBody(this IResponseBuilder builder, object body) => builder.WithContentTypeJson().WithBody(new JsonBody(body));
+        public static TBuilder WithJsonBody<TBuilder>(this IMessageBuilder<TBuilder> builder, object body) 
+        {
+            builder.WithContentTypeJson();
+            return builder.WithBody(new JsonBody(body));
+        }
+        /// <summary>
+        /// Defines the body as a json array, setting the content type header and adding the body to the interaction.
+        /// </summary>
+        public static TBuilder WithJsonArrayBody<TBuilder>(this IMessageBuilder<TBuilder> builder, params object[] collection) => builder.WithJsonBody(collection);
     }
 }
