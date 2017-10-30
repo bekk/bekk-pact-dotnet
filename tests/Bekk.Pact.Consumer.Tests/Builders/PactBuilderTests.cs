@@ -79,7 +79,7 @@ namespace Bekk.Pact.Consumer.Tests.Builders
             }
         }
 
-        [Fact(Skip = "Fails in build. Do not why")]
+        [Fact]
         public async Task BuildPactWithJsonBody_AddsHeader()
         {
             var body = new { A = "B", C = new [] {"D"} };
@@ -99,9 +99,9 @@ namespace Bekk.Pact.Consumer.Tests.Builders
                 .ThenRespondsWith(200)
                 .InPact())
             {
-                using(var client = new HttpClient())
+                using(var client = new HttpClient{BaseAddress=baseAddress})
                 {
-                    client.BaseAddress = baseAddress;
+                    client.DefaultRequestHeaders.Add("Connection", "close");
                     var jsonBody = JObject.FromObject(body).ToString();
                     var content = new StringContent(jsonBody , Encoding.UTF8, "application/json");
                     var response = await client.PostAsync(url, content); 
