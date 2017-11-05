@@ -5,7 +5,7 @@ namespace Bekk.Pact.Common.Contracts
     public interface IConfiguration
     {
         /// <summary>
-        /// The address to the pact broker service. This is used to publish the pacts.
+        /// The address to the pact broker service. This is used to publish and fetch the pacts.
         /// </summary>
         Uri BrokerUri { get; }
         /// <summary>
@@ -17,7 +17,7 @@ namespace Bekk.Pact.Common.Contracts
         /// </summary>
         string BrokerPassword { get; }
         /// <summary>
-        /// The file path to store published pacts
+        /// The file path to store and fetch published pacts
         /// </summary>
         string PublishPath { get; }
         /// <summary>

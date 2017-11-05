@@ -10,7 +10,7 @@ namespace Bekk.Pact.Consumer
 {
     public static class Build
     {
-        public static IPactBuilder Pact(string title)
+        public static IPactBuilder Pact(string description)
         {
             var stack = new StackTrace();
             var caller = stack.GetFrame(1).GetMethod();
