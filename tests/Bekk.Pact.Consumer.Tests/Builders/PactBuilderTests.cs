@@ -73,7 +73,7 @@ namespace Bekk.Pact.Consumer.Tests.Builders
 
                     var message = new HttpRequestMessage(HttpMethod.Post, url)
                     {
-                        Version = HttpVersion.Version10,
+                        Version = HttpVersion.Version11,
                         Content = new FormUrlEncodedContent(data)
                     };
                     var response = await client.SendAsync(message);

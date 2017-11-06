@@ -8,7 +8,7 @@ This facilitates *consumers* of [micro-]services define their expectation of the
 Read more about Pact at https://docs.pact.io/ and at the [Ruby implementation repo](https://github.com/realestate-com-au/pact).
 The [specs are found here](https://github.com/pact-foundation/pact-specification).
 
-This packet implements parts of the [version 1.0 of the spec](https://github.com/pact-foundation/pact-specification/tree/version-1). *Presntly, request body is not supported. Only Json response is supported.*
+This packet implements parts of the [version 1.0 of the spec](https://github.com/pact-foundation/pact-specification/tree/version-1). *Only Json response is supported.*
 
 This implementation is agnostic of test framework, but I used [xUnit](https://xunit.github.io/) and [NUnit](http://nunit.org/) when developing and testing.
 
