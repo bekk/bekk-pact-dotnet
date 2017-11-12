@@ -11,6 +11,7 @@ namespace Bekk.Pact.Common.Utils
         {
             this.render = render;
         }
+        public Jsonable(JContainer json) : this(()=>json){}
         public Jsonable(string json)
         {
             render = () => (JContainer) JToken.Parse(json);
