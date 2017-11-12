@@ -45,12 +45,12 @@ namespace Bekk.Pact.Consumer.Server
                             
                         try
                         {
-                            byte[] readBuffer = new byte[1024];
+                            byte[] readBuffer = new byte[4096];
                             var request = new StringBuilder();
                             do
                             {
-                                var numberOfBytesRead = stream.Read(readBuffer, 0, readBuffer.Length);
-                                request.AppendFormat("{0}", Encoding.ASCII.GetString(readBuffer, 0, numberOfBytesRead));
+                                var numberOfBytesRead = await stream.ReadAsync(readBuffer, 0, readBuffer.Length);
+                                request.Append(Encoding.ASCII.GetString(readBuffer, 0, numberOfBytesRead));
                             } 
                             while (stream.DataAvailable);
                             var pact = new RequestParser(request.ToString(), baseUri);

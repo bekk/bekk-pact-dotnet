@@ -36,7 +36,7 @@ namespace Bekk.Pact.Consumer.Extensions
                 }
                 case double d:
                 {
-                    serialized = d.ToString("G");
+                    serialized = d.ToString("G", CultureInfo.InvariantCulture);
                     break;
                 }
                 case DateTime date:
