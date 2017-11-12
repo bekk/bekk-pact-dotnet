@@ -1,9 +1,10 @@
 Pact for dotnet core
 ====================
 
-This is a tool for running consumer driven test 
+This is a tool for building consumer driven test 
 using the [Pact](https://docs.pact.io/) protocol.
-This facilitates *consumers* of [micro-]services define their expectation of the service (the *provider*) in a contract. This contract is called a pact.
+This facilitates *consumers* of services to define their expectation of the service (the *provider*) 
+in trhe form of a contract. This contract is called a pact.
 
 Read more about Pact at https://docs.pact.io/ and at the [Ruby implementation repo](https://github.com/realestate-com-au/pact).
 The [specs are found here](https://github.com/pact-foundation/pact-specification).
@@ -16,7 +17,7 @@ You will probably want to host a [Pact Broker](https://github.com/pact-foundatio
 transfer of pacts between the consumers and the provider. I suggest using [the docker container](https://github.com/DiUS/pact_broker-docker).
 
 ## Packages
-This implementation concists of five nuget packages.
+This implementation consists of five nuget packages.
 
 ![Nuget packages dependency map](./docs/packages.svg "Packages")
 ### Bekk.Pact.Common
@@ -38,7 +39,10 @@ This package provides tools to make it easier to setup a provider test and verif
 
 ## Configuration
 The configuration is defined in the interfaces `IConsumerConfiguration` and `IProviderConfiguration`.
-The recommended way to implement these are with the configuration builders `Bekk.Pact.Consumer.Config.Configuration` and `Bekk.Pact.Provider.Config.Configuration`. They have methods for defining all settings, reading from json files and also reads environment variables. Environment variables with override values provided in the configuration builder.
+The recommended way to implement these are with the configuration builders `Bekk.Pact.Consumer.Config.Configuration` and `Bekk.Pact.Provider.Config.Configuration`. They have methods for defining all settings, 
+reading from json files and it also reads environment variables. 
+
+Environment variables with override values provided in the configuration builder.
 ### Settings
 | Member | Environment variable | Description |
 |-------:|----------------------|-------------|
@@ -53,6 +57,7 @@ The recommended way to implement these are with the configuration builders `Bekk
 | `MockServiceBaseUri` | `Bekk:Pact:Consumer:MockServiceBaseUri` | The base uri used by the tcp listener in the consumer tests. |
 
 The environment variables can use either colon or double underscores as separators.
+
 Json configuration (read using `Configuration.With.ConfigurationFile(filePath)`) has the same structure as the environment variables:
 
 ```json
@@ -75,7 +80,8 @@ To publish and fetch pacts, `BrokerUri` and/or `PublishPath` must be set.
 ## Consumer tests
 The consumer tests defines the pacts and it's interactions.
 
-This is done by using the `Bekk.Pact.Consumer.Builders.PactBuilder` and populate it in a fluent-ish fashion. 
+This is done by using the `Bekk.Pact.Consumer.Builders.PactBuilder` and populate it in a fluent syntax. 
+
 Start the builder with `PactBuilder.Build(description)`, where the description is a human readable description of the interaction.
 The method `InPact()` returns the actual pact object. This is a disposable object, and should be wrapped in a `using` statement.
 
@@ -83,27 +89,26 @@ In the `Bekk.Pact.Consumer.Extensions` package is a helper class
 to create a builder using the `ConsumerNameAttribute` and `ProviderNameAttribute` to read consumer and provider name:
 `Bekk.Pact.Consumer.Build.Pact(description)`
 
-The tests will use a context that hosts the httplistener and publishes the pacts afterwards.
+The tests will use a context (`Bekk.Pact.Consumer.Server.Context`) that hosts the httplistener and publishes the pacts afterwards.
 It also contains the shared configuration. (The PactBuilder can take a configuration object with local overrides.)
 The context can be created in a base class, a singleton or in other constructs the test
-framework provides.
+framework provides. It should be disposed after use.
 
-Here is an example using a base test class to share a common setup and context between the tests.
+This is an example in [NUnit](http://nunit.org/) using a base test class to share a common setup and context between the tests.
 
 ```C#
 using Bekk.Pact.Consumer.Config;
-using Bekk.Pact.Consumer.Server;
 using NUnit.Framework;
 
 namespace Example.Tests
 {
     public abstract class PactTestsBase
     {
-        private Context context;
+        private Bekk.Pact.Consumer.Server.Context context;
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
-            context = new Context(
+            context = new Bekk.Pact.Consumer.Server.Context(
                     Configuration.With
                         .BrokerUrl("https://mybroker.pact.dius.com.au")
                         .PublishPathInTemp("published_pacts")
@@ -210,7 +215,7 @@ The steps required are in short:
 The simplest way to achieve this is to use the
 `Bekk.Pact.Provider.Web` package.
 
-### Making a theory test using XUnit
+Following is an example using [XUnit](https://xunit.github.io/).
 Here the server is setup with the `StartUp` class.
 `ProviderStateSetup` contains the setup for each
 _provider state_.
@@ -259,7 +264,7 @@ namespace TimekeeperSvc.Tests.Pacts
 
 ```
 
-The provider set up implements the interface `Bekk.Pact.Provider.Web.Contracts.IProviderStateSetup`. It handles the setup of claims and services [mocking] required by each pact (identified with the provider setup string).
+The provider setup implements the interface `Bekk.Pact.Provider.Web.Contracts.IProviderStateSetup`. It handles the setup of claims and services [mocking] required by each pact (identified with the provider setup string).
 It is possible to inherit from the class `Bekk.Pact.Provider.Web.Setup.ProviderStateSetupBase`. It will use methods decorated with `Bekk.Pact.Provider.Web.Setup.ProviderStateAttribute` to identify the provider state strings. Typically you need one method per pact.
 ```C#
 using System;
