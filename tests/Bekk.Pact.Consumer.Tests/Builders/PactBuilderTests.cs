@@ -56,7 +56,7 @@ namespace Bekk.Pact.Consumer.Tests.Builders
             var baseAddress = new Uri("http://localhost:8978");
             var url = "/serviceurl/whatever";
             using(var pact = await PactBuilder.Build("A test pact fith form data")
-                .With(Configuration.With.Log(output.WriteLine).MockServiceBaseUri(baseAddress))
+                .With(Configuration.With.Log(output.WriteLine).MockServiceBaseUri(baseAddress).LogLevel(LogLevel.Verbose))
                 .Between("Test provider").And("Test consumer")
                 .WithProviderState("Some other test assumptions")
                 .WhenRequesting(url)
