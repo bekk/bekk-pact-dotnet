@@ -4,7 +4,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <AssemblyVersion>$(Version)</AssemblyVersion>
-    <VersionPrefix>0.0.1</VersionPrefix>
+    <Version>0.1.0.0</Version>
+    <PackageVersion>$(Version)</PackageVersion>
     <Company>BEKK</Company>
     <Copyright>Bekk Consulting</Copyright>
     <Product>Bekk.Pact</Product>
