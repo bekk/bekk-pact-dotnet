@@ -16,12 +16,19 @@ using Xunit.Abstractions;
 
 namespace Bekk.Pact.Consumer.Tests.Builders
 {
-    public class PactBuilderTests
+    public class PactBuilderTests : IDisposable
     {
         private readonly ITestOutputHelper output;
+        private readonly Bekk.Pact.Consumer.Server.Context context;
         public PactBuilderTests(ITestOutputHelper output)
         {
             this.output = output;
+            this.context = new Bekk.Pact.Consumer.Server.Context(null);
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
         }
         
         [Fact]
