@@ -11,12 +11,14 @@ namespace Bekk.Pact.Consumer.Server
 {
     class WebServerContainer : IPactResponder
     {
+        private readonly IConsumerConfiguration _configuration;
         private readonly bool _implicitCreation;
         private object _lockToken = new object();
         private IDictionary<Uri, Listener> _listeners = new Dictionary<Uri, Listener>();
         private IList<PactHandler> _handlers = new List<PactHandler>();
-        public WebServerContainer(bool implicitCreation)
+        public WebServerContainer(IConsumerConfiguration configuration, bool implicitCreation)
         {
+            _configuration = configuration;
             _implicitCreation = implicitCreation;
         }
 
@@ -64,13 +66,19 @@ namespace Bekk.Pact.Consumer.Server
         IPactResponseDefinition IPactResponder.Respond(IPactRequestDefinition request)
         {
             if(request == null) throw new ArgumentNullException(nameof(request));
-            if(!_handlers.Any()) throw new InvalidOperationException($"Request received to , but no pacts are registered");
+            if(!_handlers.Any()) 
+            {
+                var msg = $"Request received to {request.RequestPath}, but no pacts are registered";
+                _configuration.LogSafe(LogLevel.Error, msg);
+                throw new InvalidOperationException(msg);
+            }
             var result = _handlers
                 .Select(h => h.Respond(request))
                 .Where(r => r!= null)
                 .FirstOrDefault();
             if(result == null)
             {
+                _configuration.LogSafe(LogLevel.Error, $"No match for {request.RequestPath}.");
                 result = new UnknownResponse(_handlers.Select(h => h.DiffGram(request)).Where(d => d != null).ToArray());   
             }
             var config = _handlers.Select(h => h.Configuration).FirstOrDefault(l => l != null);

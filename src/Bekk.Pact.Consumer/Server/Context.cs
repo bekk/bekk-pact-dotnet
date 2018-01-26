@@ -39,7 +39,7 @@ namespace Bekk.Pact.Consumer.Server
             {
                 if (_servers == null)
                 {
-                    _servers = new WebServerContainer(false);
+                    _servers = new WebServerContainer(configuration, false);
                 }
             }
         }
@@ -97,7 +97,7 @@ namespace Bekk.Pact.Consumer.Server
                 {
                     if (_servers == null)
                     {
-                        _servers = new WebServerContainer(true);
+                        _servers = new WebServerContainer(config, true);
                     }
                     servers = _servers;
                 }
