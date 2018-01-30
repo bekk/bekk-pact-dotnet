@@ -45,7 +45,7 @@ namespace Bekk.Pact.Consumer.Server
                             
                         try
                         {
-                            byte[] readBuffer = new byte[4096];
+                            byte[] readBuffer = new byte[8096];
                             var request = new StringBuilder();
                             do
                             {
