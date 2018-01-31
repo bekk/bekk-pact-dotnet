@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    working_directory: /app
+    docker:
+      - image: microsoft/aspnetcore-build:2.0
+    steps:
+      - checkout
+      - run:
+          name: Running tests
+          command: |
+              dotnet restore
+              dotnet test
