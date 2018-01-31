@@ -15,6 +15,10 @@ jobs:
               dotnet nuget push "artifacts/Bekk.Pact.Common.${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}.nupkg" -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
               dotnet nuget push "artifacts/Bekk.Pact.Consumer.${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}.nupkg" -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
               dotnet nuget push "artifacts/Bekk.Pact.Provider.${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}.nupkg" -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
-              dotnet nuget push "artifacts/Bekk.Pact.Provider.Web${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}.nupkg" -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
+              dotnet nuget push "artifacts/Bekk.Pact.Provider.Web.${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}.nupkg" -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
+              dotnet nuget push "artifacts/Bekk.Pact.Common.${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}.symbols.nupkg" -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
+              dotnet nuget push "artifacts/Bekk.Pact.Consumer.${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}.symbols.nupkg" -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
+              dotnet nuget push "artifacts/Bekk.Pact.Provider.${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}.symbols.nupkg" -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
+              dotnet nuget push "artifacts/Bekk.Pact.Provider.Web.${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}.symbols.nupkg" -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
 
            
