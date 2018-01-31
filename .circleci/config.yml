@@ -1,7 +1,8 @@
 version: 2
 jobs:
   build:
-    APP_VERSION_NUM: 2.0.0
+    environment:
+      APP_VERSION_NUM: 2.0.0
     working_directory: /app
     docker:
       - image: microsoft/aspnetcore-build:2.0
