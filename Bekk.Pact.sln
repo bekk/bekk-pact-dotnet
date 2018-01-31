@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Provider.Tests", "tests\Bekk.Pact.Provider.Tests\Bekk.Pact.Provider.Tests.csproj", "{8401B888-8A5D-43F5-83E9-34CB9B8A8628}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Consumer.Tests", "tests\Bekk.Pact.Consumer.Tests\Bekk.Pact.Consumer.Tests.csproj", "{AD55C65F-CDE3-46A1-9F8B-CA5BC3594069}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{E9639A90-5889-4933-AD31-8CFA1EB2757D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

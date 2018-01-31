@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    APP_VERSION_NUM: 2.0.0
     working_directory: /app
     docker:
       - image: microsoft/aspnetcore-build:2.0
@@ -11,8 +12,8 @@ jobs:
           command: |
               dotnet restore
               dotnet test
-       - run:
+      - run:
           name: deploy
           command: |
-              dotnet pack -c release --include-symbols -o artifacts/ /p:Version=2.0.0
-              
+              dotnet pack -c release --include-symbols -o ${PWD}/artifacts/ /p:Version="${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}"
+              dotnet nuget push artifacts/*.nupkg -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
