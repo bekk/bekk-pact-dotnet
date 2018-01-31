@@ -12,7 +12,6 @@ jobs:
           name: Running tests and deploy
           command: |
               dotnet pack -c release --include-symbols -o ${PWD}/artifacts/ /p:Version="${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}"
-              cd artifacts
-              dotnet nuget push "Bekk.Pact.Consumer.${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}.nupkg" -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
+              dotnet nuget push artifacts/*.nupkg -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
 
            
