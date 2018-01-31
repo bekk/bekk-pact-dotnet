@@ -15,5 +15,7 @@ jobs:
               cd artifacts
               for f in *.nupkg
               do
-                dotnet nuget push $f -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
+                if [[ $f != *".symbols.nupkg"* ]]; then
+                  dotnet nuget push $f -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
+                fi
               done
