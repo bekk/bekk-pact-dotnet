@@ -10,8 +10,6 @@ jobs:
       - run:
           name: Running tests and deploy
           command: |
-              dotnet restore
-              dotnet test
               dotnet pack -c release --include-symbols -o ${PWD}/artifacts/ /p:Version="${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}"
               dotnet nuget push artifacts/*.nupkg -k ${MYGET_APIKEY} -s https://www.myget.org/F/bekk-intern/api/v2/package
 
