@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Running tests and deploy
           command: |
-              dotnet pack -c release --include-symbols -o ${PWD}/artifacts/ /p:Version="${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}"
+              dotnet pack -c release -o ${PWD}/artifacts/ /p:Version="${APP_VERSION_NUM}.${CIRCLE_BUILD_NUM}"
               cd artifacts
               for f in *.nupkg
               do
