@@ -11,3 +11,8 @@ jobs:
           command: |
               dotnet restore
               dotnet test
+       - run:
+          name: deploy
+          command: |
+              dotnet pack -c release --include-symbols -o artifacts/ /p:Version=2.0.0
+              
